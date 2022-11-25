@@ -19,10 +19,20 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <input [formControl]="firstNameControl" matInput placeholder="First name">
-        <mat-error *ngIf="firstNameControl.invalid">{{getFistNameControl()}}</mat-error>
+        <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
       </mat-form-field>
-
-
+      <mat-form-field appearance="outline">
+        <input [formControl]="lastNameControl" matInput placeholder="Last name">
+        <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="usernameControl" matInput placeholder="Username">
+        <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="addressControl" matInput placeholder="Username">
+        <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
+      </mat-form-field>
 
 
       <button mat-button (click)="print()">click me</button>

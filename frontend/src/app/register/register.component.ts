@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import PasswordValidation from "./passwordValidation";
+import PasswordValidation from "./util/passwordValidation";
 
 
 @Component({
@@ -36,11 +36,32 @@ export class RegisterComponent implements OnInit {
     Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
   ])
 
+  lastNameControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
+  ])
+
+
+  usernameControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
+  ])
+
+  addressControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^([A-zæøåÆØÅ]{2,40}\\.?\\s)+([0-9]){1,5}\\w?(\\s.*)?$")
+  ])
+
+  
+
   registerFormGroup = this.formBuilder.group({
     email: this.emailControl,
     password: this.passwordControl,
     repeatPassword: this.repeatPasswordControl,
-    firstName: this.firstNameControl
+    firstName: this.firstNameControl,
+    lastName: this.lastNameControl,
+    username: this.usernameControl,
+    address: this.addressControl
   },{
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
@@ -72,10 +93,31 @@ export class RegisterComponent implements OnInit {
     return "Passwords doesn't match"
   }
 
-  getFistNameControl() {
-    if (this.repeatPasswordControl.hasError('required')) {
+  getFistNameErrorMessage() {
+    if (this.firstNameControl.hasError('required')) {
       return 'Please enter a value'
     }
     return 'Please introduce a valid name'
+  }
+
+  getLastNameErrorMessage() {
+    if (this.lastNameControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid last name'
+  }
+
+  getUsernameErrorMessage() {
+    if (this.usernameControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid username'
+  }
+
+  getAddressErrorMessage() {
+    if (this.addressControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid address'
   }
 }
