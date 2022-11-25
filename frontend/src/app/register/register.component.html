@@ -17,6 +17,12 @@
         <input [formControl]="repeatPasswordControl" matInput placeholder="Repeat password" formControlName="repeatPassword">
         <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="firstNameControl" matInput placeholder="First name">
+        <mat-error *ngIf="firstNameControl.invalid">{{getFistNameControl()}}</mat-error>
+      </mat-form-field>
+
+
 
 
       <button mat-button (click)="print()">click me</button>

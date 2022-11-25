@@ -31,13 +31,20 @@ export class RegisterComponent implements OnInit {
     Validators.required,
   ]);
 
+  firstNameControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
+  ])
+
   registerFormGroup = this.formBuilder.group({
     email: this.emailControl,
     password: this.passwordControl,
-    repeatPassword: this.repeatPasswordControl
+    repeatPassword: this.repeatPasswordControl,
+    firstName: this.firstNameControl
   },{
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
+
 
   print() {
     if(this.registerFormGroup.valid)
@@ -63,5 +70,12 @@ export class RegisterComponent implements OnInit {
       return 'Please enter a value'
     }
     return "Passwords doesn't match"
+  }
+
+  getFistNameControl() {
+    if (this.repeatPasswordControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid name'
   }
 }
