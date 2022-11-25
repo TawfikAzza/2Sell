@@ -1,1 +1,27 @@
-<p>register works!</p>
+<div class="register-wrapper">
+  <mat-card>
+    <mat-card-title class="registerTitle">
+      Register in the system
+    </mat-card-title>
+
+    <form [formGroup]="registerFormGroup">
+      <mat-form-field appearance="outline">
+        <input [formControl]="emailControl" matInput placeholder="Email">
+        <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="passwordControl" matInput placeholder="Password">
+        <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="repeatPasswordControl" matInput placeholder="Repeat password">
+        <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <button mat-button (click)="print()">click me</button>
+
+
+    </form>
+
+  </mat-card>
+</div>
