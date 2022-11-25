@@ -44,15 +44,18 @@ export class RegisterComponent implements OnInit {
 
   usernameControl = new FormControl('',[
     Validators.required,
-    Validators.pattern("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
+    Validators.pattern("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
   ])
 
   addressControl = new FormControl('',[
     Validators.required,
-    Validators.pattern("^([A-zæøåÆØÅ]{2,40}\\.?\\s)+([0-9]){1,5}\\w?(\\s.*)?$")
+    Validators.pattern("^([A-zæøåÆØÅ]{3,40}\\.?\\s)+([0-9]){1,5}\\w?(\\s.*)?$")
   ])
 
-  
+  postalCodeControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
+  ])
 
   registerFormGroup = this.formBuilder.group({
     email: this.emailControl,
@@ -61,7 +64,8 @@ export class RegisterComponent implements OnInit {
     firstName: this.firstNameControl,
     lastName: this.lastNameControl,
     username: this.usernameControl,
-    address: this.addressControl
+    address: this.addressControl,
+    postalCode: this.postalCodeControl
   },{
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
@@ -119,5 +123,12 @@ export class RegisterComponent implements OnInit {
       return 'Please enter a value'
     }
     return 'Please introduce a valid address'
+  }
+
+  getPostalCodeErrorMessage() {
+    if (this.postalCodeControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid postal code'
   }
 }

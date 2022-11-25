@@ -10,11 +10,11 @@
         <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input [formControl]="passwordControl" matInput placeholder="Password" formControlName="password">
+        <input [formControl]="passwordControl" type="text" matInput formControlName="password">
         <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input [formControl]="repeatPasswordControl" matInput placeholder="Repeat password" formControlName="repeatPassword">
+        <input [formControl]="repeatPasswordControl" type="text" matInput formControlName="repeatPassword">
         <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
@@ -30,8 +30,12 @@
         <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input [formControl]="addressControl" matInput placeholder="Username">
+        <input [formControl]="addressControl" matInput placeholder="Address">
         <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input [formControl]="postalCodeControl" matInput placeholder="Postal Code">
+        <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
       </mat-form-field>
 
 
