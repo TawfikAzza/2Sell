@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import PasswordValidation from "./passwordValidation";
+
 
 @Component({
   selector: 'app-register',
@@ -7,11 +9,6 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  email: any;
-  password: any;
-  repeatPassword: any;
-  passwordsMatch: any;
 
   constructor(public formBuilder: FormBuilder) {
   }
@@ -35,13 +32,16 @@ export class RegisterComponent implements OnInit {
   ]);
 
   registerFormGroup = this.formBuilder.group({
-    email: this.emailControl.value,
-    password: this.passwordControl.value,
-    repeatPassword: this.repeatPasswordControl.value
+    email: this.emailControl,
+    password: this.passwordControl,
+    repeatPassword: this.repeatPasswordControl
+  },{
+    validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
 
   print() {
-    console.log(this.email, this.password, this.password)
+    if(this.registerFormGroup.valid)
+    console.log(this.registerFormGroup.value)
   }
 
   getEmailErrorMessage() {
