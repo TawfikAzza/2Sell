@@ -74,7 +74,15 @@ export class RegisterComponent implements OnInit {
   })
 
   async registerUser(){
+    /*
+    let dto : registerDTO = {
+     email: this.emailControl.value,
 
+
+    }
+    await this.http.register(dto)
+
+     */
   }
 
   print() {

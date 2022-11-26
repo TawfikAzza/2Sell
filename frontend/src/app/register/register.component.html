@@ -39,7 +39,7 @@
       </mat-form-field>
 
 
-      <button mat-button (click)="registerUser()">Register</button>
+      <button mat-button (click)="registerUser()" [disabled]="!registerFormGroup.valid">Register</button>
 
 
     </form>
