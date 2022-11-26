@@ -19,7 +19,8 @@ export const customAxios = axios.create({
 
 export class HttpService {
 
-  constructor(private router: Router
+  constructor(public matSnackbar: MatSnackBar,
+              private router: Router
   ){
 
   }
@@ -28,9 +29,9 @@ export class HttpService {
     let petition = await customAxios.post('auth/register', param)
     if(petition.status == 201){
       localStorage.setItem('sessionToken', petition.data);
-      //this.matSnackbar.open("You have been registered", undefined, {duration: 3000})
+      this.matSnackbar.open("You have been registered", undefined, {duration: 3000})
     }
-    //else this.matSnackbar.open(petition.data, undefined, {duration:3000})
+    else this.matSnackbar.open(petition.data, undefined, {duration:3000})
   }
 
 }
