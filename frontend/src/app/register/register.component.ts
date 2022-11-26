@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import PasswordValidation from "./util/passwordValidation";
+import {HttpService} from "../../services/http.service";
+import {registerDTO} from "../../entities/entities";
 
 
 @Component({
@@ -10,7 +12,8 @@ import PasswordValidation from "./util/passwordValidation";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder,
+              public http: HttpService) {
   }
 
   ngOnInit(): void {
@@ -54,7 +57,7 @@ export class RegisterComponent implements OnInit {
 
   postalCodeControl = new FormControl('',[
     Validators.required,
-    Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
+    //Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
   ])
 
   registerFormGroup = this.formBuilder.group({
@@ -70,6 +73,9 @@ export class RegisterComponent implements OnInit {
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
 
+  async registerUser(){
+
+  }
 
   print() {
     if(this.registerFormGroup.valid)

@@ -10,11 +10,11 @@
         <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input [formControl]="passwordControl" type="text" matInput formControlName="password">
+        <input [formControl]="passwordControl" type="password" matInput formControlName="password">
         <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input [formControl]="repeatPasswordControl" type="text" matInput formControlName="repeatPassword">
+        <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
         <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
@@ -39,7 +39,7 @@
       </mat-form-field>
 
 
-      <button mat-button (click)="print()">click me</button>
+      <button mat-button (click)="registerUser()">Register</button>
 
 
     </form>
