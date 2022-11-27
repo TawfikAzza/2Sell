@@ -1,23 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import PasswordValidation from "./util/passwordValidation";
 import {HttpService} from "../../services/http.service";
 import {registerDTO} from "../../entities/entities";
-
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   constructor(public formBuilder: FormBuilder,
               public http: HttpService) {
   }
 
-  ngOnInit(): void {
-  }
+  emailModel: any;
+  passwordModel: any;
+  firstNameModel: any;
+  lastNameModel: any;
+  userNameModel: any;
+  addressModel: any;
+  postalCodeModel: any;
 
   emailControl = new FormControl('', [
     Validators.required,
@@ -43,7 +47,6 @@ export class RegisterComponent implements OnInit {
     Validators.required,
     Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
   ])
-
 
   usernameControl = new FormControl('',[
     Validators.required,
@@ -74,20 +77,17 @@ export class RegisterComponent implements OnInit {
   })
 
   async registerUser(){
-    /*
     let dto : registerDTO = {
-     email: this.emailControl.value,
-
-
+      email: this.emailModel.trim(),
+      password: this.passwordModel.trim(),
+      firstName: this.firstNameModel.trim(),
+      lastName: this.lastNameModel.trim(),
+      userName: this.userNameModel.trim(),
+      address: this.addressModel.trim(),
+      postalCode: this.postalCodeModel.trim()
     }
-    await this.http.register(dto)
-
-     */
-  }
-
-  print() {
-    if(this.registerFormGroup.valid)
-    console.log(this.registerFormGroup.value)
+    console.log(dto);
+    await this.http.register(dto);
   }
 
   getEmailErrorMessage() {

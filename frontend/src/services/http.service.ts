@@ -25,7 +25,7 @@ export class HttpService {
 
   }
 
-  async register(param: {dto:registerDTO}) {
+  async register(param: registerDTO) {
     let petition = await customAxios.post('auth/register', param)
     if(petition.status == 201){
       localStorage.setItem('sessionToken', petition.data);
