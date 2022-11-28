@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using API.DTOs;
+using Application.Interfaces;
 using Core;
 
 namespace Infrastructure;
@@ -22,5 +23,11 @@ public class UserRepository : IUserRepository
     {
         return _bikeShopDbContext.UsersTable
                 .FirstOrDefault(u=> u.Email.Equals(email)) ?? throw new KeyNotFoundException("There was no users with email "+email);
+    }
+
+    public User GetUserByUserName(string username)
+    {
+        return _bikeShopDbContext.UsersTable
+            .FirstOrDefault(u=> u.userName.Equals(username)) ?? throw new KeyNotFoundException("There was no users with username "+username);
     }
 }

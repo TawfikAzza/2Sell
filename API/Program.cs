@@ -1,6 +1,9 @@
 using System.Net.Mime;
 using System.Text;
+using API.DTOs;
 using Application.Helpers;
+using AutoMapper;
+using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddControllers();
+// Add services to the container.
+//Adding the AutoMapper service and configuration:
+MapperConfiguration config = new MapperConfiguration(conf =>
+{
+    conf.CreateMap<RegisterDTO, User>();
+});
+IMapper mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,7 +32,6 @@ builder.Services.AddDbContext<BikeShopDbContext>(options => options.UseSqlite(
 ));
 //Adding Dependency Injections 
 Application.DependencyResolver.DependencyResolverService.RegisterApplicationLayer(builder.Services);
-
 Infrastructure.DependencyResolver.DependencyResolverService.RegisterInfrastrucureLayer(builder.Services);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

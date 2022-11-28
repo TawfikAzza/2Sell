@@ -34,12 +34,15 @@ public class AuthenticationService : IAuthenticationService
 
     public string Register(RegisterDTO dto)
     {
-         try
+        string message = "";
+        try
         {
             _userRepository.GetUserByEmail(dto.Email);
+            _userRepository.GetUserByUserName(dto.userName);
         }
-        catch (KeyNotFoundException)
+        catch (KeyNotFoundException ex)
         {
+            message = ex.Message;
             var saltBytes = RandomNumberGenerator.GetBytes(32);
             string salt = "";
             foreach (byte bit in saltBytes)
@@ -57,14 +60,15 @@ public class AuthenticationService : IAuthenticationService
                 LastName = dto.LastName,
                 Address = dto.Address,
                 PhoneNumber = dto.PhoneNumber,
-                PostalCode = dto.PostalCode
+                PostalCode = dto.PostalCode,
+                userName = dto.userName
             };
             
             _userRepository.CreateNewUser(user);
             return GenerateToken(user);
         }
 
-        throw new Exception("Email " + dto.Email + " is already in use");
+        throw new Exception(message);
     }
 
     public string Login(LoginDTO dto)
