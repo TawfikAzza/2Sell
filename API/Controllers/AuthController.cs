@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
     }
     [HttpPost]
     [Route("register")]
-    public IActionResult Register(RegisterDTO dto)
+    public ActionResult<string> Register(RegisterDTO dto)
     {
         try
         {
