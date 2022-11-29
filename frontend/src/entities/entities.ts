@@ -13,3 +13,8 @@ export interface loginDTO{
   password: string
 }
 
+export interface sessionToken{
+  expDate?: number;
+  role?: number;
+}
+

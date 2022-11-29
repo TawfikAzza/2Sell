@@ -18,6 +18,7 @@ export const customAxios = axios.create({
 })
 
 export class HttpService {
+  currentUserEmail: any;
 
   constructor(public matSnackbar: MatSnackBar,
               private router: Router

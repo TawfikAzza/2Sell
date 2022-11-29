@@ -11,17 +11,20 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {Routes} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
+import {AuthguardService} from "../services/authguard.service";
+import { MainpageComponent } from './mainpage/mainpage.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {
-    path: 'register', component: RegisterComponent, canActivate: [AuthguardService], resolve: [MyResolver]
+    path: 'register', component: RegisterComponent, canActivate: [AuthguardService]
   },
   {
     path: 'login', component: LoginComponent
   },
   {
-    path: '**', redirectTo: 'products'
+    path: '**', redirectTo: 'mainPage'
   }
 ]
 
@@ -29,9 +32,12 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MainpageComponent,
+    NavbarComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
