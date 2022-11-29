@@ -16,7 +16,7 @@
     <h1 class="login-title"> Register in the system</h1>
 
 
-      <form [formGroup]="registerFormGroup">
+      <form class="registerFormGroup" [formGroup]="registerFormGroup">
 
 
 
@@ -77,7 +77,7 @@
 
 
           <button class="register-button" mat-button (click)="registerUser()" [disabled]="!registerFormGroup.valid">Register</button>
-          <button type="submit" class="register-button">Register</button>
+
 
     </form>
   </div>
