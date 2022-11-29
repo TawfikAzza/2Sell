@@ -8,5 +8,8 @@ export interface registerDTO{
   postalCode:string
 }
 
-
+export interface loginDTO{
+  email: string,
+  password: string
+}
 

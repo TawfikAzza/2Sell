@@ -11,6 +11,19 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {Routes} from "@angular/router";
+
+const routes: Routes = [
+  {
+    path: 'register', component: RegisterComponent, canActivate: [AuthguardService], resolve: [MyResolver]
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: '**', redirectTo: 'products'
+  }
+]
 
 @NgModule({
   declarations: [
