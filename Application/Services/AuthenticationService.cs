@@ -40,49 +40,80 @@ public class AuthenticationService : IAuthenticationService
     public string Register(RegisterDTO dto)
     {
         string message = "";
-        try
-        {
-            User user = null;
-            _userRepository.GetUserByEmail(dto.Email); 
-            _userRepository.GetUserByUserName(dto.userName);
-         }
-        catch (KeyNotFoundException ex)
-        {
-            message = ex.Message;
-            Console.WriteLine("Message = "+message);
-            var saltBytes = RandomNumberGenerator.GetBytes(32);
-            string salt = "";
-            foreach (byte bit in saltBytes)
-            {
-                salt += bit;
-            }
 
-            UserValidator validator = new UserValidator();
-            ValidationResult validation = validator.Validate(dto);
-            if (validation.IsValid)
-            {
-                User user = new User() {
-                    Email = dto.Email,
-                    Salt = salt,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt),
-                    FirstName = dto.FirstName,
-                    LastName = dto.LastName,
-                    Address = dto.Address,
-                    PhoneNumber = dto.PhoneNumber,
-                    PostalCode = dto.PostalCode,
-                    userName = dto.userName,
-                    RoleId = dto.RoleId
-                };
-            
-                _userRepository.CreateNewUser(user);
-                return GenerateToken(user);
-            }
-            
+        if (checkEmail(dto.Email))
+        {
+            message = "Email already exists";
+        }
+        
+        if (checkUserName(dto.userName))
+        {
+            if (message != "")
+                message = "Email and User Name already exists";
+            else
+                message = "User Name already exists";
+
+        }
+        if (message != "")
+        {
+            throw new Exception(message);
+        }
+        var saltBytes = RandomNumberGenerator.GetBytes(32);
+        string salt = "";
+        foreach (byte bit in saltBytes)
+        {
+            salt += bit;
         }
 
-        throw new Exception("Email or user name already taken");
+        UserValidator validator = new UserValidator();
+        ValidationResult validation = validator.Validate(dto);
+        if (validation.IsValid)
+        {
+            User user = new User() {
+                Email = dto.Email,
+                Salt = salt,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt),
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Address = dto.Address,
+                PhoneNumber = dto.PhoneNumber,
+                PostalCode = dto.PostalCode,
+                userName = dto.userName,
+                RoleId = Convert.ToInt32(dto.RoleId)
+            };
+        
+            _userRepository.CreateNewUser(user);
+            return GenerateToken(user);
+        }
+    return null;
     }
 
+    private bool checkEmail(string email)
+    {
+        try
+        {
+            _userRepository.GetUserByEmail(email);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    private bool checkUserName(string userName)
+    {
+        try
+        {
+            _userRepository.GetUserByUserName(userName);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+
+        return true;
+    }
     public string Login(LoginDTO dto)
     {
         var user = _userRepository.GetUserByEmail(dto.Email);
@@ -116,7 +147,10 @@ public class AuthenticationService : IAuthenticationService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
-                { new Claim("email", user.Email), new Claim("Role", "Owner") }),
+                { new Claim("email", user.Email), 
+                    new Claim("Role", user.RoleId.ToString()),
+                    new Claim("UserName",user.userName)
+                }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)

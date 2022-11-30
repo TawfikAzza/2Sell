@@ -46,6 +46,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
                 Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("AppSettings:Secret")))
     };
 });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", (policy) => { policy.RequireRole("0");});
+    options.AddPolicy("UserPolicy", (policy) => { policy.RequireRole("1");});
+    options.AddPolicy("BannedPolicy", (policy) => { policy.RequireRole("2");});
+});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
