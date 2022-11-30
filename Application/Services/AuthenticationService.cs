@@ -6,7 +6,10 @@ using API.DTOs;
 using API.Services;
 using Application.Helpers;
 using Application.Interfaces;
+using Application.Validators;
+using AutoMapper;
 using Core;
+using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,14 +21,16 @@ public class AuthenticationService : IAuthenticationService
     private readonly IUserRepository _userRepository;
     private readonly IBikeShopRepository _bikeShopRepository;
     private byte[] _secretByte;
+    private readonly IMapper _mapper;
     public AuthenticationService(IUserRepository repository
         ,IOptions<AppSettings> appSettings
-        ,IBikeShopRepository bikeShopRepository)
+        ,IBikeShopRepository bikeShopRepository,
+        IMapper mapper)
     {
         _userRepository = repository;
         _appSettings = appSettings.Value;
         _bikeShopRepository = bikeShopRepository;
-
+        _mapper = mapper;
     }
     public bool ValidateUser(string userName, string password, out string token)
     {
@@ -37,12 +42,14 @@ public class AuthenticationService : IAuthenticationService
         string message = "";
         try
         {
-            _userRepository.GetUserByEmail(dto.Email);
+            User user = null;
+            _userRepository.GetUserByEmail(dto.Email); 
             _userRepository.GetUserByUserName(dto.userName);
-        }
+         }
         catch (KeyNotFoundException ex)
         {
             message = ex.Message;
+            Console.WriteLine("Message = "+message);
             var saltBytes = RandomNumberGenerator.GetBytes(32);
             string salt = "";
             foreach (byte bit in saltBytes)
@@ -50,25 +57,30 @@ public class AuthenticationService : IAuthenticationService
                 salt += bit;
             }
 
+            UserValidator validator = new UserValidator();
+            ValidationResult validation = validator.Validate(dto);
+            if (validation.IsValid)
+            {
+                User user = new User() {
+                    Email = dto.Email,
+                    Salt = salt,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt),
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Address = dto.Address,
+                    PhoneNumber = dto.PhoneNumber,
+                    PostalCode = dto.PostalCode,
+                    userName = dto.userName,
+                    RoleId = dto.RoleId
+                };
             
-            Console.WriteLine("Salt: "+salt+" Email: "+dto.Email+" password : "+dto.Password);
-            User user = new User() {
-                Email = dto.Email,
-                Salt = salt,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt),
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Address = dto.Address,
-                PhoneNumber = dto.PhoneNumber,
-                PostalCode = dto.PostalCode,
-                userName = dto.userName
-            };
+                _userRepository.CreateNewUser(user);
+                return GenerateToken(user);
+            }
             
-            _userRepository.CreateNewUser(user);
-            return GenerateToken(user);
         }
 
-        throw new Exception(message);
+        throw new Exception("Email or user name already taken");
     }
 
     public string Login(LoginDTO dto)

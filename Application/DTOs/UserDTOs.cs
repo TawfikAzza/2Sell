@@ -18,4 +18,5 @@ public class RegisterDTO
     public string Address { get; set; }
     public string PostalCode { get; set; }
     public string PhoneNumber { get; set; }
+    public int RoleId { get; set; }
 }
