@@ -1,1 +1,26 @@
-<p>login works!</p>
+<app-navbar></app-navbar>
+<app-mainpage></app-mainpage>
+<div class="login-comp">
+  <mat-card>
+    <form [formGroup]="loginForm">
+
+      <mat-card-title class="login-title"> Log in </mat-card-title>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
+          <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel" formControlName="password">
+          <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
+      <button mat-button (click)="goToRegisterPage()">Register</button>
+    </form>
+  </mat-card>
+</div>

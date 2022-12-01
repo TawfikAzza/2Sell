@@ -11,14 +11,36 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {RouterModule, Routes} from "@angular/router";
+import {AuthguardService} from "../services/authguard.service";
+import { MainpageComponent } from './mainpage/mainpage.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
+const routes: Routes = [
+  {
+    path: 'register', component: RegisterComponent
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'mainPage', component: MainpageComponent
+  },
+  {
+    path: '**', redirectTo: 'mainPage'
+  }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MainpageComponent,
+    NavbarComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,

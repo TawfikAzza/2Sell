@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import PasswordValidation from "./util/passwordValidation";
 import {HttpService} from "../../services/http.service";
 import {registerDTO} from "../../entities/entities";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-register',
@@ -12,7 +14,9 @@ import {registerDTO} from "../../entities/entities";
 export class RegisterComponent {
 
   constructor(public formBuilder: FormBuilder,
-              public http: HttpService) {
+              public http: HttpService,
+              private router: Router) {
+
   }
 
   emailModel: any;
@@ -84,10 +88,12 @@ export class RegisterComponent {
       lastName: this.lastNameModel.trim(),
       userName: this.userNameModel.trim(),
       address: this.addressModel.trim(),
-      postalCode: this.postalCodeModel.trim()
+      postalCode: this.postalCodeModel.trim(),
+      roleID: 1
     }
     console.log(dto);
-    await this.http.register(dto);
+    await this.http.register(dto)
+      .then(()=>this.router.navigate(['mainPage']))
   }
 
   getEmailErrorMessage() {
