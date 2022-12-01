@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,5 +22,11 @@ public class WebShopController : ControllerBase
     {
         _bikeShopRepository.CreateDB();
     }
-    
+    [Authorize("UserPolicy")]
+    [HttpGet]
+    [Route("GetAllUsers")]
+    public void GetAllBikes()
+    {
+        _bikeShopRepository.GetAllBikes();
+    }
 }

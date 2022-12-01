@@ -6,4 +6,5 @@ public interface IUserRepository
 {
     public User CreateNewUser(User user);
     public User GetUserByEmail(string email);
+    public User GetUserByUserName(string username);
 }
