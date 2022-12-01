@@ -28,7 +28,7 @@ export class HttpService {
 
   async register(param: registerDTO) {
     let petition = await customAxios.post('auth/register', param);
-    if(petition.status == 201){
+    if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
       this.matSnackbar.open("You have been registered", undefined, {duration: 3000})
     }
@@ -37,7 +37,7 @@ export class HttpService {
 
   async login(param: loginDTO) {
     let petition = await customAxios.post('auth/login', param);
-    if(petition.status == 201){
+    if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
       this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000})
     }
