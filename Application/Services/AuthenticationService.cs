@@ -141,6 +141,7 @@ public class AuthenticationService : IAuthenticationService
         );
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    //End of Peter's way
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
