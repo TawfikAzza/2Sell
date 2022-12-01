@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-
+[AllowAnonymous]
 [ApiController]
 [Route("[controller]")]
 public class WebShopController : ControllerBase

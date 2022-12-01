@@ -4,10 +4,11 @@ using API.Validators;
 using AutoMapper;
 using Core;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
-
+[AllowAnonymous]
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase
@@ -36,7 +37,6 @@ public class AuthController : ControllerBase
     [Route("register")]
     public ActionResult<string> Register(RegisterDTO dto)
     {
-        
         try
         {
             return Ok(_auth.Register(dto));
