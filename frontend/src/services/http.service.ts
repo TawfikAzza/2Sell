@@ -4,7 +4,7 @@ import {environment} from "../environments/environment";
 import {catchError} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {registerDTO} from "../entities/entities";
+import {loginDTO, registerDTO} from "../entities/entities";
 
 export const customAxios = axios.create({
   baseURL: environment.baseUrl
@@ -18,6 +18,7 @@ export const customAxios = axios.create({
 })
 
 export class HttpService {
+  currentUserEmail: any;
 
   constructor(public matSnackbar: MatSnackBar,
               private router: Router
@@ -26,7 +27,7 @@ export class HttpService {
   }
 
   async register(param: registerDTO) {
-    let petition = await customAxios.post('auth/register', param)
+    let petition = await customAxios.post('auth/register', param);
     if(petition.status == 201){
       localStorage.setItem('sessionToken', petition.data);
       this.matSnackbar.open("You have been registered", undefined, {duration: 3000})
@@ -34,4 +35,11 @@ export class HttpService {
     else this.matSnackbar.open(petition.data, undefined, {duration:3000})
   }
 
+  async login(param: loginDTO) {
+    let petition = await customAxios.post('auth/login', param);
+    if(petition.status == 201){
+      localStorage.setItem('sessionToken', petition.data);
+      this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000})
+    }
+  }
 }
