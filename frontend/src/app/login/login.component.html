@@ -1,13 +1,14 @@
-<app-navbar></app-navbar>
-<app-mainpage></app-mainpage>
-<div class="login-comp">
-  <mat-card>
+
+<div class="full-screen-container">
+  <div class="register-wrapper">
+
     <form [formGroup]="loginForm">
 
       <mat-card-title class="login-title"> Log in </mat-card-title>
+
       <div class="form-field">
         <mat-form-field appearance="outline">
-          <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
+           <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
           <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -19,8 +20,15 @@
         </mat-form-field>
       </div>
 
-      <button mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
-      <button mat-button (click)="goToRegisterPage()">Register</button>
+  <div>
+      <button class="btnLogIn" mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
+  </div>
+      <div>
+      <button class="btnRegister" mat-button (click)="goToRegisterPage()">Register</button>
+      </div>
     </form>
-  </mat-card>
+
 </div>
+  </div>
+
+

@@ -20,7 +20,7 @@ body{
 }
 
 .full-screen-container{
-  background-image: url("../register/util/bike.jpg");
+  background-image: url("../register/util/Images/bike.jpg");
   min-height: 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -105,4 +105,15 @@ body{
 .register-button,
 .register-button:focus{
   background-color: hsl(200,100%,50%, .4);
+  box-shadow: 0 0 15px 0 hsl(.200,100%, 6%);
+  margin: 10px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+  width: 110%;
+  max-width:  400px;
+  height: 100%;
+  max-height: 400px;
 }
