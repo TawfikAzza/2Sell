@@ -59,9 +59,17 @@
         </mat-form-field>
       </div>
 
+      <div class="input-group">
+        <mat-form-field appearance="outline">
+          <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
+          <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
       <button class="register-button" mat-button (click)="registerUser()" [disabled]="!registerFormGroup.valid">
         Register
       </button>
+
     </form>
   </div>
 </div>
