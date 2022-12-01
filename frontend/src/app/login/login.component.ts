@@ -3,6 +3,7 @@ import PasswordValidation from "../register/util/passwordValidation";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
 import {loginDTO} from "../../entities/entities";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   passwordModel: any;
 
   constructor(public http: HttpService,
-              public formBuilder:FormBuilder) { }
+              public formBuilder:FormBuilder,
+              private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +54,11 @@ export class LoginComponent implements OnInit {
       email: this.emailModel,
       password: this.passwordModel
     }
+    await this.http.login(dto)
+      .then(()=>this.router.navigate(['mainPage']))
+  }
 
-    await this.http.login(dto);
+  async goToRegisterPage() {
+    await this.router.navigate(['mainPage'])
   }
 }

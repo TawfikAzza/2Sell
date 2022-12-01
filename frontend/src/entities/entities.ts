@@ -6,6 +6,7 @@ export interface registerDTO{
   userName:string,
   address:string,
   postalCode:string
+  roleID:number
 }
 
 export interface loginDTO{

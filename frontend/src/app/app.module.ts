@@ -18,10 +18,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {
-    path: 'register', component: RegisterComponent, canActivate: [AuthguardService]
+    path: 'register', component: RegisterComponent
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'mainPage', component: MainpageComponent
   },
   {
     path: '**', redirectTo: 'mainPage'
