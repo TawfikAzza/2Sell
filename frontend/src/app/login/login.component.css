@@ -1,12 +1,31 @@
+
 .login-comp{
-  background: #303030;
+  background-image: url("../register/util/bike.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: sans-serif;
+  height: 150vh;
+  width: 100vw;
+  min-height: 100%;
+  display: block;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
+
 .form-field{
-  color: white;
+  color: green;
 }
 
 .login-title{
   margin: 20px 20px 40px;
+
+  padding: 10px 10px;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: normal
 }
