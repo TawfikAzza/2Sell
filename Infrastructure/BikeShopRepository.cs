@@ -16,9 +16,12 @@ public class BikeShopRepository: IBikeShopRepository
         throw new NotImplementedException();
     }
 
+    
+
     public void CreateDB()
     {
-        _bikeShopDbContext.Database.EnsureDeleted();
-        _bikeShopDbContext.Database.EnsureCreated();
+        Console.WriteLine("Method Called");
+        //_bikeShopDbContext.Database.EnsureDeleted();
+        //_bikeShopDbContext.Database.EnsureCreated();
     }
 }

@@ -25,7 +25,12 @@ export class HttpService {
   ){
 
   }
-
+  async getUserByEmail(email:string) : Promise<registerDTO>{
+    console.log("baseUrl",environment.baseUrl);
+    let petition = await customAxios.get('WebShop/GetUserByEmail/'+email);
+    console.log("petition",petition.data)
+    return petition.data;
+  }
   async register(param: registerDTO) {
     let petition = await customAxios.post('auth/register', param);
     if(petition.status == 200){

@@ -1,0 +1,11 @@
+﻿using API.DTOs;
+using Core;
+
+namespace Application.Interfaces;
+
+public interface IUserService
+{
+    public User CreateNewUser(User user);
+    public UserDTO GetUserByEmail(string email);
+    public User GetUserByUserName(string username);
+}

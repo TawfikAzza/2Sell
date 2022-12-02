@@ -21,6 +21,7 @@ public class UserRepository : IUserRepository
 
     public User GetUserByEmail(string email)
     {
+        Console.WriteLine("Email in user repository: "+email);
         return _bikeShopDbContext.UsersTable
                 .FirstOrDefault(u=> u.Email.Equals(email)) ?? throw new KeyNotFoundException("There was no users with email "+email);
     }

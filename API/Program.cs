@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 MapperConfiguration config = new MapperConfiguration(conf =>
 {
     conf.CreateMap<RegisterDTO, User>();
+    conf.CreateMap<User, UserDTO>();
 });
 IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
