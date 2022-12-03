@@ -1,17 +1,46 @@
-.nav-toolbar{
-  margin: auto;
-  background: #E2711D;
-  color: white;
-  min-height: 40px;
-  padding: 10px;
+nav{
+  height: 40px;
+  margin-bottom: 20px;
+  background: green;
 }
 
-.mat-button{
+nav ul{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  position: sticky;
+  justify-content: center;
+  justify-items: center;
+  list-style-type: none;
+  margin: 0;
+}
+
+nav ul li{
+  background-color: #E2711D;
+  width: 30%;
+  text-align: center;
+  line-height: 40px;
+
+}
+
+nav ul li:hover{
+  background-color: #FF9505;
+}
+
+nav ul li a{
+  height: 50px;
+  text-decoration: none;
+  color: black;
+}
+
+nav ul li a:hover{
+  text-decoration: none;
+  color: white;
+}
+
+.mat-button {
   height: 40px;
   background: black;
 }
 
-.firstGroup-nav{
-  vertical-align: middle;
-}
+
 
