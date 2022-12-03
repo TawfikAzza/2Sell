@@ -1,4 +1,50 @@
 nav{
+  margin: 10px 5px 10px 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+li {
+  float: left;
+  padding-left: 10px;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+li a:hover:not(.active) {
+  background-color: #E2711D;
+  color: white
+}
+
+.active {
+  background-color: #E2711D;
+  color: white
+}
+
+.active:hover {
+  background-color: #CC5803;
+}
+
+.default{
+  color: black;
+}
+
+
+
+/*
+nav{
   height: 40px;
   margin-bottom: 20px;
   background: green;
@@ -41,6 +87,5 @@ nav ul li a:hover{
   height: 40px;
   background: black;
 }
-
-
+ */
 
