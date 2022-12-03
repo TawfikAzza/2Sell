@@ -1,0 +1,17 @@
+.nav-toolbar{
+  margin: auto;
+  background: #E2711D;
+  color: white;
+  min-height: 40px;
+  padding: 10px;
+}
+
+.mat-button{
+  height: 40px;
+  background: black;
+}
+
+.firstGroup-nav{
+  vertical-align: middle;
+}
+

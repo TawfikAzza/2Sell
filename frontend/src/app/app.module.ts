@@ -27,7 +27,10 @@ const routes: Routes = [
     path: 'mainPage', component: MainpageComponent
   },
   {
-    path: '**', redirectTo: 'mainPage'
+    path: 'navbartest', component: NavbarComponent
+  },
+  {
+    path: '**', redirectTo: 'navbartest'
   }
 ]
 
