@@ -31,4 +31,28 @@ public class UserRepository : IUserRepository
         return _bikeShopDbContext.UsersTable
             .FirstOrDefault(u=> u.userName.Equals(username)) ?? throw new KeyNotFoundException("There was no users with username "+username);
     }
+
+    public User UpdateUser(User user)
+    {
+        Console.WriteLine("Update User in repository"+user.FirstName);
+        _bikeShopDbContext.UsersTable.Update(user);
+        _bikeShopDbContext.SaveChanges();
+        return user;
+    }
+
+    public bool CheckUserName(RegisterDTO userName)
+    {
+        Console.WriteLine("In UserRepository : "+userName.Email);
+        
+        
+        int user = _bikeShopDbContext.UsersTable.Where(u => (u.userName == userName.userName && u.Email != userName.Email)).Count();
+        Console.WriteLine("Count: "+user);
+        if (user > 0)
+        {
+            Console.WriteLine("User is null");
+            return false;
+        }
+            
+        return true;
+    }
 }

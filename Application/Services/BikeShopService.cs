@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using API.DTOs;
+using Application.Interfaces;
 using Core;
 
 namespace Application.Services;
@@ -12,9 +13,24 @@ public class BikeShopService : IBikeShopService
         _bikeShopRepository = bikeRepository;
         _userRepository = userRepository;
     }
-    public List<Post> GetAllPosts()
+    public List<PostDTO> GetAllPosts()
     {
-        throw new NotImplementedException();
+        List<Post> posts =  _bikeShopRepository.GetAllPosts();
+        List<PostDTO> postsFormated = new List<PostDTO>();
+        foreach (Post post in posts)
+        {
+            PostDTO postDto = new PostDTO();
+            postDto.UserName = post.User.userName;
+            postDto.Price = post.Price;
+            postDto.Authority = post.User.RoleId;
+            postDto.Email = post.User.Email;
+            postDto.Title = post.Title;
+            postDto.Address = post.User.Address;
+            postDto.Description = post.Description;
+            postsFormated.Add(postDto);
+        }
+
+        return postsFormated;
     }
 
     public void CreateDB()
@@ -30,5 +46,44 @@ public class BikeShopService : IBikeShopService
     public void GetUserByEmail(string email)
     {
         _userRepository.GetUserByEmail(email);
+    }
+
+    public List<PostDTO> GetAllPostFromUser(string username)
+    {
+        try
+        {
+            _userRepository.GetUserByUserName(username);
+        }
+        catch(KeyNotFoundException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
+        User user = _userRepository.GetUserByUserName(username);
+        List<Post> posts = _bikeShopRepository.GetAllPostsFromUser(user);
+        List<PostDTO> postsFormated = new List<PostDTO>();
+        foreach (Post post in posts)
+        {
+            PostDTO postDto = new PostDTO();
+            postDto.UserName = post.User.userName;
+            postDto.Price = post.Price;
+            postDto.Authority = post.User.RoleId;
+            postDto.Email = post.User.Email;
+            postDto.Title = post.Title;
+            postDto.Address = post.User.Address;
+            postDto.Description = post.Description;
+            postDto.Category = post.Category;
+            postsFormated.Add(postDto);
+        }
+        return postsFormated;
+    }
+
+    public void CreatePost(CreatePostDTO dto)
+    {
+        Post post = new Post()
+        {
+            
+        };
+        
     }
 }

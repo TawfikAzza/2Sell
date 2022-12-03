@@ -103,7 +103,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return false;
         }
-
         return true;
     }
     private bool checkUserName(string userName)
@@ -116,7 +115,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return false;
         }
-
         return true;
     }
     public string Login(LoginDTO dto)
@@ -126,7 +124,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return GenerateToken(user);
         }
-
         throw new Exception("Invalid Login");
     }
     

@@ -47,4 +47,9 @@ export class HttpService {
       this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000})
     }
   }
+
+  async updateProfile(dto: registerDTO) {
+    let petition = await customAxios.post('WebShop/UpdateProfile',dto);
+    console.log("petition",petition);
+  }
 }

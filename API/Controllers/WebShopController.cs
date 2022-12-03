@@ -43,5 +43,37 @@ public class WebShopController : ControllerBase
         Console.WriteLine("User email :"+email);
         return _userService.GetUserByEmail(email);
     }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("UpdateProfile")]
+    public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
+    {
+        Console.WriteLine("Update Profile:"+dto.FirstName);
+        return _userService.UpdateUser(dto);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("GetAllPostsFromUser/{username}")]
+    public ActionResult<List<PostDTO>> GetAllPostFromUser([FromRoute] string username)
+    {
+        return _bikeShopService.GetAllPostFromUser(username);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("GetAllPosts")]
+    public ActionResult<List<PostDTO>> GetAllPosts()
+    {
+        return _bikeShopService.GetAllPosts();
+    }
     
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("CreatePost")]
+    public void CreatePost(CreatePostDTO dto)
+    {
+        _bikeShopService.CreatePost(dto);
+    }
 }
