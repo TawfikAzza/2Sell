@@ -26,6 +26,7 @@ export class RegisterComponent {
   userNameModel: any;
   addressModel: any;
   postalCodeModel: any;
+  phoneNumberModel : any;
 
   emailControl = new FormControl('', [
     Validators.required,
@@ -67,6 +68,11 @@ export class RegisterComponent {
     //Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
   ])
 
+  phoneNumberControl = new FormControl('',[
+    Validators.required,
+    //Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
+  ])
+
   registerFormGroup = this.formBuilder.group({
     email: this.emailControl,
     password: this.passwordControl,
@@ -75,7 +81,8 @@ export class RegisterComponent {
     lastName: this.lastNameControl,
     username: this.usernameControl,
     address: this.addressControl,
-    postalCode: this.postalCodeControl
+    postalCode: this.postalCodeControl,
+    phoneNumber: this.phoneNumberControl
   },{
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
@@ -89,6 +96,7 @@ export class RegisterComponent {
       userName: this.userNameModel.trim(),
       address: this.addressModel.trim(),
       postalCode: this.postalCodeModel.trim(),
+      phoneNumber: this.phoneNumberModel.trim(),
       roleID: 1
     }
     console.log(dto);
@@ -150,5 +158,12 @@ export class RegisterComponent {
       return 'Please enter a value'
     }
     return 'Please introduce a valid postal code'
+  }
+
+  getPhoneNumberErrorMessage() {
+    if (this.phoneNumberControl.hasError('required')) {
+      return 'Please enter a value'
+    }
+    return 'Please introduce a valid phone number'
   }
 }

@@ -5,7 +5,8 @@ export interface registerDTO{
   lastName:string,
   userName:string,
   address:string,
-  postalCode:string
+  postalCode:string,
+  phoneNumber:string,
   roleID:number
 }
 

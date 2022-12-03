@@ -2,7 +2,6 @@
   <div class="register-wrapper">
     <h1 class="login-title"> Register in the system</h1>
     <form [formGroup]="registerFormGroup">
-
       <div class="input-group">
         <mat-form-field appearance="outline">
           <input [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name">
@@ -59,9 +58,17 @@
         </mat-form-field>
       </div>
 
+      <div class="input-group">
+        <mat-form-field appearance="outline">
+          <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
+          <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
       <button class="register-button" mat-button (click)="registerUser()" [disabled]="!registerFormGroup.valid">
         Register
       </button>
+
     </form>
   </div>
 </div>

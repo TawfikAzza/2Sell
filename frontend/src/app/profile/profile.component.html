@@ -1,0 +1,77 @@
+<div *ngIf="pageMode=='view'">
+<mat-card>
+  <mat-card-content>{{currentUser.email}}</mat-card-content>
+  <mat-card-content>{{currentUser.userName}}</mat-card-content>
+  <mat-card-content>{{currentUser.firstName}}</mat-card-content>
+  <mat-card-content>{{currentUser.lastName}}</mat-card-content>
+  <button mat-raised-button color="primary" (click)="modeChange('modify')">Edit</button>
+</mat-card>
+</div>
+<div *ngIf="pageMode=='modify'">
+  <div class="full-screen-container">
+    <div class="register-wrapper">
+  <h1 class="login-title"> Modify your profile</h1>
+  <form [formGroup]="modifyFormGroup">
+
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
+        <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input id="FirstNameInput" [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name" value="TEST">
+        <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
+        <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+   <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
+               formControlName="password">
+        <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
+        <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="addressControl" matInput [(ngModel)]="addressModel" placeholder="Address">
+        <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="postalCodeControl" matInput [(ngModel)]="postalCodeModel" placeholder="Postal Code">
+        <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
+        <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button class="modify-button" mat-button (click)="modifyUser()" [disabled]="!modifyFormGroup.valid">
+      Modify
+    </button>
+  </form>
+  </div>
+  </div>
+</div>
+
