@@ -9,6 +9,7 @@ public class DependencyResolverService
 {
     public static void RegisterApplicationLayer(IServiceCollection service)
     {
+        service.AddScoped<IUserService,UserService>();
         service.AddScoped<IBikeShopService, BikeShopService>();
         service.AddScoped<IAuthenticationService, AuthenticationService>();
     }

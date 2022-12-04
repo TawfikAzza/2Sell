@@ -15,6 +15,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthguardService} from "../services/authguard.service";
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,9 @@ const routes: Routes = [
     path: 'mainPage', component: MainpageComponent
   },
   {
+    path: 'profile', component: ProfileComponent
+  },
+  {
     path: '**', redirectTo: 'mainPage'
   }
 ]
@@ -37,7 +41,8 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     MainpageComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

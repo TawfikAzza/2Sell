@@ -32,6 +32,11 @@ public class AuthenticationService : IAuthenticationService
         _bikeShopRepository = bikeShopRepository;
         _mapper = mapper;
     }
+
+    public AuthenticationService(IUserRepository repository)
+    {
+        _userRepository = repository;
+    }
     public bool ValidateUser(string userName, string password, out string token)
     {
         throw new NotImplementedException();
@@ -98,7 +103,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return false;
         }
-
         return true;
     }
     private bool checkUserName(string userName)
@@ -111,7 +115,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return false;
         }
-
         return true;
     }
     public string Login(LoginDTO dto)
@@ -121,7 +124,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return GenerateToken(user);
         }
-
         throw new Exception("Invalid Login");
     }
     
@@ -145,12 +147,13 @@ public class AuthenticationService : IAuthenticationService
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
+        Console.WriteLine("User role Id"+user.RoleId);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
                 { new Claim("email", user.Email), 
-                    new Claim("Role", user.RoleId.ToString()),
-                    new Claim("UserName",user.userName)
+                    new Claim(ClaimTypes.Role, user.RoleId.ToString()),
+                    new Claim("userName",user.userName)
                 }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials =

@@ -18,7 +18,20 @@ public class BikeShopDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+        modelBuilder.Entity<Post>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Post>()
+            .HasOne(p => p.User)
+            .WithMany(u => u.Posts)
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<User>()
+            .Ignore(u => u.Posts);
+        modelBuilder.Entity<Post>()
+            .Ignore(p => p.User);
     }
 
     public DbSet<User> UsersTable { get; set; }
+    public DbSet<Post> PostTable { get; set; }
 }

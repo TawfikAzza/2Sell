@@ -5,6 +5,12 @@ public class Post
     public int Id { get; set; }
     public int Category { get; set; }
     public double Price { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime Date { get; set; }
+    //Connection to User Table
+    public int UserId { get; set; }
+    public User User { get; set; } 
 }
 
 public class User
@@ -19,7 +25,7 @@ public class User
     public string Address { get; set; }
     public string PostalCode { get; set; }
     public string PhoneNumber { get; set; }
-    public virtual List<Post>? Contracts { get; set; }
+    public virtual List<Post>? Posts { get; set; }
     // public int RoleId { get; set; }
     public int RoleId { get; set; }
     //public byte[] Image { get; set; }

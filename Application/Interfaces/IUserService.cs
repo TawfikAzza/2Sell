@@ -3,11 +3,11 @@ using Core;
 
 namespace Application.Interfaces;
 
-public interface IUserRepository
+public interface IUserService
 {
     public User CreateNewUser(User user);
-    public User GetUserByEmail(string email);
+    public UserDTO GetUserByEmail(string email);
     public User GetUserByUserName(string username);
-    User UpdateUser(User user);
-    bool CheckUserName(RegisterDTO userName);
+
+    public RegisterDTO UpdateUser(RegisterDTO user);
 }
