@@ -1,0 +1,17 @@
+.wrapper{
+  background: orange;
+  border-radius: 10px;
+}
+
+.filter-wrapper{
+
+}
+
+.filter-title{
+  margin-left: 10px;
+  align-content: center;
+}
+
+mat-checkbox{
+  margin-left: 10px;
+}

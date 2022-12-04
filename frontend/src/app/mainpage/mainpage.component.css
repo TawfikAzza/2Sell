@@ -1,0 +1,19 @@
+.wrapper {
+margin-top: 20px;
+}
+
+.categories-bar {
+  width: 20%;
+  float: left;
+  margin-left: 20px;
+  height: auto;
+}
+
+.post-feed {
+  width: 75%;
+  float: right;
+  margin-right: 5px;
+  height: auto;
+}
+
+

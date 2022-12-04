@@ -16,6 +16,10 @@ import {AuthguardService} from "../services/authguard.service";
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CategoriesbarComponent } from './categoriesbar/categoriesbar.component';
+import { PostfeedComponent } from './postfeed/postfeed.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSliderModule} from "@angular/material/slider";
 
 const routes: Routes = [
   {
@@ -45,7 +49,9 @@ const routes: Routes = [
     LoginComponent,
     MainpageComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    CategoriesbarComponent,
+    PostfeedComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -56,7 +62,9 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
