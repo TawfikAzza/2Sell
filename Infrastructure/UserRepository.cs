@@ -55,4 +55,9 @@ public class UserRepository : IUserRepository
             
         return true;
     }
+
+    public List<User> GetAllUsers()
+    {
+        return _bikeShopDbContext.UsersTable.ToList();
+    }
 }

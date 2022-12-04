@@ -19,7 +19,7 @@ public class WebShopController : ControllerBase
         _bikeShopService = bikeService;
         _userService = userService;
     }
-    [Authorize("AdminPolicy")]
+    [AllowAnonymous]
     [HttpGet]
     [Route("CreateDB")]
     public void CreateDB()
@@ -76,4 +76,13 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.CreatePost(dto);
     }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("ViewPost/{id}")]
+    public ActionResult<Post> GetPost([FromRoute] int id)
+    {
+        return null;
+    }
+
 }
