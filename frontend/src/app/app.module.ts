@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import {MatCardModule} from "@angular/material/card";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
@@ -20,6 +20,7 @@ import { CategoriesbarComponent } from './categoriesbar/categoriesbar.component'
 import { PostfeedComponent } from './postfeed/postfeed.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSliderModule} from "@angular/material/slider";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 const routes: Routes = [
   {
@@ -64,7 +65,9 @@ const routes: Routes = [
     MatButtonModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    FormsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
