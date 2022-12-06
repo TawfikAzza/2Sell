@@ -104,4 +104,14 @@ public class BikeShopService : IBikeShopService
         };
         _bikeShopRepository.CreatePost(post);
     }
+
+    public Post GetPost(int id)
+    {
+        return _bikeShopRepository.GetPost(id);
+    }
+
+    public List<Post> GetPostByCategory(int[] listId)
+    {
+        return _bikeShopRepository.getPostByCategory(listId);
+    }
 }

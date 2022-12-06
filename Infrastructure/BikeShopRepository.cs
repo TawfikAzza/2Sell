@@ -33,9 +33,19 @@ public class BikeShopRepository: IBikeShopRepository
 
     public void CreatePost(Post post)
     {
-        Console.WriteLine("Post: "+post.User.Id);
+        
         _bikeShopDbContext.PostTable.Add(post);
         _bikeShopDbContext.SaveChanges();
+    }
+
+    public Post GetPost(int id)
+    {
+       return _bikeShopDbContext.PostTable.Find(id);
+    }
+
+    public List<Post> getPostByCategory(int[] listId)
+    {
+        return _bikeShopDbContext.PostTable.Where(p=> listId.Contains(p.Category)).ToList();
     }
 
 
