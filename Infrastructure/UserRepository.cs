@@ -19,6 +19,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+  
     public User GetUserByEmail(string email)
     {
         Console.WriteLine("Email in user repository: "+email);
