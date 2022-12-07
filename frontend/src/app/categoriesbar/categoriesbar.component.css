@@ -3,6 +3,7 @@
   border-radius: 10px;
   overflow: hidden;
   text-align: left;
+  width: auto;
 }
 
 .filter-wrapper{
@@ -35,4 +36,19 @@
 
 mat-slider {
   width: auto;
+}
+
+.price-min-max label{
+  float: left;
+}
+
+.price-min-max{
+  width:100%;
+  margin:0 auto;
+  display:inline-block;
+  text-align:center;
+}
+
+.price-min-max input{
+
 }

@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {MatSliderModule} from '@angular/material/slider';
 import {NavBarSearch} from "../../entities/entities";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-categoriesbar',
@@ -28,16 +31,24 @@ export class CategoriesbarComponent implements OnInit {
 
   searchAllCategories: boolean = false;
   searchByPrice: boolean = false;
+  priceMin: number = 300;
+  priceMax: number = 5000;
+/*
+  priceMinControl: FormControl = new FormControl();
+  priceMaxControl = new FormControl('',[
+    Validators.min(this.priceMin)
+  ]);
 
-  priceLabel(value: number): string {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-    return `${value}`;
-  };
+  priceForm = this.formBuilder.group({
+    priceMin: this.priceMinControl,
+    priceMax: this.priceMaxControl
+  });
+
+ */
+
 
   search() {
-    console.log(this.searchByPrice)
+    this.consolelog();
   }
 
   someTicked() {
@@ -53,9 +64,26 @@ export class CategoriesbarComponent implements OnInit {
       return;
     }
     this.categorySearch.categories.forEach(t => (t.ticked = ticked));
+    this.categorySearch.ticked = ticked;
   }
 
   updateAllComplete() {
     this.searchAllCategories = this.categorySearch.categories != null && this.categorySearch.categories.every(t => t.ticked);
   }
+
+  consolelog() {
+    console.log(this.categorySearch.ticked)
+  }
+
+  /*
+  getPriceMaxError() {
+    if (this.priceMaxControl.hasError('min')) {
+      return 'Max. price has to be greater than min.'
+    }
+    return 'Please introduce a valid number';
+  }
+
+   */
+
+  //TODO: Validators for the input range sliders -- fail
 }

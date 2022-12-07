@@ -30,6 +30,6 @@ export interface NavBarSearch {
   operationType:number;
   name: string;
   ticked: boolean;
-  categories?: Category[];
+  categories: Category[];
 }
 
