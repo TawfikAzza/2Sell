@@ -1,0 +1,54 @@
+.wrapper{
+  background: orange;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: left;
+  width: auto;
+}
+
+.filter-wrapper{
+  padding-top: 20px;
+}
+
+.filter-title{
+  font-size: 20px;
+  padding-left: 15px;
+}
+
+.filter-categories mat-expansion-panel{
+  background: orange;
+  color: black;
+  box-shadow: none;
+}
+
+.filter-categories li{
+  list-style-type: none;
+  margin: 5px;
+}
+
+.filter-categories ul{
+  padding-left: 10px;
+}
+
+.price-slider{
+  margin-left: 10px;
+}
+
+mat-slider {
+  width: auto;
+}
+
+.price-min-max label{
+  float: left;
+}
+
+.price-min-max{
+  width:100%;
+  margin:0 auto;
+  display:inline-block;
+  text-align:center;
+}
+
+.price-min-max input{
+
+}
