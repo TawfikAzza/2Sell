@@ -19,6 +19,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+  
     public User GetUserByEmail(string email)
     {
         Console.WriteLine("Email in user repository: "+email);
@@ -54,5 +55,10 @@ public class UserRepository : IUserRepository
         }
             
         return true;
+    }
+
+    public List<User> GetAllUsers()
+    {
+        return _bikeShopDbContext.UsersTable.ToList();
     }
 }
