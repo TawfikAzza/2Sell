@@ -1,5 +1,6 @@
 ﻿using API.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,12 @@ public class WebShopController : ControllerBase
 {
     private readonly IBikeShopService _bikeShopService;
     private readonly IUserService _userService;
-    public WebShopController(IBikeShopService bikeService,IUserService userService)
+    private readonly IMapper _mapper;
+    public WebShopController(IBikeShopService bikeService,IUserService userService, IMapper mapper)
     {
         _bikeShopService = bikeService;
         _userService = userService;
+        _mapper = mapper;
     }
     [AllowAnonymous]
     [HttpGet]
@@ -29,9 +32,20 @@ public class WebShopController : ControllerBase
     [Authorize("UserPolicy")]
     [HttpGet]
     [Route("GetAllUsers")]
-    public void GetAllBikes()
+    public ActionResult<List<UserDTO>> GetAllUsers()
     {
-        _bikeShopService.GetAllBikes();
+        List<User> listUser = _bikeShopService.GetAllUsers();
+        List<UserDTO> userDtos = new List<UserDTO>();
+        if (listUser.Count == 0)
+        {
+            foreach (User user in listUser)
+            {
+                userDtos.Add(_mapper.Map<User,UserDTO>(user));
+            } 
+            Ok(userDtos);
+        }
+        BadRequest("No Users in Database");
+        return null;
     }
 
     //[Authorize("UserPolicy")]

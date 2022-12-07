@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using System.ComponentModel;
+using API.DTOs;
 using Application.Interfaces;
 using Core;
 
@@ -13,11 +14,20 @@ public class BikeShopService : IBikeShopService
         _bikeShopRepository = bikeRepository;
         _userRepository = userRepository;
     }
+
+    public List<User> GetAllUsers()
+    {
+        return _userRepository.GetAllUsers();
+    }
     public List<PostDTO> GetAllPosts()
     {
-        List<Post> posts =  _bikeShopRepository.GetAllPosts();
+        List<Post> posts = GetAllPostDB().ToList();
+        if (posts.Count < 1)
+            throw new Exception("No posts in the database");
         List<PostDTO> postsFormated = new List<PostDTO>();
-        List<User> allUsers = _userRepository.GetAllUsers();
+        List<User> allUsers = GetAllUserDB();
+        if (allUsers.Count < 1)
+            throw new Exception("No users in the database");
         Dictionary<int, User> hashUsers = new Dictionary<int, User>();
         foreach (User user in allUsers)
         {
@@ -56,22 +66,24 @@ public class BikeShopService : IBikeShopService
 
     public List<PostDTO> GetAllPostFromUser(string username)
     {
+        User userSearched = new User();
         try
         {
-            _userRepository.GetUserByUserName(username);
+            userSearched = GetAllUserDB().Where(u=> u.userName.Equals(username)).Single();
         }
         catch(KeyNotFoundException ex)
         {
             throw new Exception(ex.Message);
         }
-
-        User user = _userRepository.GetUserByUserName(username);
-        List<Post> posts = _bikeShopRepository.GetAllPostsFromUser(user);
+        
+        User user = userSearched;
+        List<Post> posts = GetAllPostDB().Where(p=> p.UserId==user.Id).ToList();
+        if (posts.Count < 1)
+            throw new Exception("No posts associated to this user" + user.userName);
         Console.WriteLine("Post Length: "+posts.Count);
         List<PostDTO> postsFormated = new List<PostDTO>();
         foreach (Post post in posts)
         {
-            
             PostDTO postDto = new PostDTO();
             postDto.Id = post.Id;
             postDto.UserName = user.userName;
@@ -90,8 +102,15 @@ public class BikeShopService : IBikeShopService
     public void CreatePost(CreatePostDTO dto)
     {
         Console.WriteLine("dto: "+dto.Description);
-        User user = _userRepository.GetUserByEmail(dto.Email);
-        
+        User user = new User();
+        try
+        {
+            user = GetAllUserDB().Where(u => u.Email.Equals(dto.Email)).Single();
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new Exception("No such User in the database");
+        }
         Post post = new Post()
         {
             UserId = user.Id,
@@ -107,11 +126,41 @@ public class BikeShopService : IBikeShopService
 
     public Post GetPost(int id)
     {
-        return _bikeShopRepository.GetPost(id);
+        Post postSearched = new Post();
+        try
+        {
+            postSearched = GetAllPostDB().Where(p => p.Id == id).Single();
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new Exception("Not Post with this id");
+        }
+        return postSearched;
     }
 
+ 
     public List<Post> GetPostByCategory(int[] listId)
     {
-        return _bikeShopRepository.getPostByCategory(listId);
+        List<Post> listPost = new List<Post>();
+        listPost =  GetAllPostDB()
+            .Where(p=> listId.Contains(p.Category))
+            .OrderByDescending(p=> p.Date)
+            .ToList();
+        if (listPost.Count == 0)
+        {
+            throw new InvalidEnumArgumentException("No post with such category");
+        }
+        return listPost;
     }
+
+    public List<User> GetAllUserDB()
+    {
+        return _userRepository.GetAllUsers();
+    }
+
+    public List<Post> GetAllPostDB()
+    {
+        return _bikeShopRepository.GetAllPosts();
+    }
+    
 }
