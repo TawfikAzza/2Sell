@@ -29,23 +29,24 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.CreateDB();
     }
-    [Authorize("UserPolicy")]
+    [AllowAnonymous]
+    //[Authorize("UserPolicy")]
     [HttpGet]
     [Route("GetAllUsers")]
     public ActionResult<List<UserDTO>> GetAllUsers()
     {
         List<User> listUser = _bikeShopService.GetAllUsers();
         List<UserDTO> userDtos = new List<UserDTO>();
-        if (listUser.Count == 0)
+        if (listUser.Count > 0)
         {
             foreach (User user in listUser)
             {
                 userDtos.Add(_mapper.Map<User,UserDTO>(user));
             } 
-            Ok(userDtos);
+            return Ok(userDtos);
         }
-        BadRequest("No Users in Database");
-        return null;
+        return BadRequest("No Users in Database");
+       // return null;
     }
 
     //[Authorize("UserPolicy")]
@@ -100,10 +101,11 @@ public class WebShopController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet]
+    [HttpPost]
     [Route("SearchCategories")]
-    public ActionResult<List<Post>> GetPostByCategory([FromRoute] int[] listId,int fromPrice, int toPrice)
+    public ActionResult<List<Post>> GetPostByCategory([FromBody] int[] listId)
     {
+        Console.WriteLine("ListID :"+listId.Length);
         return Ok(_bikeShopService.GetPostByCategory(listId));
     }
 }
