@@ -37,10 +37,12 @@ public class UserService :IUserService
     }
     public UserDTO GetUserByEmail(string email)
     {
-        Console.WriteLine("Email in user service : "+email);
+       /* Console.WriteLine("Email in user service : "+email);
         User user =  _userRepository.GetUserByEmail(email);
         UserDTO userDto = _mapper.Map<User, UserDTO>(user);
-        return userDto;
+        return userDto;*/
+       return _mapper.Map<User, UserDTO>(_userRepository.GetAllUsers()
+           .Where(u => u.Email == email).FirstOrDefault());
     }
 
     public User GetUserByUserName(string username)

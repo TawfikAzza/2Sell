@@ -26,10 +26,10 @@ public class BikeShopDbContext : DbContext
             .WithMany(u => u.Posts)
             .HasForeignKey(p => p.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<User>()
+       /* modelBuilder.Entity<User>()
             .Ignore(u => u.Posts);
         modelBuilder.Entity<Post>()
-            .Ignore(p => p.User);
+            .Ignore(p => p.User);*/
     }
 
     public DbSet<User> UsersTable { get; set; }

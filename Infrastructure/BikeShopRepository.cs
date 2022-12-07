@@ -18,8 +18,10 @@ public class BikeShopRepository: IBikeShopRepository
 
     public List<Post> GetAllPostsFromUser(User user)
     {
+        User userSearched = _bikeShopDbContext.UsersTable.Find(user.Id);
+        
         return _bikeShopDbContext.PostTable
-            .Where(p=> p.User.userName == user.userName)
+            .Where(p=> p.UserId==userSearched.Id)
             .OrderByDescending(p=> p.Date)
             .ToList();
     }
@@ -27,6 +29,23 @@ public class BikeShopRepository: IBikeShopRepository
     public List<Post> GetAllPosts()
     {
         return _bikeShopDbContext.PostTable.ToList();
+    }
+
+    public void CreatePost(Post post)
+    {
+        
+        _bikeShopDbContext.PostTable.Add(post);
+        _bikeShopDbContext.SaveChanges();
+    }
+
+    public Post GetPost(int id)
+    {
+       return _bikeShopDbContext.PostTable.Find(id);
+    }
+
+    public List<Post> getPostByCategory(int[] listId)
+    {
+        return _bikeShopDbContext.PostTable.Where(p=> listId.Contains(p.Category)).ToList();
     }
 
 
