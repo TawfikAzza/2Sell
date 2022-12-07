@@ -20,5 +20,16 @@ export interface sessionToken{
   role?: number;
 }
 
+export interface Category{
+  id:number;
+  name:string;
+  ticked: boolean;
+}
 
+export interface NavBarSearch {
+  operationType:number;
+  name: string;
+  ticked: boolean;
+  categories: Category[];
+}
 

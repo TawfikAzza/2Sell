@@ -1,0 +1,68 @@
+<div class="wrapper">
+  <div class="filter-wrapper">
+
+    <div class="filter-title">
+      <p> Search by:</p>
+    </div>
+
+    <div class="filter-categories">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+
+          <mat-expansion-panel-header>
+            <mat-checkbox [checked]="searchAllCategories"
+                          [indeterminate]="someTicked()"
+                          (change)="setAll($event.checked)">
+              {{categorySearch.name}}
+            </mat-checkbox>
+          </mat-expansion-panel-header>
+
+          <span class="example-list-section">
+        <ul>
+          <li *ngFor="let category of categorySearch.categories">
+            <mat-checkbox [(ngModel)]="category.ticked"
+                          (ngModelChange)="updateAllComplete()">
+              {{category.name}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </span>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-checkbox (change)="searchByPrice = $event.checked">Search by price</mat-checkbox>
+          </mat-expansion-panel-header>
+
+          <div class="price-min-max">
+
+            <label>Min</label>
+            <input type="range" min="0" max="20000" value="300" step="50" [(ngModel)]="priceMin">
+            <mat-form-field appearance="outline">
+              <input matInput [(ngModel)]="priceMin">
+            </mat-form-field>
+
+            <br>
+
+            <label>Max</label>
+            <input type="range" min="0" max="20000" value="5000" step="50"
+                   [(ngModel)]="priceMax">
+
+            <mat-form-field appearance="outline">
+              <input matInput [(ngModel)]="priceMax">
+            </mat-form-field>
+
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div>
+        <button mat-button style="background: black;color: white" (click)="search()">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
