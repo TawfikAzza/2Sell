@@ -9,4 +9,7 @@ public interface IBikeShopRepository
 
     List<Post> GetAllPostsFromUser(User user);
     List<Post> GetAllPosts();
+    void CreatePost(Post post);
+    Post GetPost(int id);
+    List<Post> getPostByCategory(int[] listId);
 }

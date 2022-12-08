@@ -29,5 +29,5 @@ public class User
     // public int RoleId { get; set; }
     public int RoleId { get; set; }
     //public byte[] Image { get; set; }
-    // public List<Roles>? Roles { get; set; }
+    //public List<Roles>? Roles { get; set; }
 }

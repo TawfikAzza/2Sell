@@ -19,7 +19,7 @@ public class WebShopController : ControllerBase
         _bikeShopService = bikeService;
         _userService = userService;
     }
-    [Authorize("AdminPolicy")]
+    [AllowAnonymous]
     [HttpGet]
     [Route("CreateDB")]
     public void CreateDB()
@@ -50,7 +50,7 @@ public class WebShopController : ControllerBase
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
     {
         Console.WriteLine("Update Profile:"+dto.FirstName);
-        return _userService.UpdateUser(dto);
+        return Ok(_userService.UpdateUser(dto));
     }
 
     [AllowAnonymous]
@@ -58,7 +58,7 @@ public class WebShopController : ControllerBase
     [Route("GetAllPostsFromUser/{username}")]
     public ActionResult<List<PostDTO>> GetAllPostFromUser([FromRoute] string username)
     {
-        return _bikeShopService.GetAllPostFromUser(username);
+        return Ok(_bikeShopService.GetAllPostFromUser(username));
     }
 
     [AllowAnonymous]
@@ -66,7 +66,7 @@ public class WebShopController : ControllerBase
     [Route("GetAllPosts")]
     public ActionResult<List<PostDTO>> GetAllPosts()
     {
-        return _bikeShopService.GetAllPosts();
+        return Ok(_bikeShopService.GetAllPosts());
     }
     
     [AllowAnonymous]
@@ -75,5 +75,21 @@ public class WebShopController : ControllerBase
     public void CreatePost(CreatePostDTO dto)
     {
         _bikeShopService.CreatePost(dto);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("ViewPost/{id}")]
+    public ActionResult<Post> GetPost([FromRoute] int id)
+    {
+        return Ok(_bikeShopService.GetPost(id));
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("SearchCategories")]
+    public ActionResult<List<Post>> GetPostByCategory([FromRoute] int[] listId,int fromPrice, int toPrice)
+    {
+        return Ok(_bikeShopService.GetPostByCategory(listId));
     }
 }

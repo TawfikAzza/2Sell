@@ -10,4 +10,5 @@ public interface IUserRepository
     public User GetUserByUserName(string username);
     User UpdateUser(User user);
     bool CheckUserName(RegisterDTO userName);
+    List<User> GetAllUsers();
 }

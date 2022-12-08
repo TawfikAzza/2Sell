@@ -11,4 +11,7 @@ public interface IBikeShopService
     public void GetUserByEmail(string email);
     List<PostDTO> GetAllPostFromUser(string username);
     void CreatePost(CreatePostDTO dto);
+
+    Post GetPost(int id);
+    List<Post> GetPostByCategory(int[] listId);
 }

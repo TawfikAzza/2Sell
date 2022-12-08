@@ -2,6 +2,7 @@
 
 public class PostDTO
 {
+    public int? Id { get; set; }
     public string Email { get; set; }
     public string UserName { get; set; }
     public double Price { get; set; }
@@ -18,4 +19,5 @@ public class CreatePostDTO
     public string Title { get; set; }
     public string Description { get; set; }
     public double Price { get; set; }
+    public int Category { get; set; }
 }
