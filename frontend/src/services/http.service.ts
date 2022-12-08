@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
 import axios from "axios";
 import {environment} from "../environments/environment";
-import {catchError} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {filterSearchDTO, loginDTO, registerDTO} from "../entities/entities";
+
+import {filterSearchDTO, loginDTO, registerDTO,postDTO} from "../entities/entities";
+
+
+
 
 export const customAxios = axios.create({
   baseURL: environment.baseUrl
@@ -53,9 +57,30 @@ export class HttpService {
     console.log("petition",petition);
   }
 
+
   async filterSearch(dto: filterSearchDTO ) {
     //let petition = await customAxios.post('',dto);
   }
 
+
+
+  async getPost(id: number):Promise<postDTO> {
+    let petition = await customAxios.get('WebShop/ViewPost/'+id);
+    return petition.data;
+  }
+  async uploadFile(file: FormData) {
+
+      const config = {
+        headers: {
+         'contentType':'Content-type: multipart/form-data'
+
+        }
+      };
+
+
+      console.log("file",file.get('data') );
+      let petition = await customAxios.post('WebShop/UploadFile/', file,config);
+      return petition.data;
+  }
 
 }

@@ -14,7 +14,17 @@ export interface loginDTO{
   email: string,
   password: string
 }
-
+export interface postDTO{
+  Id:number,
+  email:string,
+  userName:string,
+  price:number,
+  title:string,
+  description:string,
+  Authority:number,
+  address:string,
+  category:number
+}
 export interface sessionToken{
   expDate?: number;
   role?: number;
