@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider';
-import {NavBarSearch} from "../../entities/entities";
+import {Category, categoryDTO, catPriceDTO, filterSearchDTO, NavBarSearch, priceDTO} from "../../entities/entities";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {HttpService} from "../../services/http.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -11,7 +13,8 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 })
 export class CategoriesbarComponent implements OnInit {
 
-  constructor() {
+  constructor(public http:HttpService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -19,7 +22,6 @@ export class CategoriesbarComponent implements OnInit {
   }
 
   categorySearch: NavBarSearch = {
-    operationType: 1,
     name: 'Categories:',
     ticked: false,
     categories: [
@@ -46,10 +48,65 @@ export class CategoriesbarComponent implements OnInit {
 
  */
 
-
-  search() {
-    this.consolelog();
+  getCategoriesIds(categories : any){
+    let ticked: any;
+    let filtered: number[] = [];
+    ticked = categories.filter((t: { ticked: any; }) => t.ticked);
+    for (let i = 0; i < ticked.length; i++) {
+      filtered.push(ticked[i].id)
+    }
+    return filtered;
   }
+
+  async search() {
+    if(!this.categorySearch.ticked && !this.searchByPrice){
+      console.log('nothing to search!')
+      return;
+    }
+    else if(this.categorySearch.ticked && this.searchByPrice) {
+      let catPriceSearch : catPriceDTO = {
+        ids: this.getCategoriesIds(this.categorySearch.categories),
+        min: this.priceMin,
+        max: this.priceMax
+      }
+      let dto: filterSearchDTO = {
+        operationType: 3,
+        dto: catPriceSearch
+      }
+      await this.http.filterSearch(dto);
+      console.log('search by both cat and price!')
+      return;
+    }
+    else if(this.categorySearch.ticked && !this.searchByPrice){
+      let catSearch: categoryDTO = {
+        ids: this.getCategoriesIds(this.categorySearch.categories)
+      }
+
+      let dto: filterSearchDTO = {
+        operationType: 1,
+        dto: catSearch
+      }
+      await this.http.filterSearch(dto);
+      console.log('only searching by cat')
+      return;
+    }
+    else{
+      let priceSearch : priceDTO = {
+        min: this.priceMin,
+        max: this.priceMax
+      }
+
+      let dto: filterSearchDTO = {
+        operationType: 2,
+        dto: priceSearch
+      }
+      console.log('only searching by price')
+      await this.http.filterSearch(dto);
+      return;
+    }
+  }
+
+
 
   someTicked() {
     if (this.categorySearch.categories == null) {
@@ -69,7 +126,16 @@ export class CategoriesbarComponent implements OnInit {
 
   updateAllComplete() {
     this.searchAllCategories = this.categorySearch.categories != null && this.categorySearch.categories.every(t => t.ticked);
+    this.updateSearchCatIsTicked();
   }
+
+  updateSearchCatIsTicked(){
+    if (this.categorySearch.categories == null) {
+      return;
+    } else{
+      this.categorySearch.ticked = this.categorySearch.categories.some(t => t.ticked);
+    }
+  };
 
   consolelog() {
     console.log(this.categorySearch.ticked)

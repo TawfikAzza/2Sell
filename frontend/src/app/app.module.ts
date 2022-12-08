@@ -21,6 +21,7 @@ import { PostfeedComponent } from './postfeed/postfeed.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
   {
@@ -52,7 +53,8 @@ const routes: Routes = [
     NavbarComponent,
     ProfileComponent,
     CategoriesbarComponent,
-    PostfeedComponent
+    PostfeedComponent,
+    PostComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

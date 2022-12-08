@@ -27,9 +27,32 @@ export interface Category{
 }
 
 export interface NavBarSearch {
-  operationType:number;
   name: string;
   ticked: boolean;
   categories: Category[];
+}
+
+export interface categoryDTO{
+  ids: number[]
+}
+
+export interface priceDTO{
+  min: number,
+  max: number;
+}
+
+export interface catPriceDTO{
+  ids: number[],
+  min: number,
+  max: number
+}
+
+export interface searchDTO{
+  args: string
+}
+
+export interface filterSearchDTO{
+  operationType: number,
+  dto: categoryDTO | priceDTO | catPriceDTO | searchDTO
 }
 
