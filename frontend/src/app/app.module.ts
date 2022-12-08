@@ -28,7 +28,6 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 
-
 const routes: Routes = [
   {
     path: 'register', component: RegisterComponent
@@ -64,7 +63,6 @@ const routes: Routes = [
     CategoriesbarComponent,
     PostfeedComponent,
     ViewpostComponent
-
   ],
   imports: [
     RouterModule.forRoot(routes),
