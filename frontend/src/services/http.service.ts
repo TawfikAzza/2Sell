@@ -4,7 +4,7 @@ import {environment} from "../environments/environment";
 import {catchError} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {loginDTO, registerDTO} from "../entities/entities";
+import {filterSearchDTO, loginDTO, registerDTO} from "../entities/entities";
 
 export const customAxios = axios.create({
   baseURL: environment.baseUrl
@@ -52,4 +52,10 @@ export class HttpService {
     let petition = await customAxios.post('WebShop/UpdateProfile',dto);
     console.log("petition",petition);
   }
+
+  async filterSearch(dto: filterSearchDTO ) {
+    //let petition = await customAxios.post('',dto);
+  }
+
+
 }
