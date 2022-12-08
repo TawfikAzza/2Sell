@@ -21,7 +21,13 @@ import { PostfeedComponent } from './postfeed/postfeed.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatExpansionModule} from "@angular/material/expansion";
-import { PostComponent } from './post/post.component';
+
+
+import { ViewpostComponent } from './viewpost/viewpost.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+
 
 const routes: Routes = [
   {
@@ -40,6 +46,9 @@ const routes: Routes = [
     path: 'profile', component: ProfileComponent
   },
   {
+    path: 'viewpost', component: ViewpostComponent
+  },
+  {
     path: '**', redirectTo: 'mainPage'
   }
 ]
@@ -54,7 +63,8 @@ const routes: Routes = [
     ProfileComponent,
     CategoriesbarComponent,
     PostfeedComponent,
-    PostComponent
+    ViewpostComponent
+
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -69,7 +79,10 @@ const routes: Routes = [
     MatCheckboxModule,
     MatSliderModule,
     FormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    HttpClientModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

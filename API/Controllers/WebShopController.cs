@@ -1,8 +1,10 @@
 ﻿using API.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Primitives;
 
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +16,12 @@ public class WebShopController : ControllerBase
 {
     private readonly IBikeShopService _bikeShopService;
     private readonly IUserService _userService;
-    public WebShopController(IBikeShopService bikeService,IUserService userService)
+    private readonly IMapper _mapper;
+    public WebShopController(IBikeShopService bikeService,IUserService userService, IMapper mapper)
     {
         _bikeShopService = bikeService;
         _userService = userService;
+        _mapper = mapper;
     }
     [AllowAnonymous]
     [HttpGet]
@@ -26,12 +30,24 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.CreateDB();
     }
-    [Authorize("UserPolicy")]
+    [AllowAnonymous]
+    //[Authorize("UserPolicy")]
     [HttpGet]
     [Route("GetAllUsers")]
-    public void GetAllBikes()
+    public ActionResult<List<UserDTO>> GetAllUsers()
     {
-        _bikeShopService.GetAllBikes();
+        List<User> listUser = _bikeShopService.GetAllUsers();
+        List<UserDTO> userDtos = new List<UserDTO>();
+        if (listUser.Count > 0)
+        {
+            foreach (User user in listUser)
+            {
+                userDtos.Add(_mapper.Map<User,UserDTO>(user));
+            } 
+            return Ok(userDtos);
+        }
+        return BadRequest("No Users in Database");
+       // return null;
     }
 
     //[Authorize("UserPolicy")]
@@ -80,16 +96,39 @@ public class WebShopController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("ViewPost/{id}")]
-    public ActionResult<Post> GetPost([FromRoute] int id)
+    public ActionResult<PostDTO> GetPost([FromRoute] int id)
     {
         return Ok(_bikeShopService.GetPost(id));
     }
 
     [AllowAnonymous]
-    [HttpGet]
+    [HttpPost]
     [Route("SearchCategories")]
-    public ActionResult<List<Post>> GetPostByCategory([FromRoute] int[] listId,int fromPrice, int toPrice)
+    public ActionResult<List<Post>> GetPostByCategory([FromBody] int[] listId)
     {
+        Console.WriteLine("ListID :"+listId.Length);
         return Ok(_bikeShopService.GetPostByCategory(listId));
+    }
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("UploadFileProfile")]
+    public async Task<IActionResult> UploadFileProfile()
+    {
+        
+        IFormFile file = Request.Form.Files.FirstOrDefault();
+        StringValues email;
+        Request.Form.TryGetValue("userEmail",out email);
+        Console.WriteLine("Email: "+email);
+        var originalFileName = Path.GetFileName(file.FileName);
+        Console.WriteLine("Content type :"+Path.GetExtension(file.FileName));
+        var extension = Path.GetExtension(file.FileName);
+        var uniqueFileName = Path.GetRandomFileName()+extension;
+        var uniqueFilePath = Path.Combine(@"..\frontend\src\assets\images\", uniqueFileName);
+        Console.WriteLine("File: "+uniqueFilePath);
+        using (var stream = System.IO.File.Create(uniqueFilePath))
+        {
+            await file.CopyToAsync(stream);
+        }
+        return Ok(true);
     }
 }

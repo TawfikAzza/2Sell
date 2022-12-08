@@ -7,11 +7,12 @@ public interface IBikeShopService
 {
     public List<PostDTO> GetAllPosts();
     public void CreateDB();
-    public void GetAllBikes();
-    public void GetUserByEmail(string email);
+
     List<PostDTO> GetAllPostFromUser(string username);
     void CreatePost(CreatePostDTO dto);
 
-    Post GetPost(int id);
-    List<Post> GetPostByCategory(int[] listId);
+    PostDTO GetPost(int id);
+  
+    List<PostDTO> GetPostByCategory(int[] listId);
+    public List<User> GetAllUsers();
 }

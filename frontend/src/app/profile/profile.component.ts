@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {registerDTO} from "../../entities/entities";
 import {HttpService} from "../../services/http.service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import PasswordValidation from "../register/util/passwordValidation";
+import {HttpClient, HttpEventType} from "@angular/common/http";
+import {finalize, Subscription} from "rxjs";
+import {customAxios} from "../../services/http.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +40,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(public http: HttpService,
               public formBuilder:FormBuilder,
-              private router:Router) { }
+              private router:Router,
+              private httpC: HttpClient) { }
 
   async ngOnInit() {
     this.getUserFromEmail();
@@ -117,8 +122,91 @@ export class ProfileComponent implements OnInit {
   },{
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
+/*
+  async upload(event: any) {
 
+    let files = event.target.files;
+    let fData: FormData = new FormData;
+    console.log("Event : "+event);
+    for (var i = 0; i < files.length; i++) {
+      console.log("files ",files[i]);
+      console.log("Lenght :",files.length);
+      fData.append("file[]", files[i]);
+    }
+    var _data = {
+      filename: 'Sample File',
+      id: '0001'
+    }
 
+    fData.append("data", JSON.stringify(_data));
+    console.log("file profile:",fData);
+    await this.http.uploadFile(fData);
+  }
+  handleResponse(response: any) {
+    console.log(response);
+  }
+  handleError(error: string) {
+    console.log(error);
+  }*/
+
+  @Input()
+  requiredFileType:string="";
+  fileName = '';
+  uploadProgress:number=0;
+  uploadSub: Subscription = new Subscription;
+  onFileSelected(event:any) {
+    const file:File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("thumbnail", file);
+      formData.append("userEmail",this.currentUser.email);
+      const upload$ = this.httpC.post(environment.baseUrl+"/WebShop/UploadFileProfile/", formData, {
+        reportProgress: true,
+        observe: 'events'
+      })
+        .pipe(
+          finalize(() => this.reset())
+        );
+
+      this.uploadSub = upload$.subscribe(event => {
+        if (event.type == HttpEventType.UploadProgress) {
+          // @ts-ignore
+          this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+          console.log("upload progress:"+this.uploadProgress);
+        }
+      });
+    }
+  }
+
+  cancelUpload() {
+    this.uploadSub.unsubscribe();
+    this.reset();
+  }
+
+  reset() {
+    this.uploadProgress = 0;
+    this.uploadSub =  new Subscription;
+  }
+  /*
+  onFileSelected(event:any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+      this.fileName = file.name;
+
+      const formData = new FormData();
+
+      formData.append("thumbnail", file);
+
+      const upload$ = this.httpC.post("http://localhost:5082/WebShop/UploadFile/", formData);
+
+      upload$.subscribe();
+    }
+  }*/
   modeChange(mode: string) {
     this.pageMode = mode;
     if(mode=='modify') {
