@@ -13,6 +13,7 @@
   <h1 class="login-title"> Modify your profile</h1>
   <form [formGroup]="modifyFormGroup">
 
+
     <div class="input-group">
       <mat-form-field appearance="outline">
         <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
@@ -24,8 +25,51 @@
         <input id="FirstNameInput" [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name" value="TEST">
         <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
       </mat-form-field>
+    </div><!--
+    <div class="input-group">
+      <input type="file" (change)="upload($event)">
+    </div>
+    -->
+    <input type="file" class="file-input"
+           (change)="onFileSelected($event)" #fileUpload>
+
+   <!-- <div class="file-upload">
+
+      {{fileName || "No file uploaded yet."}}
+
+      <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+
+      </button>
+    </div>-->
+    <img width="150" height="100" src="assets/images/kng1iw1s.vxh.png">
+    <input type="file" class="file-input"
+           [accept]="requiredFileType"
+           (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload">
+
+      {{fileName || "No file uploaded yet."}}
+
+      <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+
+      </button>
+
     </div>
 
+    <div class="progress">
+
+      <mat-progress-bar class="progress-bar" mode="determinate"
+                        [value]="uploadProgress" *ngIf="uploadProgress">
+
+      </mat-progress-bar>
+
+      <mat-icon class="cancel-upload" (click)="cancelUpload()"
+                *ngIf="uploadProgress">delete_forever</mat-icon>
+
+    </div>
     <div class="input-group">
       <mat-form-field appearance="outline">
         <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">

@@ -4,6 +4,7 @@ using AutoMapper;
 using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Primitives;
 
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -95,7 +96,7 @@ public class WebShopController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("ViewPost/{id}")]
-    public ActionResult<Post> GetPost([FromRoute] int id)
+    public ActionResult<PostDTO> GetPost([FromRoute] int id)
     {
         return Ok(_bikeShopService.GetPost(id));
     }
@@ -107,5 +108,27 @@ public class WebShopController : ControllerBase
     {
         Console.WriteLine("ListID :"+listId.Length);
         return Ok(_bikeShopService.GetPostByCategory(listId));
+    }
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("UploadFileProfile")]
+    public async Task<IActionResult> UploadFileProfile()
+    {
+        
+        IFormFile file = Request.Form.Files.FirstOrDefault();
+        StringValues email;
+        Request.Form.TryGetValue("userEmail",out email);
+        Console.WriteLine("Email: "+email);
+        var originalFileName = Path.GetFileName(file.FileName);
+        Console.WriteLine("Content type :"+Path.GetExtension(file.FileName));
+        var extension = Path.GetExtension(file.FileName);
+        var uniqueFileName = Path.GetRandomFileName()+extension;
+        var uniqueFilePath = Path.Combine(@"..\frontend\src\assets\images\", uniqueFileName);
+        Console.WriteLine("File: "+uniqueFilePath);
+        using (var stream = System.IO.File.Create(uniqueFilePath))
+        {
+            await file.CopyToAsync(stream);
+        }
+        return Ok(true);
     }
 }
