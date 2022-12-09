@@ -13,6 +13,8 @@ import {
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {PostfeedComponent} from "../postfeed/postfeed.component";
 
 
 @Component({
@@ -23,7 +25,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class CategoriesbarComponent implements OnInit {
 
   constructor(public http:HttpService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -109,8 +112,11 @@ export class CategoriesbarComponent implements OnInit {
         operationType: 2,
         dto: priceSearch
       }
-      this.result = await this.http.filterSearch(dto);
+      await this.http.filterSearch(dto);
       console.log('only searching by price!');
+      //this.postFeed = this.postFeed.getInstance(this);
+
+
       return;
     }
   }
