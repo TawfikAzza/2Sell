@@ -15,4 +15,7 @@ public interface IBikeShopService
   
     List<PostDTO> GetPostByCategory(int[] listId);
     public List<User> GetAllUsers();
+    List<PostDTO> GetPostByPrice(int priceDtoMin, int priceDtoMax);
+    List<PostDTO> GetPostByCategoryAndPrice(FilterSearchDTO filterSearchDto);
+    List<PostDTO> GetPostByTitleAndDescription(string searchDtoArgs);
 }

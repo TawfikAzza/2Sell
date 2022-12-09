@@ -1,9 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider';
-import {Category, categoryDTO, catPriceDTO, filterSearchDTO, NavBarSearch, priceDTO} from "../../entities/entities";
+
+import {
+  Category,
+  categoryDTO,
+  catPriceDTO,
+  filterSearchDTO,
+  NavBarSearch,
+  postDTO,
+  priceDTO
+} from "../../entities/entities";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {PostfeedComponent} from "../postfeed/postfeed.component";
 
 
 @Component({
@@ -14,13 +25,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class CategoriesbarComponent implements OnInit {
 
   constructor(public http:HttpService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router:Router) {
   }
 
   ngOnInit(): void {
 
   }
-
+  result:postDTO[]=[];//Variable which will store the result of the search made through the searchCategories
   categorySearch: NavBarSearch = {
     name: 'Categories:',
     ticked: false,
@@ -73,8 +85,8 @@ export class CategoriesbarComponent implements OnInit {
         operationType: 3,
         dto: catPriceSearch
       }
-      await this.http.filterSearch(dto);
-      console.log('search by both cat and price!')
+      this.result = await this.http.filterSearch(dto);
+      console.log('search by both cat and price!');
       return;
     }
     else if(this.categorySearch.ticked && !this.searchByPrice){
@@ -86,8 +98,8 @@ export class CategoriesbarComponent implements OnInit {
         operationType: 1,
         dto: catSearch
       }
-      await this.http.filterSearch(dto);
-      console.log('only searching by cat')
+      this.result = await this.http.filterSearch(dto);
+      console.log('only searching by cat!');
       return;
     }
     else{
@@ -100,8 +112,11 @@ export class CategoriesbarComponent implements OnInit {
         operationType: 2,
         dto: priceSearch
       }
-      console.log('only searching by price')
       await this.http.filterSearch(dto);
+      console.log('only searching by price!');
+      //this.postFeed = this.postFeed.getInstance(this);
+
+
       return;
     }
   }

@@ -82,7 +82,7 @@ const routes: Routes = [
     MatIconModule,
     MatProgressBarModule
   ],
-  providers: [],
+  providers: [PostfeedComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

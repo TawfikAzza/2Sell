@@ -1,3 +1,12 @@
-<div class="wrapper">
-
+<div *ngIf="http.result.length>0">
+<div *ngFor="let post of http.result" class="wrapper" >
+    <p>
+      {{post.title}}
+    </p>
+</div>
+</div>
+<div *ngIf="http.result.length==0">
+  <p>
+    No result, display the http.getAllPosts()
+  </p>
 </div>
