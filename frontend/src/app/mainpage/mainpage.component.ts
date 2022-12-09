@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Category} from "../../entities/entities";
+import {HttpService} from "../../services/http.service";
 
 @Component({
   selector: 'app-mainpage',
@@ -8,10 +9,14 @@ import {Category} from "../../entities/entities";
 })
 export class MainpageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpService) { }
 
   ngOnInit(): void {
+    console.log("Data ",this.http.result)
     //console.log(categories[0]);
   }
 
+  trigger() {
+    console.log(this.http.result);
+  }
 }

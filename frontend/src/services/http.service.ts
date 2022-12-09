@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 import {filterSearchDTO, loginDTO, registerDTO,postDTO} from "../entities/entities";
+import {PostfeedComponent} from "../app/postfeed/postfeed.component";
 
 
 
@@ -24,11 +25,12 @@ export const customAxios = axios.create({
 
 export class HttpService {
   currentUserEmail: any;
+  result: postDTO[] = [];
 
   constructor(public matSnackbar: MatSnackBar,
-              private router: Router
-  ){
+              private router: Router,
 
+  ){
   }
   async getUserByEmail(email:string) : Promise<registerDTO>{
     console.log("baseUrl",environment.baseUrl);
