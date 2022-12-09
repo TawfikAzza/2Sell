@@ -26,8 +26,7 @@ export class CategoriesbarComponent implements OnInit {
 
   constructor(public http:HttpService,
               private snackBar: MatSnackBar,
-              private router:Router,
-              private postFeed:PostfeedComponent) {
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -113,11 +112,11 @@ export class CategoriesbarComponent implements OnInit {
         operationType: 2,
         dto: priceSearch
       }
-      this.result = await this.http.filterSearch(dto);
-      this.http.result = this.result;
+      await this.http.filterSearch(dto);
       console.log('only searching by price!');
-      this.postFeed.ngOnInit();
-      this.postFeed.log()
+      //this.postFeed = this.postFeed.getInstance(this);
+
+
       return;
     }
   }

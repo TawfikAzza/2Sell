@@ -31,6 +31,7 @@ export class HttpService {
               private router: Router,
 
   ){
+
   }
   async getUserByEmail(email:string) : Promise<registerDTO>{
     console.log("baseUrl",environment.baseUrl);
@@ -74,6 +75,7 @@ export class HttpService {
         }
         return array;
       });
+    this.result = petition;
     return petition;
   }
 

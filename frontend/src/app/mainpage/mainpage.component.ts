@@ -15,8 +15,4 @@ export class MainpageComponent implements OnInit {
     console.log("Data ",this.http.result)
     //console.log(categories[0]);
   }
-
-  trigger() {
-    console.log(this.http.result);
-  }
 }
