@@ -1,10 +1,12 @@
-﻿using API.DTOs;
+﻿using System.Text.Json.Serialization;
+using API.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -102,12 +104,39 @@ public class WebShopController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost]
-    [Route("SearchCategories")]
-    public ActionResult<List<Post>> GetPostByCategory([FromBody] int[] listId)
+    [HttpGet]
+    [Route("SearchCategories/{dto}")]
+    public ActionResult<List<PostDTO>> GetPostByCategory([FromRoute] string dto)
     {
-        Console.WriteLine("ListID :"+listId.Length);
-        return Ok(_bikeShopService.GetPostByCategory(listId));
+        
+        FilterSearchDTO filterSearchDto = JsonConvert.DeserializeObject<FilterSearchDTO>(dto);
+        
+        switch (filterSearchDto.OperationType)
+        {
+            case 1:
+                //CategoryDTO
+                Console.WriteLine(filterSearchDto.DTO.ids[0]);
+                return Ok(_bikeShopService.GetPostByCategory(filterSearchDto.DTO.ids));
+                break;
+            case 2:
+                //PriceDTO
+                //PriceDTO PriceDTO = JsonConvert.DeserializeObject<PriceDTO>(dto);
+               // Console.WriteLine("price: "+PriceDTO.min+" max: "+PriceDTO.max);
+                Console.WriteLine(filterSearchDto.DTO.max);
+                return Ok(_bikeShopService.GetPostByPrice(filterSearchDto.DTO.min, filterSearchDto.DTO.max));
+                break;
+            case 3:
+                //CatPriceDTO
+                return Ok(_bikeShopService.GetPostByCategoryAndPrice(filterSearchDto));
+            case 4:
+                return Ok(_bikeShopService.GetPostByTitleAndDescription(filterSearchDto.DTO.args));
+                break;
+            default:
+                break;
+                
+        }
+        throw new ArgumentException("Wrong search filter data");
+
     }
     [AllowAnonymous]
     [HttpPost]

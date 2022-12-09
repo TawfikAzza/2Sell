@@ -11,7 +11,8 @@ import {filterSearchDTO, loginDTO, registerDTO,postDTO} from "../entities/entiti
 
 
 export const customAxios = axios.create({
-  baseURL: environment.baseUrl
+  baseURL: environment.baseUrl,
+  headers:{'Content-Type': 'application/json; charset=utf-8'}
 })
 
 //To ask: Why in the sample project given the axios is initialized like this
@@ -58,8 +59,20 @@ export class HttpService {
   }
 
 
-  async filterSearch(dto: filterSearchDTO ) {
-    //let petition = await customAxios.post('',dto);
+  async filterSearch(dto: filterSearchDTO ):Promise<postDTO[]> {
+    let dtoStringified: string="";
+    dtoStringified = JSON.stringify(dto);
+
+    let petition = await customAxios.get('WebShop/SearchCategories/'+dtoStringified)
+      .then(function(response){
+        let array:postDTO[]=[];
+        for (let i = 0; i < response.data.length; i++) {
+          console.log("For loop",response.data[i]);
+          array.push(response.data[i])
+        }
+        return array;
+      });
+    return petition;
   }
 
 
