@@ -4,10 +4,20 @@ import {environment} from "../environments/environment";
 import {catchError} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+<<<<<<< HEAD
 import {loginDTO, registerDTO} from "../entities/entities";
+=======
+
+import {filterSearchDTO, loginDTO, registerDTO,postDTO} from "../entities/entities";
+import {PostfeedComponent} from "../app/postfeed/postfeed.component";
+
+
+
+>>>>>>> Develop
 
 export const customAxios = axios.create({
-  baseURL: environment.baseUrl
+  baseURL: environment.baseUrl,
+  headers:{'Content-Type': 'application/json; charset=utf-8'}
 })
 
 //To ask: Why in the sample project given the axios is initialized like this
@@ -19,9 +29,11 @@ export const customAxios = axios.create({
 
 export class HttpService {
   currentUserEmail: any;
+  result: postDTO[] = [];
 
   constructor(public matSnackbar: MatSnackBar,
-              private router: Router
+              private router: Router,
+
   ){
 
   }
@@ -52,4 +64,47 @@ export class HttpService {
     let petition = await customAxios.post('WebShop/UpdateProfile',dto);
     console.log("petition",petition);
   }
+<<<<<<< HEAD
+=======
+
+
+  async filterSearch(dto: filterSearchDTO ):Promise<postDTO[]> {
+    let dtoStringified: string="";
+    dtoStringified = JSON.stringify(dto);
+
+    let petition = await customAxios.get('WebShop/SearchCategories/'+dtoStringified)
+      .then(function(response){
+        let array:postDTO[]=[];
+        for (let i = 0; i < response.data.length; i++) {
+          console.log("For loop",response.data[i]);
+          array.push(response.data[i])
+        }
+        return array;
+      });
+    this.result = petition;
+    return petition;
+  }
+
+
+
+  async getPost(id: number):Promise<postDTO> {
+    let petition = await customAxios.get('WebShop/ViewPost/'+id);
+    return petition.data;
+  }
+  async uploadFile(file: FormData) {
+
+      const config = {
+        headers: {
+         'contentType':'Content-type: multipart/form-data'
+
+        }
+      };
+
+
+      console.log("file",file.get('data') );
+      let petition = await customAxios.post('WebShop/UploadFile/', file,config);
+      return petition.data;
+  }
+
+>>>>>>> Develop
 }

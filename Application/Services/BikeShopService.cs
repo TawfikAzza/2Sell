@@ -13,6 +13,33 @@ public class BikeShopService : IBikeShopService
         _bikeShopRepository = bikeRepository;
         _userRepository = userRepository;
     }
+
+    public List<PostDTO> GetPostByPrice(int priceMin, int priceMax)
+    {
+        if (priceMin >= priceMax)
+            throw new ArgumentException("Wrong price range");
+        return GetAllPosts().Where(p => p.Price >= priceMin && p.Price <= priceMax).ToList();
+    }
+
+    public List<PostDTO> GetPostByCategoryAndPrice(FilterSearchDTO catPriceDto)
+    {
+        if (catPriceDto == null || catPriceDto.DTO.min >= catPriceDto.DTO.max)
+            throw new ArgumentException("Wrong category/price argument");
+        return GetAllPosts()
+            .Where(p=> catPriceDto.DTO.ids.Contains(p.Category) && (p.Price >= catPriceDto.DTO.min && p.Price <= catPriceDto.DTO.max))
+            .ToList();
+    }
+
+    public List<PostDTO> GetPostByTitleAndDescription(string query)
+    {
+        if (query == "")
+            throw new ArgumentException("bad query");
+        //Todo: dd the test on the paraneter of string as well as min max etc.. 
+        return GetAllPosts()
+            .Where(p => p.Title.Contains(query) || p.Description.Contains(query))
+            .ToList();
+    }
+
     public List<PostDTO> GetAllPosts()
     {
         List<Post> posts =  _bikeShopRepository.GetAllPosts();

@@ -55,7 +55,7 @@ const routes: Routes = [
     MatButtonModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [PostfeedComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
