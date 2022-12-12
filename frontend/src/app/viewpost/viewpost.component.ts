@@ -11,11 +11,11 @@ import {Router} from "@angular/router";
 })
 export class ViewpostComponent implements OnInit {
   currentPost: postDTO = {
-    Id:0,
+    id:0,
     description:"",
     title:"",
     price:0,
-    Authority:0,
+    authority:0,
     category:0,
     email:"",
     userName:"",

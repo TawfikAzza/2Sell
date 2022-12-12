@@ -24,15 +24,17 @@ import {PostfeedComponent} from "../postfeed/postfeed.component";
 })
 export class CategoriesbarComponent implements OnInit {
 
-  constructor(public http:HttpService,
+  constructor(public http: HttpService,
               private snackBar: MatSnackBar,
-              private router:Router) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
 
   }
-  result:postDTO[]=[];//Variable which will store the result of the search made through the searchCategories
+
+  result: postDTO[] = [];//Variable which will store the result of the search made through the searchCategories
+
   categorySearch: NavBarSearch = {
     name: 'Categories:',
     ticked: false,
@@ -47,20 +49,21 @@ export class CategoriesbarComponent implements OnInit {
   searchByPrice: boolean = false;
   priceMin: number = 300;
   priceMax: number = 5000;
-/*
-  priceMinControl: FormControl = new FormControl();
-  priceMaxControl = new FormControl('',[
-    Validators.min(this.priceMin)
-  ]);
 
-  priceForm = this.formBuilder.group({
-    priceMin: this.priceMinControl,
-    priceMax: this.priceMaxControl
-  });
+  /*
+    priceMinControl: FormControl = new FormControl();
+    priceMaxControl = new FormControl('',[
+      Validators.min(this.priceMin)
+    ]);
 
- */
+    priceForm = this.formBuilder.group({
+      priceMin: this.priceMinControl,
+      priceMax: this.priceMaxControl
+    });
 
-  getCategoriesIds(categories : any){
+   */
+
+  getCategoriesIds(categories: any) {
     let ticked: any;
     let filtered: number[] = [];
     ticked = categories.filter((t: { ticked: any; }) => t.ticked);
@@ -71,12 +74,11 @@ export class CategoriesbarComponent implements OnInit {
   }
 
   async search() {
-    if(!this.categorySearch.ticked && !this.searchByPrice){
+    if (!this.categorySearch.ticked && !this.searchByPrice) {
       console.log('nothing to search!')
       return;
-    }
-    else if(this.categorySearch.ticked && this.searchByPrice) {
-      let catPriceSearch : catPriceDTO = {
+    } else if (this.categorySearch.ticked && this.searchByPrice) {
+      let catPriceSearch: catPriceDTO = {
         ids: this.getCategoriesIds(this.categorySearch.categories),
         min: this.priceMin,
         max: this.priceMax
@@ -88,8 +90,7 @@ export class CategoriesbarComponent implements OnInit {
       this.result = await this.http.filterSearch(dto);
       console.log('search by both cat and price!');
       return;
-    }
-    else if(this.categorySearch.ticked && !this.searchByPrice){
+    } else if (this.categorySearch.ticked && !this.searchByPrice) {
       let catSearch: categoryDTO = {
         ids: this.getCategoriesIds(this.categorySearch.categories)
       }
@@ -101,9 +102,8 @@ export class CategoriesbarComponent implements OnInit {
       this.result = await this.http.filterSearch(dto);
       console.log('only searching by cat!');
       return;
-    }
-    else{
-      let priceSearch : priceDTO = {
+    } else {
+      let priceSearch: priceDTO = {
         min: this.priceMin,
         max: this.priceMax
       }
@@ -120,7 +120,6 @@ export class CategoriesbarComponent implements OnInit {
       return;
     }
   }
-
 
 
   someTicked() {
@@ -144,10 +143,10 @@ export class CategoriesbarComponent implements OnInit {
     this.updateSearchCatIsTicked();
   }
 
-  updateSearchCatIsTicked(){
+  updateSearchCatIsTicked() {
     if (this.categorySearch.categories == null) {
       return;
-    } else{
+    } else {
       this.categorySearch.ticked = this.categorySearch.categories.some(t => t.ticked);
     }
   };
