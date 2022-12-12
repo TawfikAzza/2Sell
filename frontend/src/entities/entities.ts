@@ -15,13 +15,13 @@ export interface loginDTO{
   password: string
 }
 export interface postDTO{
-  Id:number,
+  id:number,
   email:string,
   userName:string,
   price:number,
   title:string,
   description:string,
-  Authority:number,
+  authority:number,
   address:string,
   category:number
 }

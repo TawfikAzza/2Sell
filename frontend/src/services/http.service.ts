@@ -27,6 +27,59 @@ export class HttpService {
   currentUserEmail: any;
   result: postDTO[] = [];
 
+
+  post1:postDTO = {
+    id:1,
+    email: 'email',
+    userName:'username',
+    price: 22.15,
+    title: 'titleofpost',
+    description: 'description of the post that is pret of the post that is pretended to be ',
+    authority: 1,
+    address: 'some address 23',
+    category: 2
+  };
+
+  post2:postDTO = {
+    id:1,
+    email: 'email2',
+    userName:'username2',
+    price: 33.15,
+    title: 'titleofpost2',
+    description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
+    authority: 3,
+    address: 'some 222 address 23',
+    category: 3
+  };
+
+  post3:postDTO = {
+    id:1,
+    email: 'email2',
+    userName:'username2',
+    price: 33.15,
+    title: 'titleofpost2',
+    description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
+    authority: 3,
+    address: 'some 222 address 23',
+    category: 3
+  };
+
+  post4:postDTO = {
+    id:1,
+    email: 'email2',
+    userName:'username2',
+    price: 33.15,
+    title: 'titleofpost2',
+    description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
+    authority: 3,
+    address: 'some 222 address 23',
+    category: 3
+  };
+
+  allPost: postDTO[] = [this.post1,
+  this.post2, this.post3, this.post4];
+
+
   constructor(public matSnackbar: MatSnackBar,
               private router: Router,
 
@@ -79,12 +132,19 @@ export class HttpService {
     return petition;
   }
 
+  async getAllPost():Promise<postDTO>{
+    let petition = await customAxios.get('WebShop/GetAllPosts');
+    this.allPost = petition.data;
+    return petition.data;
+  }
+
 
 
   async getPost(id: number):Promise<postDTO> {
     let petition = await customAxios.get('WebShop/ViewPost/'+id);
     return petition.data;
   }
+
   async uploadFile(file: FormData) {
 
       const config = {
