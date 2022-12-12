@@ -8,7 +8,8 @@ import {HttpClient, HttpEventType} from "@angular/common/http";
 import {finalize, Subscription} from "rxjs";
 import {customAxios} from "../../services/http.service";
 import {environment} from "../../environments/environment";
-
+import * as filestack from 'filestack-js';
+import {PickerFileMetadata} from "filestack-js";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit {
     console.log("current user : "+this.currentUser.email);
     // this.email = this.currentUser.then(cu=> cu.email);
   }
+
  async getUserFromEmail(){
     let email = "user";
     //const result = "";
@@ -299,5 +301,23 @@ export class ProfileComponent implements OnInit {
       return 'Please enter a value'
     }
     return 'Enter a valid user name';
+  }
+  url:string="";
+  async uploadImageTest() {
+    let test:any;
+    const client = filestack.init('AzwS9T9PFRpW1fLDaalWgz');
+    const options = {
+      onFileUploadFinished(file: any){
+
+        console.log("Url"+file.url);
+        return file;
+      },
+      onUploadDone() {
+        return ;
+      }
+    }
+
+    test = await client.picker(options).open();
+
   }
 }
