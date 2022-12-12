@@ -1,5 +1,5 @@
 .wrapper {
-margin-top: 20px;
+  margin-top: 20px;
 }
 
 .categories-bar {
@@ -12,7 +12,7 @@ margin-top: 20px;
 .post-feed {
   width: 75%;
   float: right;
-  margin-right: 5px;
+  margin-right: 20px;
   height: auto;
 }
 

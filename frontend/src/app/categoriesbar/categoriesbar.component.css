@@ -1,9 +1,11 @@
 .wrapper{
-  background: orange;
+  background: #E2711D;
   border-radius: 10px;
   overflow: hidden;
   text-align: left;
   width: auto;
+  color: white;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 .filter-wrapper{
@@ -13,11 +15,12 @@
 .filter-title{
   font-size: 20px;
   padding-left: 15px;
+  text-align: center;
 }
 
 .filter-categories mat-expansion-panel{
-  background: orange;
-  color: black;
+  background: #E2711D;
+  color: white;
   box-shadow: none;
 }
 
@@ -49,6 +52,13 @@ mat-slider {
   text-align:center;
 }
 
-.price-min-max input{
+.search-button{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
+.mat-button, .mat-icon-button, .mat-stroked-button {
+  color: black;
+  background: white;
 }

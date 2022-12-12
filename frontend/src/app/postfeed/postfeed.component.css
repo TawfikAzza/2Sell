@@ -1,11 +1,21 @@
 .wrapper {
-  background: green;
+  background: transparent;
   border-radius: 10px;
 }
 
 .example-card {
   margin-bottom: 20px;
   min-height: 250px;
+  background: transparent;
+  color: black
+}
+
+.example-card:hover{
+  background: #f8f8ff;
+}
+
+.mat-card-subtitle{
+  color: black
 }
 
 .post-header {
@@ -13,16 +23,27 @@
 }
 
 .post-body {
-  background: black;
+  background: transparent;
   height: auto;
   display: flex;
 }
 
-.img {
+.post-body img {
   height: 200px;
   width: 200px;
-
   float: left;
+}
+
+.post-body ul{
+  list-style-type: none;
+  margin: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.post-body li{
+  margin-top: 20px;
 }
 
 mat-catd-content img {
@@ -33,5 +54,14 @@ mat-catd-content img {
 mat-catd-content ul{
   width: 70%;
   float: left;
+}
 
+.address-price{
+  font: 400 18px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button {
+  margin-top: 20px;
+  color: black;
+  background: green;
 }
