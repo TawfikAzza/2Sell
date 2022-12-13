@@ -47,7 +47,7 @@ export class NewpostComponent implements OnInit {
         circle: true,
         rotate: true
       },
-      maxFiles:6,
+      maxFiles:1,
       onUploadDone: (res:PickerResponse)=> {
         let stringTmp="";
         for(let i=0; i<res.filesUploaded.length;i++) {
