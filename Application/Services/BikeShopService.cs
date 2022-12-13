@@ -75,6 +75,7 @@ public class BikeShopService : IBikeShopService
             postDto.Title = post.Title;
             postDto.Address = hashUsers[post.UserId].Address;
             postDto.Description = post.Description;
+            postDto.Img = post.Img;
             postsFormated.Add(postDto);
         }
 
@@ -115,6 +116,7 @@ public class BikeShopService : IBikeShopService
             postDto.Address = user.Address;
             postDto.Description = post.Description;
             postDto.Category = post.Category;
+            postDto.Img = post.Img;
             postsFormated.Add(postDto);
         }
         return postsFormated;
@@ -221,7 +223,8 @@ public class BikeShopService : IBikeShopService
                 Email = hashUsers[post.UserId].Email,
                 Price = post.Price,
                 Title = post.Title,
-                UserName = hashUsers[post.UserId].userName
+                UserName = hashUsers[post.UserId].userName,
+                Img = post.Img
             };
             listPostDTO.Add(postDto);
         }
