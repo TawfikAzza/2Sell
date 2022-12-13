@@ -36,7 +36,7 @@ export class ViewpostComponent implements OnInit {
       this.currentPost= tmp;
       this.listImg = this.currentPost.img.split("#");
 
-      
+
       return this.currentPost;
   }
 }
