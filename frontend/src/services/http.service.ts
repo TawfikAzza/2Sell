@@ -5,8 +5,17 @@ import {catchError, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
-import {filterSearchDTO, loginDTO, registerDTO, postDTO, createPostDTO} from "../entities/entities";
+import {
+  filterSearchDTO,
+  loginDTO,
+  registerDTO,
+  postDTO,
+  createPostDTO,
+  sessionToken,
+  UserProperties
+} from "../entities/entities";
 import {PostfeedComponent} from "../app/postfeed/postfeed.component";
+import jwtDecode from "jwt-decode";
 
 
 
@@ -166,5 +175,29 @@ export class HttpService {
       let stringData = JSON.stringify(createdPost);
     console.log("string :",stringData);
       await customAxios.post("WebShop/CreatePost",createdPost);
+  }
+
+  getUserProperties(item: string | null):UserProperties {
+    let userProperties:UserProperties={
+      userName:"",
+      email:"",
+      roleId:1
+    };
+    if(item==null){
+      this.router.navigate(['login']);
+    }
+    if (item != null) {
+      let decodedToken = jwtDecode(item) as sessionToken;
+      if (decodedToken.userName != null) {
+        userProperties.userName = decodedToken.userName;
+      }
+      if (decodedToken.email != null) {
+        userProperties.email = decodedToken.email;
+      }
+      if (decodedToken.role != null) {
+        userProperties.roleId = decodedToken.role;
+      }
+    }
+    return userProperties;
   }
 }

@@ -38,6 +38,8 @@ export interface createPostDTO {
 export interface sessionToken{
   expDate?: number;
   role?: number;
+  userName?:string;
+  email?:string;
 }
 
 export interface Category{
@@ -74,5 +76,10 @@ export interface searchDTO{
 export interface filterSearchDTO{
   operationType: number,
   dto: categoryDTO | priceDTO | catPriceDTO | searchDTO
+}
+export interface UserProperties{
+  userName:string,
+  email:string,
+  roleId:number
 }
 

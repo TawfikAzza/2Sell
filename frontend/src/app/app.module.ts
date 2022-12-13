@@ -44,7 +44,7 @@ const routes: Routes = [
     path: 'navbartest', component: NavbarComponent
   },
   {
-    path: 'profile', component: ProfileComponent
+    path: 'profile', component: ProfileComponent, canActivate: [AuthguardService]
   },
   {
     path: 'viewpost', component: ViewpostComponent
