@@ -3,6 +3,7 @@ using API.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core;
+using FluentValidation.TestHelper;
 
 namespace Application.Services;
 
@@ -17,6 +18,9 @@ public class UserService :IUserService
     }
     public User CreateNewUser(User user)
     {
+        if (user.Img == "")
+            user.Img = "test";
+        Console.WriteLine("USER IMG:"+user.Img);
         return _userRepository.CreateNewUser(user);
     }
     private bool checkEmail(string email)
@@ -72,6 +76,10 @@ public class UserService :IUserService
         user.PostalCode = userToModify.PostalCode;
         user.PhoneNumber = userToModify.PhoneNumber;
         user.RoleId = userToModify.RoleId;
+        if (userToModify.Img != "")
+            user.Img = userToModify.Img;
+        else
+            user.Img = "";
         var saltBytes = RandomNumberGenerator.GetBytes(32);
         string salt = "";
         foreach (byte bit in saltBytes)

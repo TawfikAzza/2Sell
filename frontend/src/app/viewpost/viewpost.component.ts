@@ -20,18 +20,21 @@ export class ViewpostComponent implements OnInit {
     email:"",
     userName:"",
     address:"",
+    img:""
   };
-
+  listImg:string[]=[];
   constructor(public http: HttpService,
               public formBuilder:FormBuilder,
               private router:Router) { }
 
   ngOnInit() {
-    this.getPost(1);
+    this.getPost(3);
   }
 
   async getPost(id:number):Promise<postDTO>{
-
-    return this.currentPost = await this.http.getPost(id);
+      let tmp = await this.http.getPost(id);
+      this.currentPost= tmp;
+      this.listImg = this.currentPost.img.split("#");
+      return this.currentPost;
   }
 }

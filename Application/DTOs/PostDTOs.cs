@@ -11,6 +11,7 @@ public class PostDTO
     public int Authority { get; set; }
     public string Address { get; set; }
     public int Category { get; set; }
+    public string Img { get; set; }
 }
 
 public class CategoryDTO
@@ -60,4 +61,5 @@ public class CreatePostDTO
     public string Description { get; set; }
     public double Price { get; set; }
     public int Category { get; set; }
+    public string Img { get; set; }
 }

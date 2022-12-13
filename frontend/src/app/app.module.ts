@@ -28,6 +28,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { PostComponent } from './post/post.component';
+import { NewpostComponent } from './newpost/newpost.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,9 @@ const routes: Routes = [
     path: 'viewpost', component: ViewpostComponent
   },
   {
+    path: 'newpost', component: NewpostComponent
+  },
+  {
     path: 'post', component: PostComponent
   },
   {
@@ -67,7 +71,8 @@ const routes: Routes = [
     CategoriesbarComponent,
     PostfeedComponent,
     ViewpostComponent,
-    PostComponent
+    PostComponent,
+    NewpostComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

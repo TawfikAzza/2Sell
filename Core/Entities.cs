@@ -11,6 +11,7 @@ public class Post
     //Connection to User Table
     public int UserId { get; set; }
     public User User { get; set; } 
+    public string Img { get; set; }
 }
 
 public class User
@@ -27,7 +28,9 @@ public class User
     public string PhoneNumber { get; set; }
     public virtual List<Post>? Posts { get; set; }
     // public int RoleId { get; set; }
+    public string? Img { get; set; }
     public int RoleId { get; set; }
+    
     //public byte[] Image { get; set; }
     //public List<Roles>? Roles { get; set; }
 }

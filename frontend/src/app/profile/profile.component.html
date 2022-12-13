@@ -30,7 +30,7 @@
       <input type="file" (change)="upload($event)">
     </div>
     -->
-    <button mat-raised-button (click)="uploadImageTest()"> CLick to upload</button>
+    <button mat-raised-button (click)="uploadImageProfile()"> CLick to upload</button>
     <!-- <input type="file" class="file-input"
            (change)="onFileSelected($event)" #fileUpload>
     -->
@@ -43,7 +43,7 @@
 
       </button>
     </div>-->
-   <!-- <img width="150" height="100" src="assets/images/kng1iw1s.vxh.png">
+    <img width="150" height="100" src="{{currentUser.img}}"><!--
     <input type="file" class="file-input"
            [accept]="requiredFileType"
            (change)="onFileSelected($event)" #fileUpload>
@@ -115,6 +115,8 @@
     <button class="modify-button" mat-button (click)="modifyUser()" [disabled]="!modifyFormGroup.valid">
       Modify
     </button>
+
+    <button (click)="displayUser()">TEST</button>
   </form>
   </div>
   </div>
