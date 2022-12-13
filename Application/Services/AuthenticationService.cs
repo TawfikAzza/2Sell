@@ -86,6 +86,7 @@ public class AuthenticationService : IAuthenticationService
                 userName = dto.userName,
                 RoleId = Convert.ToInt32(dto.RoleId)
             };
+            user.Img = "";
         
             _userRepository.CreateNewUser(user);
             return GenerateToken(user);

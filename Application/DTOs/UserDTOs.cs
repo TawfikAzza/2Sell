@@ -19,6 +19,7 @@ public class RegisterDTO
     public string PostalCode { get; set; }
     public string PhoneNumber { get; set; }
     public int RoleId { get; set; }
+    public string? Img { get; set; }
 }
 
 public class UserDTO
@@ -31,4 +32,5 @@ public class UserDTO
     public string PostalCode { get; set; }
     public string PhoneNumber { get; set; }
     public int RoleId { get; set; }
+    public string Img { get; set; }
 }

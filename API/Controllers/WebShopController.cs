@@ -90,9 +90,26 @@ public class WebShopController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("CreatePost")]
-    public void CreatePost(CreatePostDTO dto)
+    public void CreatePost(CreatePostDTO createPostDto)
     {
-        _bikeShopService.CreatePost(dto);
+
+        /*StringValues titleValue="";
+        StringValues priceValue = "";
+        StringValues categoryValue = "";
+        StringValues descritpionValue = "";
+        StringValues imgValue = "";
+        Request.Form.TryGetValue("title", out titleValue);
+        Request.Form.TryGetValue("price", out priceValue);
+        Request.Form.TryGetValue("category", out categoryValue);
+        Request.Form.TryGetValue("description", out descritpionValue);
+        Request.Form.TryGetValue("img", out imgValue);
+        int price = Convert.ToInt32(priceValue);
+        int category = Convert.ToInt32(categoryValue);
+        Console.WriteLine("Title :"+titleValue+" price: "+price+" category : "+category+" description : "+descritpionValue
+        +" img : "+imgValue);*/
+        //Console.WriteLine("DTO"+dto.Img);
+        _bikeShopService.CreatePost(createPostDto);
+        //Console.WriteLine("DTO :"+createPostDto.Email);
     }
 
     [AllowAnonymous]

@@ -7,6 +7,7 @@ export interface registerDTO{
   address:string,
   postalCode:string,
   phoneNumber:string,
+  img?:string,
   roleID:number
 }
 
@@ -24,6 +25,15 @@ export interface postDTO{
   authority:number,
   address:string,
   category:number
+  img:string
+}
+export interface createPostDTO {
+  Email:string,
+  Title: string,
+  Description: string,
+  Price: number,
+  Category: number,
+  Img:string
 }
 export interface sessionToken{
   expDate?: number;

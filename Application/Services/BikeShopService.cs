@@ -140,7 +140,8 @@ public class BikeShopService : IBikeShopService
             Description = dto.Description,
             Price = dto.Price,
             Category = dto.Category,
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Img = dto.Img
         };
         _bikeShopRepository.CreatePost(post);
     }
@@ -176,7 +177,8 @@ public class BikeShopService : IBikeShopService
             Email = user.Email,
             Price = postSearched.Price,
             Title = postSearched.Title,
-            UserName = user.userName
+            UserName = user.userName,
+            Img = postSearched.Img
         };
         return postDto;
     }

@@ -30,9 +30,10 @@
       <input type="file" (change)="upload($event)">
     </div>
     -->
-    <input type="file" class="file-input"
+    <button mat-raised-button (click)="uploadImageProfile()"> CLick to upload</button>
+    <!-- <input type="file" class="file-input"
            (change)="onFileSelected($event)" #fileUpload>
-
+    -->
    <!-- <div class="file-upload">
 
       {{fileName || "No file uploaded yet."}}
@@ -42,7 +43,7 @@
 
       </button>
     </div>-->
-    <img width="150" height="100" src="assets/images/kng1iw1s.vxh.png">
+    <img width="150" height="100" src="{{currentUser.img}}"><!--
     <input type="file" class="file-input"
            [accept]="requiredFileType"
            (change)="onFileSelected($event)" #fileUpload>
@@ -69,7 +70,7 @@
       <mat-icon class="cancel-upload" (click)="cancelUpload()"
                 *ngIf="uploadProgress">delete_forever</mat-icon>
 
-    </div>
+    </div>-->
     <div class="input-group">
       <mat-form-field appearance="outline">
         <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
@@ -114,6 +115,8 @@
     <button class="modify-button" mat-button (click)="modifyUser()" [disabled]="!modifyFormGroup.valid">
       Modify
     </button>
+
+    <button (click)="displayUser()">TEST</button>
   </form>
   </div>
   </div>
