@@ -44,13 +44,13 @@ const routes: Routes = [
     path: 'navbartest', component: NavbarComponent
   },
   {
-    path: 'profile', component: ProfileComponent, canActivate: [AuthguardService]
+    path: 'profile', component: ProfileComponent , canActivate: [AuthguardService]
   },
   {
     path: 'viewpost', component: ViewpostComponent
   },
   {
-    path: 'newpost', component: NewpostComponent
+    path: 'newpost', component: NewpostComponent, canActivate: [AuthguardService]
   },
   {
     path: '**', redirectTo: 'mainPage'

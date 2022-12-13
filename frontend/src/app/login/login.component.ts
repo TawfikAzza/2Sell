@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
 
   async login() {
     let dto: loginDTO = {
-      email: this.emailModel,
-      password: this.passwordModel
+      Email: this.emailModel,
+      Password: this.passwordModel
     }
     await this.http.login(dto)
       .then(()=>this.router.navigate(['mainPage']))

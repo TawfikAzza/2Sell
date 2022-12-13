@@ -22,8 +22,9 @@ public class AuthController : ControllerBase
     }
     [HttpPost]
     [Route("login")]
-    public IActionResult Login(LoginDTO dto)
+    public IActionResult Login([FromBody] LoginDTO dto)
     {
+        Console.WriteLine("Login: "+dto.Email+" pass: "+dto.Password);
         try
         {
             return Ok(_auth.Login(dto));
