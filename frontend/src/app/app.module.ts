@@ -27,7 +27,6 @@ import { ViewpostComponent } from './viewpost/viewpost.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
   {
@@ -49,9 +48,6 @@ const routes: Routes = [
     path: 'viewpost', component: ViewpostComponent
   },
   {
-    path: 'post', component: PostComponent
-  },
-  {
     path: '**', redirectTo: 'mainPage'
   }
 ]
@@ -66,8 +62,7 @@ const routes: Routes = [
     ProfileComponent,
     CategoriesbarComponent,
     PostfeedComponent,
-    ViewpostComponent,
-    PostComponent
+    ViewpostComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -1,3 +1,4 @@
+<!---
 <p>
   {{currentPost.title}}
 </p>
@@ -7,5 +8,20 @@
 <p>
   {{currentPost.description}}
 </p>
+
+--->
+
+<div class="wrapper">
+  <div class="view-post">
+    <div>
+      <img class="mainImg" src="" alt="">
+      <div class="imgPicker" *ngFor="let img of this.currentPost.img">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
