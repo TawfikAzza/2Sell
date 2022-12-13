@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     phoneNumber:"",
     postalCode:"",
     img:"",
-    roleID:1
+    roleId:1
   };
   userProperties:UserProperties={
     email:"",

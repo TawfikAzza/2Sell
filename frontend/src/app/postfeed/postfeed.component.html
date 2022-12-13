@@ -24,8 +24,8 @@
               <li>{{post.description}}</li>
             </div>
           </div>
-          <a class="active" href="/viewpost?id={{post.id}}">See post</a>
-          <button mat-button>See post</button>
+          <!--<a class="active" href="/viewpost?id={{post.id}}">See post</a>-->
+          <button mat-button routerLink="/viewpost" [queryParams]="{id:post.id}">See post</button>
         </ul>
 
       </div>

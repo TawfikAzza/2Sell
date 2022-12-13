@@ -11,4 +11,5 @@ public interface IUserRepository
     User UpdateUser(User user);
     bool CheckUserName(RegisterDTO userName);
     List<User> GetAllUsers();
+    void changeBanStatus(string email);
 }

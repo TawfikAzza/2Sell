@@ -12,7 +12,8 @@ export class MainpageComponent implements OnInit {
   constructor(private http: HttpService) { }
 
   ngOnInit(): void {
-    console.log("Data ",this.http.result)
+    console.log("Data ",this.http.result);
+    this.http.getAllPost();
     //console.log(categories[0]);
   }
 }

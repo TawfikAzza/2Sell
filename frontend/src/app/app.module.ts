@@ -28,9 +28,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { NewpostComponent } from './newpost/newpost.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import {MatListModule} from "@angular/material/list";
 
 
 const routes: Routes = [
+  {
+    path: 'admin-panel', component: AdminPanelComponent
+  },
   {
     path: 'register', component: RegisterComponent
   },
@@ -68,26 +73,28 @@ const routes: Routes = [
     CategoriesbarComponent,
     PostfeedComponent,
     ViewpostComponent,
-    NewpostComponent
+    NewpostComponent,
+    AdminPanelComponent
   ],
-  imports: [
-    RouterModule.forRoot(routes),
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
-    MatSliderModule,
-    FormsModule,
-    MatExpansionModule,
-    HttpClientModule,
-    MatIconModule,
-    MatProgressBarModule
-  ],
+    imports: [
+        RouterModule.forRoot(routes),
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatCheckboxModule,
+        MatSliderModule,
+        FormsModule,
+        MatExpansionModule,
+        HttpClientModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatListModule
+    ],
   providers: [PostfeedComponent],
   bootstrap: [AppComponent]
 })

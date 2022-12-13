@@ -70,7 +70,7 @@ public class WebShopController : ControllerBase
         Console.WriteLine("Update Profile:"+dto.FirstName);
         return Ok(_userService.UpdateUser(dto));
     }
-
+    
     [AllowAnonymous]
     [HttpGet]
     [Route("GetAllPostsFromUser/{username}")]
@@ -93,23 +93,9 @@ public class WebShopController : ControllerBase
     public void CreatePost(CreatePostDTO createPostDto)
     {
 
-        /*StringValues titleValue="";
-        StringValues priceValue = "";
-        StringValues categoryValue = "";
-        StringValues descritpionValue = "";
-        StringValues imgValue = "";
-        Request.Form.TryGetValue("title", out titleValue);
-        Request.Form.TryGetValue("price", out priceValue);
-        Request.Form.TryGetValue("category", out categoryValue);
-        Request.Form.TryGetValue("description", out descritpionValue);
-        Request.Form.TryGetValue("img", out imgValue);
-        int price = Convert.ToInt32(priceValue);
-        int category = Convert.ToInt32(categoryValue);
-        Console.WriteLine("Title :"+titleValue+" price: "+price+" category : "+category+" description : "+descritpionValue
-        +" img : "+imgValue);*/
-        //Console.WriteLine("DTO"+dto.Img);
+        
         _bikeShopService.CreatePost(createPostDto);
-        //Console.WriteLine("DTO :"+createPostDto.Email);
+
     }
 
     [AllowAnonymous]
@@ -176,5 +162,22 @@ public class WebShopController : ControllerBase
             await file.CopyToAsync(stream);
         }
         return Ok(true);
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("ChangeBanStatus")]
+    public void BanUser([FromBody] string email)
+    {
+        if (email != "")
+        {
+            _userService.changeBanStatus(email);
+        }
+        else
+        {
+            BadRequest("Email incorrect");
+        }
+
+
     }
 }

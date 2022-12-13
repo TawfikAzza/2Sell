@@ -124,6 +124,7 @@ public class BikeShopService : IBikeShopService
 
     public void CreatePost(CreatePostDTO dto)
     {
+        Console.WriteLine("DTO: "+dto.Email);
         Console.WriteLine("dto: "+dto.Description);
         User user = new User();
         try
