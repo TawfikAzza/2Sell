@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     lastName:"",
     phoneNumber:"",
     postalCode:"",
+    img:"",
     roleID:1
   };
   pageMode = 'view';
@@ -45,6 +46,8 @@ export class ProfileComponent implements OnInit {
               private httpC: HttpClient) { }
 
   async ngOnInit() {
+    let token = localStorage.getItem('sessionToken');
+    this.http.getUserProperties(localStorage.getItem('sessionToken'));
     this.getUserFromEmail();
     //const tmpUser = await this.getUserFromEmail("test");
     //this.currentUser= await this.getUserFromEmail();
@@ -66,10 +69,8 @@ export class ProfileComponent implements OnInit {
 
  async getUserFromEmail(){
     let email = "user";
-    //const result = "";
+
     this.currentUser = await this.http.getUserByEmail(email);
-    //console.log("result:",result);
-    //return result;
  }
 
 
