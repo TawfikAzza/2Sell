@@ -19,13 +19,15 @@ export class AuthguardService implements CanActivate {
     if (token) {
       let decodedToken = jwtDecode(token) as sessionToken;
       let currentDate = new Date();
-      if (decodedToken.expDate) {
-        let expDate = new Date(decodedToken.expDate * 1000);
+      console.log("exp date: ",decodedToken.exp)
+      if (decodedToken.exp) {
+        let expDate = new Date(decodedToken.exp * 1000);
         if (currentDate < expDate && decodedToken.role == 1) {
           return true;
         }
       }
     } else this.router.navigate(['login']);
+    console.log("out of loop",token);
     return false;
   }
 }

@@ -87,7 +87,7 @@ public class UserService :IUserService
             salt += bit;
         }
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userToModify.Password + salt);
-        
+        user.Salt = salt;
         User userUpdated =  _userRepository.UpdateUser(user);
         RegisterDTO userDto = _mapper.Map<User, RegisterDTO>(userUpdated);
         return userDto;
