@@ -8,7 +8,8 @@ import {HttpClient, HttpEventType} from "@angular/common/http";
 import {finalize, Subscription} from "rxjs";
 import {customAxios} from "../../services/http.service";
 import {environment} from "../../environments/environment";
-
+import * as filestack from 'filestack-js';
+import {PickerFileMetadata, PickerResponse} from "filestack-js";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
     lastName:"",
     phoneNumber:"",
     postalCode:"",
+    img:"",
     roleID:1
   };
   pageMode = 'view';
@@ -44,6 +46,8 @@ export class ProfileComponent implements OnInit {
               private httpC: HttpClient) { }
 
   async ngOnInit() {
+    let token = localStorage.getItem('sessionToken');
+    this.http.getUserProperties(localStorage.getItem('sessionToken'));
     this.getUserFromEmail();
     //const tmpUser = await this.getUserFromEmail("test");
     //this.currentUser= await this.getUserFromEmail();
@@ -62,12 +66,11 @@ export class ProfileComponent implements OnInit {
     console.log("current user : "+this.currentUser.email);
     // this.email = this.currentUser.then(cu=> cu.email);
   }
+
  async getUserFromEmail(){
     let email = "user";
-    //const result = "";
+
     this.currentUser = await this.http.getUserByEmail(email);
-    //console.log("result:",result);
-    //return result;
  }
 
 
@@ -230,6 +233,7 @@ export class ProfileComponent implements OnInit {
       address: this.addressModel.trim(),
       postalCode: this.postalCodeModel.trim(),
       phoneNumber: this.phoneNumberModel.trim(),
+      img:this.currentUser.img,
       roleID: 1
     }
    console.log(dto);
@@ -299,5 +303,30 @@ export class ProfileComponent implements OnInit {
       return 'Please enter a value'
     }
     return 'Enter a valid user name';
+  }
+  url:string="";
+  async uploadImageProfile() {
+    let test:PickerResponse;
+    const client = filestack.init('AzwS9T9PFRpW1fLDaalWgz');
+    const options = {
+      transformations: {
+        crop: false,
+        circle: true,
+        rotate: true
+      },
+      maxFiles:1,
+      onUploadDone: (res:PickerResponse)=> {
+          test = res;
+          for(let i=0; i<res.filesUploaded.length;i++) {
+            console.log("res:",res.filesUploaded[i].handle);
+            this.currentUser.img = res.filesUploaded[i].url.toString();
+          }
+      }
+    }
+    client.picker(options).open();
+  }
+
+  displayUser() {
+    console.log(this.currentUser.img)
   }
 }

@@ -27,6 +27,8 @@ import { ViewpostComponent } from './viewpost/viewpost.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { NewpostComponent } from './newpost/newpost.component';
+
 
 const routes: Routes = [
   {
@@ -42,10 +44,13 @@ const routes: Routes = [
     path: 'navbartest', component: NavbarComponent
   },
   {
-    path: 'profile', component: ProfileComponent
+    path: 'profile', component: ProfileComponent, canActivate: [AuthguardService]
   },
   {
     path: 'viewpost', component: ViewpostComponent
+  },
+  {
+    path: 'newpost', component: NewpostComponent
   },
   {
     path: '**', redirectTo: 'mainPage'
@@ -62,7 +67,8 @@ const routes: Routes = [
     ProfileComponent,
     CategoriesbarComponent,
     PostfeedComponent,
-    ViewpostComponent
+    ViewpostComponent,
+    NewpostComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

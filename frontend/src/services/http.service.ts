@@ -5,8 +5,17 @@ import {catchError, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
-import {filterSearchDTO, loginDTO, registerDTO,postDTO} from "../entities/entities";
+import {
+  filterSearchDTO,
+  loginDTO,
+  registerDTO,
+  postDTO,
+  createPostDTO,
+  sessionToken,
+  UserProperties
+} from "../entities/entities";
 import {PostfeedComponent} from "../app/postfeed/postfeed.component";
+import jwtDecode from "jwt-decode";
 
 
 
@@ -37,7 +46,8 @@ export class HttpService {
     description: 'description of the post that is pret of the post that is pretended to be ',
     authority: 1,
     address: 'some address 23',
-    category: 2
+    category: 2,
+    img:""
   };
 
   post2:postDTO = {
@@ -49,7 +59,8 @@ export class HttpService {
     description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescriptiscription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
     authority: 3,
     address: 'some 222 address 23',
-    category: 3
+    category: 3,
+    img:""
   };
 
   post3:postDTO = {
@@ -61,7 +72,8 @@ export class HttpService {
     description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
     authority: 3,
     address: 'some 222 address 23',
-    category: 3
+    category: 3,
+    img:""
   };
 
   post4:postDTO = {
@@ -73,7 +85,8 @@ export class HttpService {
     description: 'description of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fitdescription of the post that is pretended 22222 to be so long that it doesnt even fit',
     authority: 3,
     address: 'some 222 address 23',
-    category: 3
+    category: 3,
+    img:""
   };
 
   allPost: postDTO[] = [this.post1,
@@ -153,11 +166,38 @@ export class HttpService {
 
         }
       };
-
-
       console.log("file",file.get('data') );
       let petition = await customAxios.post('WebShop/UploadFile/', file,config);
       return petition.data;
   }
 
+  async CreatePost(createdPost: createPostDTO) {
+      let stringData = JSON.stringify(createdPost);
+    console.log("string :",stringData);
+      await customAxios.post("WebShop/CreatePost",createdPost);
+  }
+
+  getUserProperties(item: string | null):UserProperties {
+    let userProperties:UserProperties={
+      userName:"",
+      email:"",
+      roleId:1
+    };
+    if(item==null){
+      this.router.navigate(['login']);
+    }
+    if (item != null) {
+      let decodedToken = jwtDecode(item) as sessionToken;
+      if (decodedToken.userName != null) {
+        userProperties.userName = decodedToken.userName;
+      }
+      if (decodedToken.email != null) {
+        userProperties.email = decodedToken.email;
+      }
+      if (decodedToken.role != null) {
+        userProperties.roleId = decodedToken.role;
+      }
+    }
+    return userProperties;
+  }
 }

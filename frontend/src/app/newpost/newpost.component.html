@@ -1,0 +1,13 @@
+
+<mat-label>Title : </mat-label>
+<input matInput id="title" [(ngModel)]="title" placeholder="title"><br>
+<mat-label>Description : </mat-label>
+<textarea matInput id="description" [(ngModel)]="description" placeholder="description"></textarea><br>
+<mat-label>Price : </mat-label>
+<input matInput id="Price" [(ngModel)]="price" placeholder="price"><br>
+<mat-label>Category : </mat-label>
+<input matInput id="Category" [(ngModel)]="category" placeholder="category"><br>
+<button mat-raised-button (click)="uploadImages()"> CLick to upload your bike Images</button><br>
+
+<button mat-raised-button (click)="CreatePost()">Create Post</button>
+
