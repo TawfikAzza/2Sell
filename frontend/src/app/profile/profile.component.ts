@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {registerDTO} from "../../entities/entities";
+import {registerDTO, UserProperties} from "../../entities/entities";
 import {HttpService} from "../../services/http.service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -44,33 +44,23 @@ export class ProfileComponent implements OnInit {
               public formBuilder:FormBuilder,
               private router:Router,
               private httpC: HttpClient) { }
-
+  userProperties:UserProperties={
+    email:"",
+    userName:"",
+    roleId:1
+  }
   async ngOnInit() {
     let token = localStorage.getItem('sessionToken');
-    this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    this.getUserFromEmail();
-    //const tmpUser = await this.getUserFromEmail("test");
-    //this.currentUser= await this.getUserFromEmail();
-    // this.currentUser = tmpUser;
-    /*this.currentUser= {
-      email:tmpUser.email,
-      userName:tmpUser.userName,
-      firstName:tmpUser.firstName,
-      lastName:tmpUser.lastName,
-      address:tmpUser.address,
-      password:tmpUser.password,
-      postalCode:tmpUser.postalCode,
-      phoneNumber:tmpUser.phoneNumber,
-      roleID:tmpUser.roleID
-    }*/
-    console.log("current user : "+this.currentUser.email);
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+    console.log("email: ",this.userProperties.email);
+    this.currentUser = await this.http.getUserByEmail(this.userProperties.email);//this.getUserFromEmail(this.userProperties.email);
     // this.email = this.currentUser.then(cu=> cu.email);
   }
 
- async getUserFromEmail(){
-    let email = "user";
-
+ async getUserFromEmail(email:string){
     this.currentUser = await this.http.getUserByEmail(email);
+    console.log("current user : "+this.currentUser.email);
  }
 
 

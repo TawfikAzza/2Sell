@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {registerDTO, UserProperties} from "../../entities/entities";
+import {HttpService} from "../../services/http.service";
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,29 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router:Router) { }
-
-  ngOnInit(): void {
+  constructor(private router:Router,
+              private http:HttpService) { }
+  currentUser:registerDTO = {
+    email:"",
+    password:"",
+    userName:"",
+    address:"",
+    firstName:"",
+    lastName:"",
+    phoneNumber:"",
+    postalCode:"",
+    img:"",
+    roleID:1
+  };
+  userProperties:UserProperties={
+    email:"",
+    userName:"",
+    roleId:1
+  }
+  async ngOnInit(): Promise<void> {
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+    this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
   }
 
   async navigateMainPage() {
@@ -23,5 +45,9 @@ export class NavbarComponent implements OnInit {
 
   async navigateUserPosts() {
     await this.router.navigate(['myPosts'])
+  }
+
+  logout() {
+    localStorage.setItem('sessionToken',"");
   }
 }

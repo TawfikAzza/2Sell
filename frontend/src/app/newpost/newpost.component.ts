@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as filestack from "filestack-js";
 import {PickerResponse} from "filestack-js";
 import {HttpService} from "../../services/http.service";
-import {createPostDTO} from "../../entities/entities";
+import {createPostDTO, registerDTO, UserProperties} from "../../entities/entities";
 
 @Component({
   selector: 'app-newpost',
@@ -16,8 +16,27 @@ export class NewpostComponent implements OnInit {
   category: number=0;
   img:string="";
   constructor(private http:HttpService) { }
-
-  ngOnInit(): void {
+  userProperties:UserProperties={
+    email:"",
+    userName:"",
+    roleId:1
+  }
+  currentUser:registerDTO = {
+    email:"",
+    password:"",
+    userName:"",
+    address:"",
+    firstName:"",
+    lastName:"",
+    phoneNumber:"",
+    postalCode:"",
+    img:"",
+    roleID:1
+  };
+  async ngOnInit(): Promise<void> {
+    let token = localStorage.getItem('sessionToken');
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+    this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
   }
 
   uploadImages() {

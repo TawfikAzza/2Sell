@@ -121,6 +121,7 @@ public class AuthenticationService : IAuthenticationService
     public string Login(LoginDTO dto)
     {
         var user = _userRepository.GetUserByEmail(dto.Email);
+        Console.WriteLine("In Auth Service :" + dto.Email);
         if (BCrypt.Net.BCrypt.Verify(dto.Password + user.Salt, user.PasswordHash))
         {
             return GenerateToken(user);
@@ -151,12 +152,14 @@ public class AuthenticationService : IAuthenticationService
         Console.WriteLine("User role Id"+user.RoleId);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[]
-                { new Claim("email", user.Email), 
-                    new Claim(ClaimTypes.Role, user.RoleId.ToString()),
-                    new Claim("userName",user.userName)
-                }),
+            
             Expires = DateTime.UtcNow.AddDays(7),
+            Subject = new ClaimsIdentity(new[]
+            { new Claim("email", user.Email), 
+                new Claim(ClaimTypes.Role, user.RoleId.ToString()),
+                new Claim("userName",user.userName),
+                new Claim("expDate",DateTime.UtcNow.AddDays(7).ToString())
+            }),
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)
         };

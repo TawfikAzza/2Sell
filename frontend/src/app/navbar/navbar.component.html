@@ -4,9 +4,9 @@
       <li><a class="default" href="/mainPage">Main page</a></li>
       <li><a class="default" href="/profile">My profile</a></li>
       <li><a class="default" href="/myPosts">My posts</a></li>
-      <li style="float:right"><a class="active" href="/login">Login</a></li>
-      <li style="float:right"><a class="active" href="/register">Register</a></li>
-      <li style="float:right"><a class="active" href="/post">post</a></li>
+      <li *ngIf="currentUser.userName!=''" style="float:right"><a class="active" (click)="logout()" href="/logout">logout</a></li>
+      <li *ngIf="currentUser.userName==''" style="float:right"><a class="active" href="/login">Login</a></li>
+      <li *ngIf="currentUser.userName==''" style="float:right"><a class="active" href="/register">Register</a></li>
     </ul>
   </nav>
 </div>

@@ -12,8 +12,8 @@ export interface registerDTO{
 }
 
 export interface loginDTO{
-  email: string,
-  password: string
+  Email: string,
+  Password: string
 }
 export interface postDTO{
   id:number,
@@ -36,7 +36,7 @@ export interface createPostDTO {
   Img:string
 }
 export interface sessionToken{
-  expDate?: number;
+  exp?: number;
   role?: number;
   userName?:string;
   email?:string;
