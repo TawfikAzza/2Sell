@@ -35,6 +35,8 @@ export class ViewpostComponent implements OnInit {
       let tmp = await this.http.getPost(id);
       this.currentPost= tmp;
       this.listImg = this.currentPost.img.split("#");
+
+      
       return this.currentPost;
   }
 }
