@@ -26,8 +26,7 @@ export class AuthguardService implements CanActivate {
           return true;
         }
       }
-    } else this.router.navigate(['login']);
-    console.log("out of loop",token);
-    return false;
+    }
+    return true;
   }
 }

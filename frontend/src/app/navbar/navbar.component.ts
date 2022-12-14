@@ -30,9 +30,12 @@ export class NavbarComponent implements OnInit {
     roleId:1
   }
   async ngOnInit(): Promise<void> {
-    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
+    if(localStorage.getItem('sessionToken')!="") {
+      this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+      this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+      //this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
+    }
+    console.log("Nav BAr")
   }
 
   async navigateMainPage() {
@@ -49,5 +52,9 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.setItem('sessionToken',"");
+  }
+
+  goToRegister() {
+    this.router.navigate(['./register'])
   }
 }

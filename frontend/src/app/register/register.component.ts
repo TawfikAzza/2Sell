@@ -16,6 +16,7 @@ export class RegisterComponent {
   constructor(public formBuilder: FormBuilder,
               public http: HttpService,
               private router: Router) {
+    debugger;
 
   }
 
@@ -100,8 +101,8 @@ export class RegisterComponent {
       roleId: 1
     }
     console.log(dto);
-    await this.http.register(dto)
-      .then(()=>this.router.navigate(['mainPage']))
+   /* await this.http.register(dto)
+      .then(()=>this.router.navigate(['mainPage']))*/
   }
 
   getEmailErrorMessage() {

@@ -49,6 +49,7 @@ export class HttpService {
     let petition = await customAxios.get('WebShop/GetUserByEmail/'+email);
     console.log("petition",petition.data);
     return petition.data;
+
   }
   async register(param: registerDTO) {
     let petition = await customAxios.post('auth/register', param);
