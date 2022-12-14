@@ -1,8 +1,28 @@
+.full-screen-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper{
+  background: #e2711d;
+  width: 60%;
+  text-align: center;
+  border-radius: 30px;
+}
+
 .register-wrapper{
   padding: 20px 20px 20px;
-  background: white;
+  background: transparent;
   display: block;
-  text-align: center;
+}
+
+h1{
+  color: white;
+}
+
+h2{
+  color: white;
 }
 
 .input-group{
@@ -16,59 +36,26 @@
 .input-group h4{
   width: 10%;
   text-align: left;
-
   padding-right: 40px;
-  color: black;
+  color: white;
 }
 .input-group mat-form-field{
-  width: 40%;
-  color: black;
+  width: 60%;
+  color: white;
 }
 
-:host .mat-form-field .mat-input-element {
-  color: gray;
-}
-:host .mat-form-field .mat-form-field-label {
-  color: gray!important;
-}
-:host .mat-form-field .mat-form-field-underline {
-  background-color: slategray;
-}
-:host .mat-form-field .mat-form-field-ripple {
-  background-color: slategray;
-}
-:host .mat-form-field .mat-form-field-required-marker {
-  color: slategray;
+.mat-error{
+  color: #dc0d1f;
 }
 
-
-:host .mat-form-field.mat-focused .mat-form-field-label {
-  color: green!important;
-}
-:host .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: green;
-}
-:host .mat-form-field.mat-focused .mat-form-field-required-marker {
-  color: green;
-}
-:host  .mat-form-field.mat-focused .mat-input-element {
-  color: green;
+.register-button{
+  width: 75%;
+  background: white;
+  color: orange;
 }
 
-
-
-:host .mat-form-field.mat-form-field-invalid .mat-input-element {
-  color: red;
+.register-button :hover{
+  background: #FFF5EE;
 }
-:host .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-  color: red!important;
-}
-:host .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
-  color: red;
-}
-:host .mat-form-field.mat-form-field-invalid .mat-form-field-ripple {
-  background-color: red;
-}
-
 
 
