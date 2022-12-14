@@ -291,11 +291,11 @@ public class BikeShopServiceTest
         bikeRepository.Setup(b => b.GetAllPosts()).Returns(listPost);
         userRepository.Setup(u => u.GetAllUsers()).Returns(listUser);
         IBikeShopService service = new BikeShopService(mockBikeRepository, mockUserRepository);
-
+        List<PostDTO> expected = new List<PostDTO>();
         int[] listCategory = new[] { 9,8 };
-        
-        ArgumentException ex = Assert.Throws<ArgumentException>(() => service.GetPostByCategory(listCategory));
-        Assert.Equal("No post with such category", ex.Message);
+
+        List<PostDTO> ActualList = service.GetPostByCategory(listCategory);
+        Assert.Equal(expected,ActualList);
         bikeRepository.Verify(b=> b.getPostByCategory(listCategory),Times.Never);
     }
     [Fact]
