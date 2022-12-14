@@ -98,7 +98,7 @@ public class WebShopController : ControllerBase
 
     }
 
-    [AllowAnonymous]
+    [Authorize("UserPolicy")]
     [HttpGet]
     [Route("ViewPost/{id}")]
     public ActionResult<PostDTO> GetPost([FromRoute] int id)
