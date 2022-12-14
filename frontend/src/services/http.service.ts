@@ -36,7 +36,7 @@ export class HttpService {
   currentUserEmail: any;
   result: postDTO[] = [];
   allPost: postDTO[] = [];
-
+  logged:boolean=false;
 
   constructor(public matSnackbar: MatSnackBar,
               private router: Router,
@@ -86,7 +86,8 @@ export class HttpService {
     let petition = await customAxios.post('Auth/login', param);
     if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
-      this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000})
+      this.logged=true;
+      this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000});
     }
   }
 

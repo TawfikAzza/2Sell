@@ -11,7 +11,7 @@ import {HttpService} from "../../services/http.service";
 export class NavbarComponent implements OnInit {
 
   constructor(private router:Router,
-              private http:HttpService) { }
+              public http:HttpService) { }
   currentUser:registerDTO = {
     email:"",
     password:"",
@@ -30,9 +30,16 @@ export class NavbarComponent implements OnInit {
     roleId:1
   }
   async ngOnInit(): Promise<void> {
-    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
+    //this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+
+    let tokenString:string|null = localStorage.getItem('sessionToken');
+
+    if(tokenString!="" && tokenString!=null) {
+      console.log("in if");
+      this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
+      this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
+    }
+    console.log("UserName: ",this.currentUser.userName);
   }
 
   async navigateMainPage() {
@@ -48,6 +55,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.setItem('sessionToken',"");
+    localStorage.clear();
+    this.http.logged=false;
+    //localStorage.setItem('sessionToken',"");
   }
 }
