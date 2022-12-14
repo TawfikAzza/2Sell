@@ -61,4 +61,22 @@ public class UserRepository : IUserRepository
     {
         return _bikeShopDbContext.UsersTable.ToList();
     }
+
+    public void changeBanStatus(string email)
+    {
+        Console.WriteLine("EMAIL: "+email);
+        if (email != "")
+        {   
+            User user = _bikeShopDbContext.UsersTable.Single(u => u.Email.Equals(email));
+           if (user.RoleId == 1)
+                user.RoleId = 3;
+            else
+                user.RoleId = 1;
+            _bikeShopDbContext.UsersTable.Update(user);
+            _bikeShopDbContext.SaveChanges();
+          
+        }
+
+       
+    }
 }

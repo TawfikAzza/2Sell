@@ -97,7 +97,7 @@ export class RegisterComponent {
       address: this.addressModel.trim(),
       postalCode: this.postalCodeModel.trim(),
       phoneNumber: this.phoneNumberModel.trim(),
-      roleID: 1
+      roleId: 1
     }
     console.log(dto);
     await this.http.register(dto)

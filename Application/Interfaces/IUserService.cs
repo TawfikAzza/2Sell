@@ -10,4 +10,5 @@ public interface IUserService
     public User GetUserByUserName(string username);
 
     public RegisterDTO UpdateUser(RegisterDTO user);
+    void changeBanStatus(string email);
 }

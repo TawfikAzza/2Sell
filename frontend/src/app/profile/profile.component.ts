@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     phoneNumber:"",
     postalCode:"",
     img:"",
-    roleID:1
+    roleId:1
   };
   pageMode = 'view';
   emailModel: any;
@@ -224,7 +224,7 @@ export class ProfileComponent implements OnInit {
       postalCode: this.postalCodeModel.trim(),
       phoneNumber: this.phoneNumberModel.trim(),
       img:this.currentUser.img,
-      roleID: 1
+      roleId: this.currentUser.roleId
     }
    console.log(dto);
 

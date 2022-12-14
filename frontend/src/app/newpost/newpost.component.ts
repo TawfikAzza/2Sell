@@ -31,7 +31,7 @@ export class NewpostComponent implements OnInit {
     phoneNumber:"",
     postalCode:"",
     img:"",
-    roleID:1
+    roleId:1
   };
   async ngOnInit(): Promise<void> {
     let token = localStorage.getItem('sessionToken');
@@ -64,7 +64,7 @@ export class NewpostComponent implements OnInit {
 
   CreatePost() {
     let createdPost:createPostDTO={
-      Email:"user",
+      Email:this.userProperties.email,
       Title:this.title.trim(),
       Price:this.price,
       Category:this.category,

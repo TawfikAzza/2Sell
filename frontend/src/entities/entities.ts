@@ -8,7 +8,7 @@ export interface registerDTO{
   postalCode:string,
   phoneNumber:string,
   img?:string,
-  roleID:number
+  roleId:number
 }
 
 export interface loginDTO{

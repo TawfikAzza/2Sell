@@ -49,6 +49,10 @@ public class UserService :IUserService
            .Where(u => u.Email == email).FirstOrDefault());
     }
 
+    private User GetUserByEmailDB(string email)
+    {
+        return _userRepository.GetUserByEmail(email);
+    }
     public User GetUserByUserName(string username)
     {
         return _userRepository.GetUserByUserName(username);
@@ -91,5 +95,10 @@ public class UserService :IUserService
         User userUpdated =  _userRepository.UpdateUser(user);
         RegisterDTO userDto = _mapper.Map<User, RegisterDTO>(userUpdated);
         return userDto;
+    }
+
+    public void changeBanStatus(string email)
+    {
+        _userRepository.changeBanStatus(email);
     }
 }

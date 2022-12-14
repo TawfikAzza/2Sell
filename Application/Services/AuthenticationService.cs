@@ -121,7 +121,6 @@ public class AuthenticationService : IAuthenticationService
     public string Login(LoginDTO dto)
     {
         var user = _userRepository.GetUserByEmail(dto.Email);
-        Console.WriteLine("In Auth Service :" + dto.Email);
         if (BCrypt.Net.BCrypt.Verify(dto.Password + user.Salt, user.PasswordHash))
         {
             return GenerateToken(user);

@@ -11,7 +11,7 @@
       </mat-card-header>
 
       <div class="post-body">
-        <img class='img' src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        <img class='img' src="{{post.img}}"
              alt="Photo of a Shiba Inu">
 
         <ul>
@@ -24,8 +24,8 @@
               <li>{{post.description}}</li>
             </div>
           </div>
-
-          <button mat-button>See post</button>
+          <!--<a class="active" href="/viewpost?id={{post.id}}">See post</a>-->
+          <button mat-button routerLink="/viewpost" [queryParams]="{id:post.id}">See post</button>
         </ul>
 
       </div>
