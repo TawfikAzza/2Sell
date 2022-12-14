@@ -1,108 +1,12 @@
-
-*,*::before, *::after{
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-:root{
-  --primary-light-hsl:200,100%,91%;
-  --primary-hsl: 200,100%,50%;
-  --primary-dark-hsl: 200,100%,6%;
-
-}
-
-body{
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: normal;
-  min-height: 100vh;
-
-}
-
-.full-screen-container{
-  background-image: url("../register/util/bike.jpg");
-  min-height: 100%;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  height: 150vh;
-  width: 100vw;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .register-wrapper{
-  background-color: hsl(200,100%, 6%, 80%);
-  box-shadow: 0 0 15px 0 hsl(.200,100%, 6%);
-  padding: 20px 30px;
-  width: 50%;
-  max-width:  500px;
-  height: 100%;
-  max-height: 900px;
-  border-radius: 30px;
-}
-
-
-.login-title{
-  margin: 0;
-  padding: 10px 10px;
-  color: white;
+  padding: 20px 20px 20px;
+  background: grey;
+  display: block;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: normal;
 }
-
-
-
-.registerFormGroup{
-  display: flex;
-  flex-direction: column ;
-  color: white;
-  gap: 2px;
-  margin-top: 20px;
-}
-
 
 .input-group{
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  }
-
-.input-group label{
-  color: white;
-  font-weight: lighter;
-}
-
-.input-group input{
-  font-size: 1.25rem;
-  padding: .2em;
-  margin: -.2em;
-  background-color: hsl(200,100%,91%, .3) ;
-  border: none;
-  outline: none;
-  border-radius: .2em;
-  color: white;
-  font-weight: lighter;
-}
-
-
-.input-group input:focus ~ span,
-.input-group input:valid ~ span
-{
-  color: crimson;
-  transform: translateX(10px) translateY(-7px);
-  font-size: 0.65em;
-  padding: 0 10px;
-  background: white;
 
 }
 
 
-
-.register-button,
-.register-button:focus{
-  background-color: hsl(200,100%,50%, .4);
-}
