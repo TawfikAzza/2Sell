@@ -43,6 +43,29 @@ export class HttpService {
 
   ){
 
+    customAxios.interceptors.response.use(
+      response => {
+
+        return response;
+      }, rejected => {
+
+        catchError(rejected);
+      }
+    );
+    customAxios.interceptors.request.use(
+      async config => {
+        if(localStorage.getItem('sessionToken')) {
+          config.headers = {
+            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
+          }
+        }
+
+        return config;
+      },
+      error => {
+        Promise.reject(error)
+      });
+
   }
   async getUserByEmail(email:string) : Promise<registerDTO>{
     console.log("baseUrl",environment.baseUrl);
