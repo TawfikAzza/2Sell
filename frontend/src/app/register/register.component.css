@@ -1,12 +1,74 @@
 .register-wrapper{
   padding: 20px 20px 20px;
-  background: grey;
+  background: white;
   display: block;
   text-align: center;
 }
 
 .input-group{
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
 }
+
+.input-group h4{
+  width: 10%;
+  text-align: left;
+
+  padding-right: 40px;
+  color: black;
+}
+.input-group mat-form-field{
+  width: 40%;
+  color: black;
+}
+
+:host .mat-form-field .mat-input-element {
+  color: gray;
+}
+:host .mat-form-field .mat-form-field-label {
+  color: gray!important;
+}
+:host .mat-form-field .mat-form-field-underline {
+  background-color: slategray;
+}
+:host .mat-form-field .mat-form-field-ripple {
+  background-color: slategray;
+}
+:host .mat-form-field .mat-form-field-required-marker {
+  color: slategray;
+}
+
+
+:host .mat-form-field.mat-focused .mat-form-field-label {
+  color: green!important;
+}
+:host .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: green;
+}
+:host .mat-form-field.mat-focused .mat-form-field-required-marker {
+  color: green;
+}
+:host  .mat-form-field.mat-focused .mat-input-element {
+  color: green;
+}
+
+
+
+:host .mat-form-field.mat-form-field-invalid .mat-input-element {
+  color: red;
+}
+:host .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: red!important;
+}
+:host .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
+  color: red;
+}
+:host .mat-form-field.mat-form-field-invalid .mat-form-field-ripple {
+  background-color: red;
+}
+
 
 

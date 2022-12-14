@@ -1,18 +1,19 @@
 <div class="full-screen-container">
   <div class="register-wrapper">
-    <h1 class="login-title"> Register in the system</h1>
+    <h1 class="login-title">Do you want to sell your bike?</h1>
+    <h2>Join 2Sell now!</h2>
     <form [formGroup]="registerFormGroup">
 
       <div class="input-group">
-        <p>First name</p>
-        <mat-form-field appearance="outline">
+        <h4>First name</h4>
+        <mat-form-field appearance="standard">
           <input [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name">
           <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="input-group">
-        <p>Last name</p>
+        <h4>Last name</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
           <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
@@ -20,7 +21,7 @@
       </div>
 
       <div class="input-group">
-        <p>Email</p>
+        <h4>Email</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
           <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
@@ -28,7 +29,7 @@
       </div>
 
       <div class="input-group">
-        <p>Password</p>
+        <h4>Password</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
                  formControlName="password">
@@ -37,7 +38,7 @@
       </div>
 
       <div class="input-group">
-        <p>Repeat your password</p>
+        <h4>Repeat your password</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
           <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
@@ -45,7 +46,7 @@
       </div>
 
       <div class="input-group">
-        <p>Username</p>
+        <h4>Username</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
           <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
@@ -53,7 +54,7 @@
       </div>
 
       <div class="input-group">
-        <p>Address</p>
+        <h4>Address</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="addressControl" matInput [(ngModel)]="addressModel" placeholder="Address">
           <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
@@ -61,7 +62,7 @@
       </div>
 
       <div class="input-group">
-        <p>Postal code</p>
+        <h4>Postal code</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="postalCodeControl" matInput [(ngModel)]="postalCodeModel" placeholder="Postal Code">
           <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
@@ -69,7 +70,7 @@
       </div>
 
       <div class="input-group">
-        <p>Phone number</p>
+        <h4>Phone number</h4>
         <mat-form-field appearance="outline">
           <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
           <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
