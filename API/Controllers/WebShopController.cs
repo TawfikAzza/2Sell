@@ -113,32 +113,63 @@ public class WebShopController : ControllerBase
     {
         
         FilterSearchDTO filterSearchDto = JsonConvert.DeserializeObject<FilterSearchDTO>(dto);
-        
+        string message = "";
         switch (filterSearchDto.OperationType)
         {
             case 1:
                 //CategoryDTO
                 Console.WriteLine(filterSearchDto.DTO.ids[0]);
-                return Ok(_bikeShopService.GetPostByCategory(filterSearchDto.DTO.ids));
+                try
+                {
+                    return Ok(_bikeShopService.GetPostByCategory(filterSearchDto.DTO.ids));
+                }
+                catch (ArgumentException ex)
+                {
+                    message = ex.Message;
+                }
+                
                 break;
             case 2:
                 //PriceDTO
                 //PriceDTO PriceDTO = JsonConvert.DeserializeObject<PriceDTO>(dto);
                // Console.WriteLine("price: "+PriceDTO.min+" max: "+PriceDTO.max);
                 Console.WriteLine(filterSearchDto.DTO.max);
-                return Ok(_bikeShopService.GetPostByPrice(filterSearchDto.DTO.min, filterSearchDto.DTO.max));
+                try
+                {
+                    return Ok(_bikeShopService.GetPostByPrice(filterSearchDto.DTO.min, filterSearchDto.DTO.max));
+                } catch (ArgumentException ex)
+                {
+                    message = ex.Message;
+                }
+                
                 break;
             case 3:
                 //CatPriceDTO
-                return Ok(_bikeShopService.GetPostByCategoryAndPrice(filterSearchDto));
+                try
+                {
+                    return Ok(_bikeShopService.GetPostByCategoryAndPrice(filterSearchDto));
+                } catch (ArgumentException ex)
+                {
+                    message = ex.Message;
+                }
+
+                break;
             case 4:
-                return Ok(_bikeShopService.GetPostByTitleAndDescription(filterSearchDto.DTO.args));
+                try
+                {
+                    return Ok(_bikeShopService.GetPostByTitleAndDescription(filterSearchDto.DTO.args));
+                } catch (ArgumentException ex)
+                {
+                    message = ex.Message;
+                }
                 break;
             default:
                 break;
                 
         }
-        throw new ArgumentException("Wrong search filter data");
+
+        BadRequest(message);
+        throw new Exception(message);
 
     }
     [AllowAnonymous]
