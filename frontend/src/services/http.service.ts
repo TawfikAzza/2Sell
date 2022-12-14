@@ -43,7 +43,7 @@ export class HttpService {
 
   ){
 
-    customAxios.interceptors.response.use(
+    /*customAxios.interceptors.response.use(
       response => {
 
         return response;
@@ -51,7 +51,16 @@ export class HttpService {
 
         catchError(rejected);
       }
-    );
+    );*/
+    customAxios.interceptors.response.use(function (response) {
+      if (response.statusText !== 'OK') {
+        return Promise.reject(response);
+      }
+      return response;
+    }, function (error) {
+      // Do something with response error
+      return Promise.reject(error);
+    });
     customAxios.interceptors.request.use(
       async config => {
         if(localStorage.getItem('sessionToken')) {
@@ -59,7 +68,6 @@ export class HttpService {
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
           }
         }
-
         return config;
       },
       error => {
@@ -101,17 +109,25 @@ export class HttpService {
   async filterSearch(dto: filterSearchDTO ):Promise<postDTO[]> {
     let dtoStringified: string="";
     dtoStringified = JSON.stringify(dto);
-
+    this.result=[];
     let petition = await customAxios.get('WebShop/SearchCategories/'+dtoStringified)
       .then(function(response){
         let array:postDTO[]=[];
+        if(response.data.length===0) {
+          console.log("List Empty");
+        }
         for (let i = 0; i < response.data.length; i++) {
           console.log("For loop",response.data[i]);
           array.push(response.data[i])
         }
         return array;
+      }).catch(err => {
+        let emptyArray:postDTO[]=[];
+        return emptyArray;
       });
+
     this.result = petition;
+    console.log("result size:",this.result.length);
     return petition;
   }
 
