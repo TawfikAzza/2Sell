@@ -10,6 +10,7 @@ import {customAxios} from "../../services/http.service";
 import {environment} from "../../environments/environment";
 import * as filestack from 'filestack-js';
 import {PickerFileMetadata, PickerResponse} from "filestack-js";
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,18 +18,21 @@ import {PickerFileMetadata, PickerResponse} from "filestack-js";
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser:registerDTO = {
-    email:"",
-    password:"",
-    userName:"",
-    address:"",
-    firstName:"",
-    lastName:"",
-    phoneNumber:"",
-    postalCode:"",
-    img:"",
-    roleId:1
+  currentUser: registerDTO = {
+    email: "",
+    password: "",
+    userName: "",
+    address: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    postalCode: "",
+    img: "",
+    roleId: 1
   };
+
+  emptyString = "";
+
   pageMode = 'view';
   emailModel: any;
   userNameModel: any;
@@ -38,33 +42,37 @@ export class ProfileComponent implements OnInit {
   addressModel: any;
   postalCodeModel: any;
   phoneNumberModel: any;
+  imgModel: any;
 
 
   constructor(public http: HttpService,
-              public formBuilder:FormBuilder,
-              private router:Router,
-              private httpC: HttpClient) { }
-  userProperties:UserProperties={
-    email:"",
-    userName:"",
-    roleId:1
+              public formBuilder: FormBuilder,
+              private router: Router,
+              private httpC: HttpClient) {
   }
+
+  userProperties: UserProperties = {
+    email: "",
+    userName: "",
+    roleId: 1
+  }
+
   async ngOnInit() {
     let token = localStorage.getItem('sessionToken');
     this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
     this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
-    console.log("email: ",this.userProperties.email);
+    console.log("email: ", this.userProperties.email);
     this.currentUser = await this.http.getUserByEmail(this.userProperties.email);//this.getUserFromEmail(this.userProperties.email);
     // this.email = this.currentUser.then(cu=> cu.email);
   }
 
- async getUserFromEmail(email:string){
+  async getUserFromEmail(email: string) {
     this.currentUser = await this.http.getUserByEmail(email);
-    console.log("current user : "+this.currentUser.email);
- }
+    console.log("current user : " + this.currentUser.email);
+  }
 
 
-  usernameControl = new FormControl('',[
+  usernameControl = new FormControl('', [
     Validators.required,
     Validators.pattern("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
   ]);
@@ -79,28 +87,28 @@ export class ProfileComponent implements OnInit {
     Validators.required,
   ]);
 
-  firstNameControl = new FormControl('',[
+  firstNameControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
   ])
 
-  lastNameControl = new FormControl('',[
+  lastNameControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
   ])
 
 
-  addressControl = new FormControl('',[
+  addressControl = new FormControl('', [
     Validators.required,
     Validators.pattern("^([A-zæøåÆØÅ]{3,40}\\.?\\s)+([0-9]){1,5}\\w?(\\s.*)?$")
   ])
 
-  postalCodeControl = new FormControl('',[
+  postalCodeControl = new FormControl('', [
     Validators.required,
     //Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
   ])
 
-  phoneNumberControl = new FormControl('',[
+  phoneNumberControl = new FormControl('', [
     Validators.required,
     //Validators.pattern("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i")
   ])
@@ -112,50 +120,25 @@ export class ProfileComponent implements OnInit {
     address: this.addressControl,
     postalCode: this.postalCodeControl,
     phoneNumber: this.phoneNumberControl
-  },{
+  }, {
     validators: [PasswordValidation.match('password', 'repeatPassword')]
   })
-/*
-  async upload(event: any) {
-
-    let files = event.target.files;
-    let fData: FormData = new FormData;
-    console.log("Event : "+event);
-    for (var i = 0; i < files.length; i++) {
-      console.log("files ",files[i]);
-      console.log("Lenght :",files.length);
-      fData.append("file[]", files[i]);
-    }
-    var _data = {
-      filename: 'Sample File',
-      id: '0001'
-    }
-
-    fData.append("data", JSON.stringify(_data));
-    console.log("file profile:",fData);
-    await this.http.uploadFile(fData);
-  }
-  handleResponse(response: any) {
-    console.log(response);
-  }
-  handleError(error: string) {
-    console.log(error);
-  }*/
 
   @Input()
-  requiredFileType:string="";
+  requiredFileType: string = "";
   fileName = '';
-  uploadProgress:number=0;
+  uploadProgress: number = 0;
   uploadSub: Subscription = new Subscription;
-  onFileSelected(event:any) {
-    const file:File = event.target.files[0];
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
 
     if (file) {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("thumbnail", file);
-      formData.append("userEmail",this.currentUser.email);
-      const upload$ = this.httpC.post(environment.baseUrl+"/WebShop/UploadFileProfile/", formData, {
+      formData.append("userEmail", this.currentUser.email);
+      const upload$ = this.httpC.post(environment.baseUrl + "/WebShop/UploadFileProfile/", formData, {
         reportProgress: true,
         observe: 'events'
       })
@@ -167,7 +150,7 @@ export class ProfileComponent implements OnInit {
         if (event.type == HttpEventType.UploadProgress) {
           // @ts-ignore
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-          console.log("upload progress:"+this.uploadProgress);
+          console.log("upload progress:" + this.uploadProgress);
         }
       });
     }
@@ -180,60 +163,45 @@ export class ProfileComponent implements OnInit {
 
   reset() {
     this.uploadProgress = 0;
-    this.uploadSub =  new Subscription;
+    this.uploadSub = new Subscription;
   }
-  /*
-  onFileSelected(event:any) {
 
-    const file:File = event.target.files[0];
-
-    if (file) {
-
-      this.fileName = file.name;
-
-      const formData = new FormData();
-
-      formData.append("thumbnail", file);
-
-      const upload$ = this.httpC.post("http://localhost:5082/WebShop/UploadFile/", formData);
-
-      upload$.subscribe();
-    }
-  }*/
   modeChange(mode: string) {
     this.pageMode = mode;
-    if(mode=='modify') {
+    if (mode == 'modify') {
       this.userNameModel = this.currentUser.userName;
       this.firstNameModel = this.currentUser.firstName;
       this.lastNameModel = this.currentUser.lastName;
       this.addressModel = this.currentUser.address;
       this.postalCodeModel = this.currentUser.postalCode;
       this.phoneNumberModel = this.currentUser.phoneNumber;
+      this.imgModel = this.currentUser.img;
     }
-    console.log("pageMode:",this.pageMode);
+    console.log("pageMode:", this.pageMode);
   }
 
   async modifyUser() {
-    let dto : registerDTO = {
-      email:this.currentUser.email,
+    let dto: registerDTO = {
+      email: this.currentUser.email,
       password: this.passwordModel.trim(),
       firstName: this.firstNameModel.trim(),
       lastName: this.lastNameModel.trim(),
-      userName:  this.userNameModel.trim(),
+      userName: this.userNameModel.trim(),
       address: this.addressModel.trim(),
       postalCode: this.postalCodeModel.trim(),
       phoneNumber: this.phoneNumberModel.trim(),
-      img:this.currentUser.img,
+      img: this.currentUser.img,
       roleId: this.currentUser.roleId
     }
-   console.log(dto);
+    console.log(dto);
 
-   await this.http.updateProfile(dto)
-     .then(()=> this.pageMode='view')
-     .then(()=>this.router.navigate(['profile']));
-   this.currentUser = await this.http.getUserByEmail(dto.email);
+    await this.http.updateProfile(dto)
+      .then(() => this.pageMode = 'view')
+      .then(() => this.router.navigate(['profile']));
+    this.currentUser = await this.http.getUserByEmail(dto.email);
 
   }
+
   getFistNameErrorMessage() {
     if (this.firstNameControl.hasError('required')) {
       return 'Please enter a value';
@@ -259,9 +227,8 @@ export class ProfileComponent implements OnInit {
     if (this.repeatPasswordControl.hasError('required')) {
       return 'Please enter a value';
     }
-    return 'Enter a valid repeated password';
+    return "Passwords doesn't match";
   }
-
 
 
   getAddressErrorMessage() {
@@ -286,17 +253,17 @@ export class ProfileComponent implements OnInit {
   }
 
 
-
-
   getUsernameErrorMessage() {
     if (this.usernameControl.hasError('required')) {
       return 'Please enter a value'
     }
     return 'Enter a valid user name';
   }
-  url:string="";
+
+  url: string = "";
+
   async uploadImageProfile() {
-    let test:PickerResponse;
+    let test: PickerResponse;
     const client = filestack.init('AzwS9T9PFRpW1fLDaalWgz');
     const options = {
       transformations: {
@@ -304,13 +271,13 @@ export class ProfileComponent implements OnInit {
         circle: true,
         rotate: true
       },
-      maxFiles:1,
-      onUploadDone: (res:PickerResponse)=> {
-          test = res;
-          for(let i=0; i<res.filesUploaded.length;i++) {
-            console.log("res:",res.filesUploaded[i].handle);
-            this.currentUser.img = res.filesUploaded[i].url.toString();
-          }
+      maxFiles: 1,
+      onUploadDone: (res: PickerResponse) => {
+        test = res;
+        for (let i = 0; i < res.filesUploaded.length; i++) {
+          console.log("res:", res.filesUploaded[i].handle);
+          this.currentUser.img = res.filesUploaded[i].url.toString();
+        }
       }
     }
     client.picker(options).open();
