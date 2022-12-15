@@ -33,7 +33,15 @@
   </div>
 </div>
 <div *ngIf="http.result.length==0" class="wrapper">
-  <div *ngFor="let post of http.allPost" class="post">
+  <div class="post-error">
+    <img style="width: 700px; height: 400px" src="https://www.runtimeasia.com/wp-content/uploads/2020/06/windows10-bsod.jpg">
+    <p>No posts were found, we hope you'll get lucky next time :)</p>
+  </div>
+</div>
+
+<!---
+
+<div *ngFor="let post of http.allPost" class="post">
     <mat-card class="example-card">
 
       <mat-card-header class="post-header">
@@ -66,4 +74,5 @@
     </mat-card>
 
   </div>
-</div>
+
+  --->
