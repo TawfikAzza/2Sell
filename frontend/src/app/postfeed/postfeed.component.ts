@@ -18,12 +18,7 @@ export class PostfeedComponent implements OnInit {
   result:postDTO[]=[]
 
   ngOnInit(): void {
-
-    console.log("test",this.result);
     this.result = this.http.result;
-    for(let i=0;i<this.http.result.length;i++) {
-      console.log("Result :",this.result[i].img);
-    }
   }
 
 

@@ -36,12 +36,43 @@ export class HttpService {
   currentUserEmail: any;
   result: postDTO[] = [];
   allPost: postDTO[] = [];
-
+  logged:boolean=false;
 
   constructor(public matSnackbar: MatSnackBar,
               private router: Router,
 
   ){
+
+    /*customAxios.interceptors.response.use(
+      response => {
+
+        return response;
+      }, rejected => {
+
+        catchError(rejected);
+      }
+    );*/
+    customAxios.interceptors.response.use(function (response) {
+      if (response.statusText !== 'OK') {
+        return Promise.reject(response);
+      }
+      return response;
+    }, function (error) {
+      // Do something with response error
+      return Promise.reject(error);
+    });
+    customAxios.interceptors.request.use(
+      async config => {
+        if(localStorage.getItem('sessionToken')) {
+          config.headers = {
+            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
+          }
+        }
+        return config;
+      },
+      error => {
+        Promise.reject(error)
+      });
 
   }
   async getUserByEmail(email:string) : Promise<registerDTO>{
@@ -64,7 +95,8 @@ export class HttpService {
     let petition = await customAxios.post('Auth/login', param);
     if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
-      this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000})
+      this.logged=true;
+      this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000});
     }
   }
 
@@ -78,17 +110,25 @@ export class HttpService {
   async filterSearch(dto: filterSearchDTO ):Promise<postDTO[]> {
     let dtoStringified: string="";
     dtoStringified = JSON.stringify(dto);
-
+    this.result=[];
     let petition = await customAxios.get('WebShop/SearchCategories/'+dtoStringified)
       .then(function(response){
         let array:postDTO[]=[];
+        if(response.data.length===0) {
+          console.log("List Empty");
+        }
         for (let i = 0; i < response.data.length; i++) {
           console.log("For loop",response.data[i]);
           array.push(response.data[i])
         }
         return array;
+      }).catch(err => {
+        let emptyArray:postDTO[]=[];
+        return emptyArray;
       });
+
     this.result = petition;
+    console.log("result size:",this.result.length);
     return petition;
   }
 

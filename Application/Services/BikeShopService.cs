@@ -22,7 +22,55 @@ public class BikeShopService : IBikeShopService
     {
         return _userRepository.GetAllUsers() ?? throw new InvalidProgramException("No user in database");
     }
+    public List<PostDTO> GetPostByCategory(int[] listId)
+    {
+        List<Post> listPost = new List<Post>();
+        List<PostDTO> listPostDTO = new List<PostDTO>();
+        Dictionary<int, User> hashUsers = new Dictionary<int, User>();
+        
+        
+        Console.WriteLine("List count:"+listId.Length);
+        for (int i = 0; i < listId.Length; i++)
+        {
+            Console.WriteLine("list "+listId[i]);
+        }
+        listPost =  GetAllPostDB()
+            .Where(p=> listId.Contains(p.Category))
+            .OrderByDescending(p=> p.Date)
+            .ToList();
+        if (listPost.Count == 0)
+        {
+            return listPostDTO;
+        }
 
+        List<User> allUsers = GetAllUserDB();
+        if (allUsers.Count < 1)
+            throw new Exception("No users in the database");
+        
+        foreach (User user in allUsers)
+        {
+            hashUsers.Add(user.Id,user);
+        }
+        
+        foreach (Post post in listPost)
+        {
+            PostDTO postDto = new PostDTO()
+            {
+                Id = post.Id,
+                Address = hashUsers[post.UserId].Address,
+                Authority = hashUsers[post.UserId].RoleId,
+                Category = post.Category,
+                Description = post.Description,
+                Email = hashUsers[post.UserId].Email,
+                Price = post.Price,
+                Title = post.Title,
+                UserName = hashUsers[post.UserId].userName,
+                Img = post.Img
+            };
+            listPostDTO.Add(postDto);
+        }
+        return listPostDTO;
+    }
     public List<PostDTO> GetPostByPrice(int priceMin, int priceMax)
     {
         if (priceMin >= priceMax)
@@ -186,51 +234,7 @@ public class BikeShopService : IBikeShopService
         return postDto;
     }
 
-    public List<PostDTO> GetPostByCategory(int[] listId)
-    {
-        List<Post> listPost = new List<Post>();
-        Console.WriteLine("List count:"+listId.Length);
-        for (int i = 0; i < listId.Length; i++)
-        {
-            Console.WriteLine("list "+listId[i]);
-        }
-        listPost =  GetAllPostDB()
-            .Where(p=> listId.Contains(p.Category))
-            .OrderByDescending(p=> p.Date)
-            .ToList();
-        if (listPost.Count == 0)
-        {
-            throw new ArgumentException("No post with such category");
-        }
-
-        List<User> allUsers = GetAllUserDB();
-        if (allUsers.Count < 1)
-            throw new Exception("No users in the database");
-        Dictionary<int, User> hashUsers = new Dictionary<int, User>();
-        foreach (User user in allUsers)
-        {
-            hashUsers.Add(user.Id,user);
-        }
-        List<PostDTO> listPostDTO = new List<PostDTO>();
-        foreach (Post post in listPost)
-        {
-            PostDTO postDto = new PostDTO()
-            {
-                Id = post.Id,
-                Address = hashUsers[post.UserId].Address,
-                Authority = hashUsers[post.UserId].RoleId,
-                Category = post.Category,
-                Description = post.Description,
-                Email = hashUsers[post.UserId].Email,
-                Price = post.Price,
-                Title = post.Title,
-                UserName = hashUsers[post.UserId].userName,
-                Img = post.Img
-            };
-            listPostDTO.Add(postDto);
-        }
-        return listPostDTO;
-    }
+   
 
     public List<User> GetAllUserDB()
     {
