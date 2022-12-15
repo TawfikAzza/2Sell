@@ -148,6 +148,7 @@ export class HttpService {
     return petition;
   }
 
+
   emptypost: postDTO[] = [{
     id: 0,
     email: 'no emaoil',
@@ -161,11 +162,18 @@ export class HttpService {
     img:'string'
 }]
 
+
+ */
+
   async getAllPost():Promise<postDTO[]>{
+  
     let petition = await customAxios.get('WebShop/GetAllPosts');
+    /*
     if(petition.data == []){
       return this.emptypost;
     }
+    
+     */
     this.allPost = petition.data;
     this.result = petition.data;
     return petition.data;

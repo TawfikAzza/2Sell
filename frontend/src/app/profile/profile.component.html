@@ -1,14 +1,141 @@
 <app-navbar></app-navbar>
-<div *ngIf="pageMode=='view'">
-  <mat-card>
-    <mat-card-content>{{currentUser.email}}</mat-card-content>
-    <mat-card-content>{{currentUser.userName}}</mat-card-content>
-    <mat-card-content>{{currentUser.firstName}}</mat-card-content>
-    <mat-card-content>{{currentUser.lastName}}</mat-card-content>
-    <button mat-raised-button color="primary" (click)="modeChange('modify')">Edit</button>
-  </mat-card>
+<div class="wrapper">
+  <div *ngIf="pageMode=='view'">
+    <div class="profile-wrapper">
+
+      <div class="img" *ngIf="currentUser.img != emptyString">
+        <img [src]="currentUser.img" alt="img not available">
+      </div>
+
+      <div class="img" *ngIf="currentUser.img == emptyString">
+        <img src="https://www.runtimeasia.com/wp-content/uploads/2020/06/windows10-bsod.jpg" alt="hehe">
+      </div>
+
+      <div class="fields-wrapper">
+        <div class="field">
+          <h4>Email: <span style="font-weight: normal; color: black">{{currentUser.email}} </span></h4>
+        </div>
+
+        <div class="field">
+          <h4>Username: <span style="font-weight: normal; color: black">{{currentUser.userName}}</span></h4>
+        </div>
+
+        <div class="field">
+          <h4>First name: <span style="font-weight: normal; color: black">{{currentUser.firstName}}</span></h4>
+        </div>
+
+        <div class="field">
+          <h4>Last name: <span style="font-weight: normal; color: black">{{currentUser.lastName}}</span></h4>
+        </div>
+
+        <div class="field">
+          <h4>Address: <span style="font-weight: normal; color: black">{{currentUser.address}}</span></h4>
+        </div>
+
+        <div class="field">
+          <h4>Phone number: <span style="font-weight: normal; color: black">{{currentUser.phoneNumber}}</span></h4>
+        </div>
+
+        <button mat-button (click)="modeChange('modify')">Edit my profile</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
 <div *ngIf="pageMode=='modify'">
+  <div class="full-screen-container">
+  <div class="wrapper2">
+    <div class="register-wrapper">
+
+      <div class="img2">
+        <img [src]="currentUser.img" alt="img not available">
+        <button mat-button (click)="uploadImageProfile()">Upload an image</button>
+      </div>
+
+
+      <form [formGroup]="modifyFormGroup">
+
+        <div class="input-group">
+          <h4>First name</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name">
+            <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Last name</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
+            <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Password</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
+                   formControlName="password">
+            <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Repeat your password</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
+            <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Username</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
+            <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Address</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="addressControl" matInput [(ngModel)]="addressModel" placeholder="Address">
+            <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Postal code</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="postalCodeControl" matInput [(ngModel)]="postalCodeModel" placeholder="Postal Code">
+            <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Phone number</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel"
+                   placeholder="Phone Number">
+            <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="modifyFormGroup.valid">
+          <button class="register-button" mat-button (click)="modifyUser()">
+            Update
+          </button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <!---
   <div class="full-screen-container">
     <div class="register-wrapper">
       <h1 class="login-title"> Modify your profile</h1>
@@ -23,55 +150,15 @@
         </div>
         <div class="input-group">
           <mat-form-field appearance="outline">
-            <input id="FirstNameInput" [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name" value="TEST">
+            <input id="FirstNameInput" [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel"
+                   placeholder="First name" value="TEST">
             <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
           </mat-form-field>
-        </div><!--
-    <div class="input-group">
-      <input type="file" (change)="upload($event)">
-    </div>
-    -->
+        </div>
+
         <button mat-raised-button (click)="uploadImageProfile()"> CLick to upload</button>
-        <!-- <input type="file" class="file-input"
-               (change)="onFileSelected($event)" #fileUpload>
-        -->
-        <!-- <div class="file-upload">
 
-           {{fileName || "No file uploaded yet."}}
-
-           <button mat-mini-fab color="primary" class="upload-btn"
-                   (click)="fileUpload.click()">
-
-           </button>
-         </div>-->
-        <img width="150" height="100" src="{{currentUser.img}}"><!--
-    <input type="file" class="file-input"
-           [accept]="requiredFileType"
-           (change)="onFileSelected($event)" #fileUpload>
-
-    <div class="file-upload">
-
-      {{fileName || "No file uploaded yet."}}
-
-      <button mat-mini-fab color="primary" class="upload-btn"
-              (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-
-      </button>
-
-    </div>
-
-    <div class="progress">
-
-      <mat-progress-bar class="progress-bar" mode="determinate"
-                        [value]="uploadProgress" *ngIf="uploadProgress">
-
-      </mat-progress-bar>
-
-      <mat-icon class="cancel-upload" (click)="cancelUpload()"
-                *ngIf="uploadProgress">delete_forever</mat-icon>
-
-    </div>-->
+        <img width="150" height="100" src="{{currentUser.img}}">
         <div class="input-group">
           <mat-form-field appearance="outline">
             <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
@@ -108,7 +195,8 @@
 
         <div class="input-group">
           <mat-form-field appearance="outline">
-            <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
+            <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel"
+                   placeholder="Phone Number">
             <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
           </mat-form-field>
         </div>
@@ -121,4 +209,5 @@
       </form>
     </div>
   </div>
+  --->
 </div>

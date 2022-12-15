@@ -1,110 +1,132 @@
 .file-input {
   display: none;
 }
-*,*::before, *::after{
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-:root{
-  --primary-light-hsl:200,100%,91%;
-  --primary-hsl: 200,100%,50%;
-  --primary-dark-hsl: 200,100%,6%;
 
-}
-
-body{
-  margin: 0;
+.profile-wrapper{
+  margin: 20px;
   display: flex;
   justify-content: center;
-  align-items: normal;
-  min-height: 100vh;
+}
 
+.fields-wrapper{
+  width: 60%;
+  margin: 0px 20px 20px 20px;
+  display: inline;
+}
+
+.field{
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+  margin: 10px;
+}
+
+h4{
+  margin-bottom: 0;
+  color: #CC5803;
+  font-weight: bold;
+}
+
+.img{
+  height: 300px;
+  width: 300px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 10px;
+}
+
+.img img{
+  height: 300px;
+  width: 300px;
+}
+
+button{
+  color: white;
+  background: #CC5803;
+  margin: 20px;
 }
 
 .full-screen-container{
-
-  min-height: 100%;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  height: 150vh;
-  width: 100vw;
-  background-size: cover;
-  background-position: center;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.register-wrapper{
-  background-color: hsl(200,100%, 6%, 80%);
-  box-shadow: 0 0 15px 0 hsl(.200,100%, 6%);
-  padding: 20px 30px;
-  width: 50%;
-  max-width:  500px;
-  height: 100%;
-  max-height: 900px;
+.wrapper2{
+  background: #e2711d;
+  width: 60%;
+  text-align: center;
   border-radius: 30px;
 }
 
-
-.login-title{
-  margin: 0;
-  padding: 10px 10px;
-  color: white;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: normal;
+.register-wrapper{
+  padding: 20px 20px 20px;
+  background: transparent;
+  display: block;
 }
 
-
-
-.registerFormGroup{
-  display: flex;
-  flex-direction: column ;
+h1{
   color: white;
-  gap: 2px;
-  margin-top: 20px;
 }
 
+h2{
+  color: white;
+}
 
 .input-group{
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
 }
 
-.input-group label{
+.input-group h4{
+  width: 10%;
+  text-align: left;
+  padding-right: 40px;
   color: white;
-  font-weight: lighter;
 }
-
-.input-group input{
-  font-size: 1.25rem;
-  padding: .2em;
-  margin: -.2em;
-  background-color: hsl(200,100%,91%, .3) ;
-  border: none;
-  outline: none;
-  border-radius: .2em;
+.input-group mat-form-field{
+  width: 60%;
   color: white;
-  font-weight: lighter;
 }
 
+.mat-error{
+  color: #dc0d1f;
+}
 
-.input-group input:focus ~ span,
-.input-group input:valid ~ span
-{
-  color: crimson;
-  transform: translateX(10px) translateY(-7px);
-  font-size: 0.65em;
-  padding: 0 10px;
+.register-button{
+  width: 75%;
   background: white;
-
+  color: orange;
 }
 
+.register-button :hover{
+  background: #FFF5EE;
+}
 
+.img2{
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+}
 
-.modify-button,
-.modify-button:focus{
-  background-color: hsl(200,100%,50%, .4);
+.img2 img{
+  height: 300px;
+  width: 300px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+}
+
+.img2 button{
+  height: 40px;
+  width: 200px;
+  align-items: center;
 }
