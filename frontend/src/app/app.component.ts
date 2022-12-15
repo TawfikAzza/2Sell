@@ -26,7 +26,6 @@ export class AppComponent {
       let decoded = jwtDecode(t) as any;
       this.http.currentUserEmail = decoded.email;
     }
-
-
   }
+
 }

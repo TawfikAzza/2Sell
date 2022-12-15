@@ -40,6 +40,9 @@ export class NavbarComponent implements OnInit {
       this.currentUser = await this.http.getUserByEmail(this.userProperties.email);
     }
     console.log("UserName: ",this.currentUser.userName);
+    console.log("Role:",this.currentUser.roleId);
+    this.http.logged=false;
+
   }
 
   async navigateMainPage() {
