@@ -62,7 +62,7 @@ public class WebShopController : ControllerBase
         return _userService.GetUserByEmail(email);
     }
 
-    [AllowAnonymous]
+    [Authorize("UserPolicy,AdminPolicy")]
     [HttpPost]
     [Route("UpdateProfile")]
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
@@ -71,7 +71,7 @@ public class WebShopController : ControllerBase
         return Ok(_userService.UpdateUser(dto));
     }
     
-    [AllowAnonymous]
+    [Authorize("UserPolicy,AdminPolicy")]
     [HttpGet]
     [Route("GetAllPostsFromUser/{username}")]
     public ActionResult<List<PostDTO>> GetAllPostFromUser([FromRoute] string username)
@@ -87,18 +87,15 @@ public class WebShopController : ControllerBase
         return Ok(_bikeShopService.GetAllPosts());
     }
     
-    [AllowAnonymous]
+    [Authorize("UserPolicy")]
     [HttpPost]
     [Route("CreatePost")]
     public void CreatePost(CreatePostDTO createPostDto)
     {
-
-        
         _bikeShopService.CreatePost(createPostDto);
-
     }
 
-    [Authorize("UserPolicy")]
+    [AllowAnonymous]
     [HttpGet]
     [Route("ViewPost/{id}")]
     public ActionResult<PostDTO> GetPost([FromRoute] int id)
@@ -200,6 +197,7 @@ public class WebShopController : ControllerBase
     [Route("ChangeBanStatus")]
     public void BanUser([FromBody] string email)
     {
+        Console.WriteLine("MAil: "+email);
         if (email != "")
         {
             _userService.changeBanStatus(email);
@@ -208,7 +206,5 @@ public class WebShopController : ControllerBase
         {
             BadRequest("Email incorrect");
         }
-
-
     }
 }

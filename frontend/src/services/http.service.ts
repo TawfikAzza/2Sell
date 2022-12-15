@@ -37,13 +37,24 @@ export class HttpService {
   result: postDTO[] = [];
   allPost: postDTO[] = [];
   logged:boolean=false;
-
+  currentUser:registerDTO={
+    email:"",
+    password:"",
+    userName:"",
+    address:"",
+    firstName:"",
+    lastName:"",
+    phoneNumber:"",
+    postalCode:"",
+    img:"",
+    roleId:1
+  };
   constructor(public matSnackbar: MatSnackBar,
               private router: Router,
 
   ){
 
-    /*customAxios.interceptors.response.use(
+    customAxios.interceptors.response.use(
       response => {
 
         return response;
@@ -51,20 +62,13 @@ export class HttpService {
 
         catchError(rejected);
       }
-    );*/
-    customAxios.interceptors.response.use(function (response) {
-      if (response.statusText !== 'OK') {
-        return Promise.reject(response);
-      }
-      return response;
-    }, function (error) {
-      // Do something with response error
-      return Promise.reject(error);
-    });
+    );
+    
     customAxios.interceptors.request.use(
       async config => {
         if(localStorage.getItem('sessionToken')) {
           config.headers = {
+            'Content-Type': 'application/json; charset=utf-8',
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
           }
         }
@@ -74,6 +78,17 @@ export class HttpService {
         Promise.reject(error)
       });
 
+  }
+  ngOnInit() {
+    let tokenString:string|null = sessionStorage.getItem('Email');
+    console.log("Token String: ",tokenString);
+    if(tokenString!="" && tokenString!=null) {
+      this.registerUser(tokenString);
+    }
+  }
+  async registerUser(email:string){
+    this.currentUser =  await this.getUserByEmail(email);
+    console.log("User: ",this.currentUser)
   }
   async getUserByEmail(email:string) : Promise<registerDTO>{
     console.log("baseUrl",environment.baseUrl);
@@ -86,6 +101,7 @@ export class HttpService {
     let petition = await customAxios.post('auth/register', param);
     if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
+      sessionStorage.setItem('Email',param.email);
       this.matSnackbar.open("You have been registered", undefined, {duration: 3000})
     }
     else this.matSnackbar.open(petition.data, undefined, {duration:3000})
@@ -95,6 +111,7 @@ export class HttpService {
     let petition = await customAxios.post('Auth/login', param);
     if(petition.status == 200){
       localStorage.setItem('sessionToken', petition.data);
+      sessionStorage.setItem('Email',param.Email);
       this.logged=true;
       this.matSnackbar.open('Welcome to 2Sell', undefined,{duration:3000});
     }

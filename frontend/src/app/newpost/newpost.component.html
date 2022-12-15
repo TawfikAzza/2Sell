@@ -8,6 +8,11 @@
 <mat-label>Category : </mat-label>
 <input matInput id="Category" [(ngModel)]="category" placeholder="category"><br>
 <button mat-raised-button (click)="uploadImages()"> CLick to upload your bike Images</button><br>
-
+<select name="cars" id="cars">
+  <option value="1">Women</option>
+  <option value="2">Men</option>
+  <option value="3">Child</option>
+  <option value="4">Cats</option>
+</select>
 <button mat-raised-button (click)="CreatePost()">Create Post</button>
 
