@@ -1,8 +1,9 @@
-<div class="login-comp">
-  <mat-card>
-    <form [formGroup]="loginForm">
+<div class="wrapper">
+  <div class="login-subwrapper">
+    <form class="form" [formGroup]="loginForm">
 
-      <mat-card-title class="login-title"> Log in </mat-card-title>
+      <h1>Hi again!</h1>
+
       <div class="form-field">
         <mat-form-field appearance="outline">
           <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
@@ -12,13 +13,16 @@
 
       <div class="form-field">
         <mat-form-field appearance="outline">
-          <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel" formControlName="password">
+          <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
+                 formControlName="password">
           <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
-      <button mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
-      <button mat-button (click)="goToRegisterPage()">Register</button>
+      <div class="buttons">
+        <button class="login-button" mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
+        <button class="register-button" mat-button (click)="goToRegisterPage()">Register</button>
+      </div>
     </form>
-  </mat-card>
+  </div>
 </div>
