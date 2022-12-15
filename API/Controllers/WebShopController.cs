@@ -62,7 +62,7 @@ public class WebShopController : ControllerBase
         return _userService.GetUserByEmail(email);
     }
 
-    [Authorize("UserPolicy,AdminPolicy")]
+    [Authorize("UserPolicy")]
     [HttpPost]
     [Route("UpdateProfile")]
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)

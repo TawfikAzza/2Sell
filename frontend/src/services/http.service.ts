@@ -160,19 +160,15 @@ export class HttpService {
     address:'string',
     category:1,
     img:'string'
-}]
-
-
- */
-
+  } ];
   async getAllPost():Promise<postDTO[]>{
-  
+
     let petition = await customAxios.get('WebShop/GetAllPosts');
     /*
     if(petition.data == []){
       return this.emptypost;
     }
-    
+
      */
     this.allPost = petition.data;
     this.result = petition.data;
