@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using API.DTOs;
+using Application.Interfaces;
 using Core;
 
 namespace Infrastructure;
@@ -54,6 +55,30 @@ public class BikeShopRepository: IBikeShopRepository
         _bikeShopDbContext.PostTable.Remove(post);
         _bikeShopDbContext.SaveChanges();
     }
+
+    public void AddComment(CommentDTO dto)
+    {
+        Comment comment = new Comment();
+        comment.Content = dto.Content;
+        comment.PostID = dto.PostId;
+        _bikeShopDbContext.CommentTable.Add(comment);
+        _bikeShopDbContext.SaveChanges();
+    }
+
+    public List<CommentDTO> GetAllCommentFromPost(int postId)
+    {
+        List<CommentDTO> commentDtos = new List<CommentDTO>();
+        foreach (Comment comment in _bikeShopDbContext.CommentTable.Where(c=> c.PostID == postId).ToList())
+        {
+            CommentDTO commentDto = new CommentDTO();
+            commentDto.Content = comment.Content;
+            commentDto.PostId = comment.PostID;
+            commentDtos.Add(commentDto);
+        }
+
+        return commentDtos;
+    }
+    
 
 
     public void CreateDB()

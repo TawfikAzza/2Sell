@@ -215,4 +215,21 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.DeletePost(id);
     }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("AddComment")]
+    public void AddComment([FromBody] CommentDTO dto)
+    {
+        _bikeShopService.AddComment(dto);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("GetAllCommentFromPost/{id}")]
+    public ActionResult<List<CommentDTO>> GetAllCommentFromPost([FromRoute] int id)
+    {
+        Console.WriteLine("Id: "+id);
+        return _bikeShopService.GetAllCommentFromPost(id);
+    }
 }

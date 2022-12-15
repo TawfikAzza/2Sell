@@ -30,6 +30,19 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <div *ngFor="let comment of listComments">
+      <p>
+       {{comment.content}}
+      </p>
+    </div>
+    <button (click)="newComment()">Add Comment</button>
+  </div>
 </div>
+
+
+
+
 
 

@@ -12,6 +12,7 @@ public class Post
     public int UserId { get; set; }
     public User User { get; set; } 
     public string Img { get; set; }
+    public virtual List<Comment>? Comments { get; set; }
 }
 
 public class User
@@ -33,4 +34,13 @@ public class User
     
     //public byte[] Image { get; set; }
     //public List<Roles>? Roles { get; set; }
+}
+
+public class Comment
+{
+    public int Id { get; set; }
+    public string Content { get; set; }
+    
+    public int PostID { get; set; }
+    public Post Post { get; set; }
 }

@@ -13,29 +13,6 @@ public class PostDTO
     public int Category { get; set; }
     public string Img { get; set; }
 }
-
-public class CategoryDTO
-{
-    public int[] ids { get; set; }
-}
-
-public class PriceDTO
-{
-    public int min { get; set; }
-    public int max { get; set; }
-}
-
-public class CatPriceDTO
-{
-    public int[] ids { get; set; }
-    public int min { get; set; }
-    public int max { get; set; }
-}
-
-public class SearchDTO
-{
-    public string args { get; set; }
-}
 public class FilterSearchDTO
 {
     public int  OperationType { get; set; }
@@ -62,4 +39,10 @@ public class CreatePostDTO
     public double Price { get; set; }
     public int Category { get; set; }
     public string Img { get; set; }
+}
+
+public class CommentDTO
+{
+    public int PostId { get; set; }
+    public string Content { get; set; }
 }
