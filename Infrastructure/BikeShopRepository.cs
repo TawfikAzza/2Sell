@@ -48,6 +48,13 @@ public class BikeShopRepository: IBikeShopRepository
         return _bikeShopDbContext.PostTable.Where(p=> listId.Contains(p.Category)).ToList();
     }
 
+    public void DeletePost(int id)
+    {
+        Post post = _bikeShopDbContext.PostTable.Single(p => p.Id==id);
+        _bikeShopDbContext.PostTable.Remove(post);
+        _bikeShopDbContext.SaveChanges();
+    }
+
 
     public void CreateDB()
     {
