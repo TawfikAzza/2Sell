@@ -97,6 +97,16 @@ public class BikeShopService : IBikeShopService
             .ToList();
     }
 
+    public void DeletePost(int id)
+    {
+        if (id == 0)
+        {
+            throw new ArgumentException("Bad Query, id ca not be equal to 0");
+        }
+
+        _bikeShopRepository.DeletePost(id);
+    }
+
     public List<PostDTO> GetAllPosts()
     {
         List<Post> posts = GetAllPostDB().ToList();

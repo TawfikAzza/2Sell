@@ -12,4 +12,5 @@ public interface IBikeShopRepository
     void CreatePost(Post post);
     Post GetPost(int id);
     List<Post> getPostByCategory(int[] listId);
+    void DeletePost(int id);
 }
