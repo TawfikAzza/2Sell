@@ -118,6 +118,7 @@ export class RegisterComponent {
     }
     return 'Password must contain at least 8 characters, one letter and one number'
   }
+  
 
   getRepeatPasswordErrorMessage() {
     if (this.repeatPasswordControl.hasError('required')) {
