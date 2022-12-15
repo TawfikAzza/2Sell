@@ -54,7 +54,7 @@ export class HttpService {
 
   ){
 
-    /*customAxios.interceptors.response.use(
+    customAxios.interceptors.response.use(
       response => {
 
         return response;
@@ -62,16 +62,8 @@ export class HttpService {
 
         catchError(rejected);
       }
-    );*/
-    customAxios.interceptors.response.use(function (response) {
-      if (response.statusText !== 'OK') {
-        return Promise.reject(response);
-      }
-      return response;
-    }, function (error) {
-      // Do something with response error
-      return Promise.reject(error);
-    });
+    );
+    
     customAxios.interceptors.request.use(
       async config => {
         if(localStorage.getItem('sessionToken')) {
