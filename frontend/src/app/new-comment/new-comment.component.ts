@@ -13,10 +13,14 @@ import {HttpService} from "../../services/http.service";
 export class NewCommentComponent implements OnInit {
   postId:number=0;
   title:string="";
+  author:string="";
+  dateComment:string="";
   comment: string="";
   commentDto:CommentDTO={
     postId:0,
-    content:""
+    content:"",
+    author:"",
+    date:""
   }
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
               private router:Router,
@@ -24,6 +28,8 @@ export class NewCommentComponent implements OnInit {
               private http:HttpService) {
       this.postId= data.id;
       this.title=data.title;
+      this.author=data.author;
+      this.dateComment=data.date;
   }
 
   ngOnInit(): void {
@@ -34,6 +40,8 @@ export class NewCommentComponent implements OnInit {
     console.log("comment ",this.comment);
     this.commentDto.postId=this.postId;
     this.commentDto.content=this.comment;
+    this.commentDto.date=this.dateComment;
+    this.commentDto.author=this.author;
     this.http.AddComment(this.commentDto);
     this.dialogRef.close();
   }

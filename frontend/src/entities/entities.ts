@@ -11,8 +11,10 @@ export interface registerDTO{
   roleId:number
 }
 export interface CommentDTO {
-  postId:number;
-  content:string;
+  postId:number,
+  content:string,
+  author:string,
+  date:string
 }
 export interface loginDTO{
   Email: string,

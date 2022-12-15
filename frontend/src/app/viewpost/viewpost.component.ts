@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {CommentDTO, postDTO} from "../../entities/entities";
+import {CommentDTO, postDTO, sessionToken, UserProperties} from "../../entities/entities";
 import {HttpService} from "../../services/http.service";
 import {FormBuilder} from "@angular/forms";
 import {Router, UrlTree} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {NewCommentComponent} from "../new-comment/new-comment.component";
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: 'app-viewpost',
@@ -30,20 +31,28 @@ export class ViewpostComponent implements OnInit {
               private router: Router,
               private dialogRef:MatDialog) {
   }
-
+  userProperties:UserProperties={
+    email:"",
+    userName:"",
+    roleId:1
+  }
   async ngOnInit() {
     let urlParsed: UrlTree = this.router.parseUrl(this.router.url);
     console.log("params: ", urlParsed.queryParams['id']);
     this.getPost(urlParsed.queryParams['id']);
     this.getAllCommentFormPost(urlParsed.queryParams['id']);
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
   }
 
 
     newComment(){
+
       this.dialogRef.open(NewCommentComponent,{
         data: {
           id:this.currentPost.id,
-          title:this.currentPost.title
+          title:this.currentPost.title,
+          author:this.userProperties.userName,
+          date:"test"
         }
       });
     }

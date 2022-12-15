@@ -34,7 +34,13 @@
   <div>
     <div *ngFor="let comment of listComments">
       <p>
-       {{comment.content}}
+       Date: {{comment.date}}
+      </p>
+      <p>
+       Author: {{comment.author}}
+      </p>
+      <p>
+       Comment :{{comment.content}}
       </p>
     </div>
     <button (click)="newComment()">Add Comment</button>

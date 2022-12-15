@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using System.Globalization;
+using API.DTOs;
 using Application.Interfaces;
 using Core;
 
@@ -61,6 +62,8 @@ public class BikeShopRepository: IBikeShopRepository
         Comment comment = new Comment();
         comment.Content = dto.Content;
         comment.PostID = dto.PostId;
+        comment.Author = dto.Author;
+        comment.Date = DateTime.Now;
         _bikeShopDbContext.CommentTable.Add(comment);
         _bikeShopDbContext.SaveChanges();
     }
@@ -73,6 +76,8 @@ public class BikeShopRepository: IBikeShopRepository
             CommentDTO commentDto = new CommentDTO();
             commentDto.Content = comment.Content;
             commentDto.PostId = comment.PostID;
+            commentDto.Author = comment.Author;
+            commentDto.Date=comment.Date.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
             commentDtos.Add(commentDto);
         }
 
