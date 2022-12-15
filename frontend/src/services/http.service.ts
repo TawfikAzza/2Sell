@@ -148,7 +148,7 @@ export class HttpService {
     return petition;
   }
 
-  emptypost: postDTO = {
+  emptypost: postDTO[] = [{
     id: 0,
     email: 'no emaoil',
     userName:'string',
@@ -159,12 +159,12 @@ export class HttpService {
     address:'string',
     category:1,
     img:'string'
-}
+}]
 
-  async getAllPost():Promise<postDTO>{
+  async getAllPost():Promise<postDTO[]>{
     let petition = await customAxios.get('WebShop/GetAllPosts');
     if(petition.data == []){
-      return this.emptypost
+      return this.emptypost;
     }
     this.allPost = petition.data;
     this.result = petition.data;
@@ -228,5 +228,9 @@ export class HttpService {
 
   async changeBanStatus(email: string) {
       await customAxios.post("WebShop/ChangeBanStatus/", email);
+  }
+
+  async deletePost(id: number) {
+    await customAxios.get("WebShop/DeletePost/"+id);
   }
 }

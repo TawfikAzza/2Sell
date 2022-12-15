@@ -1,6 +1,4 @@
-<mat-list-item *ngFor="let user of this.listUser">
-  <a matLine >User Name: {{user.userName}} Email : {{user.email}}</a>
-  <button *ngIf="user.roleId==1" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Ban User</button>
-  <button *ngIf="user.roleId==3" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Unban User</button>
-  <button mat-button color="warn" (click)="deleteUser(user.email)">Delete User</button>
-</mat-list-item>
+<app-navbar></app-navbar>
+
+<button mat-raised-button color="primary" [routerLink]="['/admin-user']">User Administration </button>
+<button mat-raised-button color="primary" [routerLink]="['/admin-post']">Post Administration </button>
