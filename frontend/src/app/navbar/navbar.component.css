@@ -9,6 +9,7 @@ ul {
   padding-bottom: 0;
   overflow: hidden;
   background-color: transparent;
+  padding-left: 10px;
 }
 
 li {
