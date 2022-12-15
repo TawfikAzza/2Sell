@@ -65,3 +65,8 @@ mat-catd-content ul{
   color: black;
   background: #e2711d;
 }
+
+.post-error{
+  display: inline;
+  justify-content: center;
+}

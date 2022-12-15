@@ -14,6 +14,5 @@ export class MainpageComponent implements OnInit {
   ngOnInit(): void {
     console.log("Data ",this.http.result);
     this.http.getAllPost();
-    //console.log(categories[0]);
   }
 }
