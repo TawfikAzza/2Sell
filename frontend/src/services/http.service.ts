@@ -63,7 +63,7 @@ export class HttpService {
         catchError(rejected);
       }
     );
-    
+
     customAxios.interceptors.request.use(
       async config => {
         if(localStorage.getItem('sessionToken')) {
@@ -148,8 +148,24 @@ export class HttpService {
     return petition;
   }
 
+  emptypost: postDTO = {
+    id: 0,
+    email: 'no emaoil',
+    userName:'string',
+    price: 22.1,
+    title:'string',
+    description:'string',
+    authority:1,
+    address:'string',
+    category:1,
+    img:'string'
+}
+
   async getAllPost():Promise<postDTO>{
     let petition = await customAxios.get('WebShop/GetAllPosts');
+    if(petition.data == []){
+      return this.emptypost
+    }
     this.allPost = petition.data;
     this.result = petition.data;
     return petition.data;
