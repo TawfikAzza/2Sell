@@ -22,7 +22,6 @@ body{
 }
 
 .full-screen-container{
-  background-image: url("../register/util/bike.jpg");
   min-height: 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
