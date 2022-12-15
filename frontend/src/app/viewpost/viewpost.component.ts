@@ -11,16 +11,16 @@ import {Router, UrlTree} from "@angular/router";
 })
 export class ViewpostComponent implements OnInit {
   currentPost: postDTO = {
-    id: 2,
-    description: "this is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehe",
-    title: "Such a good bike this one",
-    price: 22.1,
-    authority: 3,
+    id: 0,
+    description: "",
+    title: "",
+    price: 0,
+    authority: 0,
     category: 1,
-    email: "emailoftheguy@gmail.com",
-    userName: "username",
-    address: "some adddresss 23",
-    img: "https://cdn.filestackcontent.com/g9ZuxMVpQl2UjD4mYWPQ"
+    email: "",
+    userName: "",
+    address: "",
+    img: ""
   };
 
   constructor(public http: HttpService,
