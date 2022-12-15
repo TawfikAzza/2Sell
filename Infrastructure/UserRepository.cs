@@ -69,7 +69,7 @@ public class UserRepository : IUserRepository
         {   
             User user = _bikeShopDbContext.UsersTable.Single(u => u.Email.Equals(email));
            if (user.RoleId == 1)
-                user.RoleId = 3;
+                user.RoleId = 2;
             else
                 user.RoleId = 1;
             _bikeShopDbContext.UsersTable.Update(user);

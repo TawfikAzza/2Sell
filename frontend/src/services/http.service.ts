@@ -76,6 +76,7 @@ export class HttpService {
       async config => {
         if(localStorage.getItem('sessionToken')) {
           config.headers = {
+            'Content-Type': 'application/json; charset=utf-8',
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
           }
         }
