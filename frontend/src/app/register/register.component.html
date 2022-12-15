@@ -1,74 +1,92 @@
 <div class="full-screen-container">
-  <div class="register-wrapper">
-    <h1 class="login-title"> Register in the system</h1>
-    <form [formGroup]="registerFormGroup">
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name">
-          <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+  <div class="wrapper">
+    <div class="register-wrapper">
+      <h1 class="login-title">Do you want to sell your bike?</h1>
+      <h2>Join 2Sell now!</h2>
+      <form [formGroup]="registerFormGroup">
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
-          <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
-          <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>First name</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="firstNameControl" matInput [(ngModel)]="firstNameModel" placeholder="First name">
+            <mat-error *ngIf="firstNameControl.invalid">{{getFistNameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
-                 formControlName="password">
-          <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Last name</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="lastNameControl" matInput [(ngModel)]="lastNameModel" placeholder="Last name">
+            <mat-error *ngIf="lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
-          <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Email</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
+            <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
-          <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Password</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
+                   formControlName="password">
+            <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="addressControl" matInput [(ngModel)]="addressModel" placeholder="Address">
-          <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Repeat your password</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="repeatPasswordControl" type="password" matInput formControlName="repeatPassword">
+            <mat-error *ngIf="repeatPasswordControl.invalid">{{getRepeatPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="postalCodeControl" matInput [(ngModel)]="postalCodeModel" placeholder="Postal Code">
-          <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Username</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
+            <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="input-group">
-        <mat-form-field appearance="outline">
-          <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel" placeholder="Phone Number">
-          <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+        <div class="input-group">
+          <h4>Address</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="addressControl" matInput [(ngModel)]="addressModel" placeholder="Address">
+            <mat-error *ngIf="addressControl.invalid">{{getAddressErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <button class="register-button" mat-button (click)="registerUser()" [disabled]="!registerFormGroup.valid">
-        Register
-      </button>
+        <div class="input-group">
+          <h4>Postal code</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="postalCodeControl" matInput [(ngModel)]="postalCodeModel" placeholder="Postal Code">
+            <mat-error *ngIf="postalCodeControl.invalid">{{getPostalCodeErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-    </form>
+        <div class="input-group">
+          <h4>Phone number</h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="phoneNumberControl" matInput [(ngModel)]="phoneNumberModel"
+                   placeholder="Phone Number">
+            <mat-error *ngIf="phoneNumberControl.invalid">{{getPhoneNumberErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="registerFormGroup.valid">
+          <button class="register-button" mat-button (click)="registerUser()">
+            Register
+          </button>
+        </div>
+
+
+      </form>
+    </div>
   </div>
 </div>
