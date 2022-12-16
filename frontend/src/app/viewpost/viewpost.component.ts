@@ -48,8 +48,8 @@ export class ViewpostComponent implements OnInit {
     sendMail() {
       this.dialogRef.open(SendMailComponent,{
         data: {
-          recipient:this.currentPost.email,
-          recipientName:this.currentPost.userName,
+          receiver:this.currentPost.email,
+          receiverName:this.currentPost.userName,
           subject:this.currentPost.title,
           sender:this.userProperties.email,
           senderName:this.userProperties.userName
