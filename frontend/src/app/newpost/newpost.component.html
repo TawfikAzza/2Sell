@@ -1,18 +1,61 @@
 <app-navbar></app-navbar>
-<mat-label>Title : </mat-label>
-<input matInput id="title" [(ngModel)]="title" placeholder="title"><br>
-<mat-label>Description : </mat-label>
-<textarea matInput id="description" [(ngModel)]="description" placeholder="description"></textarea><br>
-<mat-label>Price : </mat-label>
-<input matInput id="Price" [(ngModel)]="price" placeholder="price"><br>
-<mat-label>Category : </mat-label>
-<input matInput id="Category" [(ngModel)]="category" placeholder="category"><br>
-<button mat-raised-button (click)="uploadImages()"> CLick to upload your bike Images</button><br>
-<select name="cars" id="cars">
-  <option value="1">Women</option>
-  <option value="2">Men</option>
-  <option value="3">Child</option>
-  <option value="4">Cats</option>
-</select>
-<button mat-raised-button (click)="CreatePost()">Create Post</button>
+<div class="wrapper">
+  <div class="background-wrapper">
 
+    <div *ngIf="this.img == ''" class="img-wrapper">
+      <img src="https://fomantic-ui.com/images/wireframe/image.png">
+      <button mat-raised-button (click)="uploadImage()">Upload an img for your post</button>
+    </div>
+
+    <div *ngIf="this.img != ''" class="img-wrapper">
+      <img [src]="this.img" alt="Your img will be displayed here">
+      <button mat-raised-button (click)="uploadImage()">Upload an img for your post</button>
+      <br>
+    </div>
+
+    <div class="fields-wrapper">
+      <form [formGroup]="newPostForm">
+        <div class="input-group">
+          <h4>Title: </h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="titleControl" matInput [(ngModel)]="titleModel" placeholder="Title">
+            <mat-error *ngIf="titleControl.invalid">{{getTitleControlErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Description: </h4>
+          <mat-form-field appearance="outline">
+            <textarea [formControl]="descriptionControl" matInput [(ngModel)]="descriptionModel" placeholder="Description"> </textarea>
+            <mat-error *ngIf="descriptionControl.invalid">{{getDescriptionControlErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-group">
+          <h4>Price: </h4>
+          <mat-form-field appearance="outline">
+            <input [formControl]="priceControl" matInput [(ngModel)]="priceModel" placeholder="Price">
+            <mat-error *ngIf="priceControl.invalid">{{getPriceControlErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="category-wrapper">
+        <h4>Category: </h4>
+        <select id="category-selector" [(ngModel)]="categoryModel" class="category-selector">
+          <option value="1">Mountain Bike</option>
+          <option value="2">Woman's Bike</option>
+          <option value="3">Children Bike</option>
+          <option value="4">Men's Bike</option>
+          <option value="5">City Bike</option>
+        </select>
+      </div>
+
+      <div class="button-wrapper">
+        <button mat-button (click)="CreatePost()" [disabled]="!this.newPostForm.valid">Create Post</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
