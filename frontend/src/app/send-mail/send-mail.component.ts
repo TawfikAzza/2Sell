@@ -10,12 +10,14 @@ import {MailDTO} from "../../entities/entities";
   styleUrls: ['./send-mail.component.css']
 })
 export class SendMailComponent implements OnInit {
+
   receiver: string="";
   subject: string="";
   sender: string="";
   receiverName: string="";
   senderName: string="";
   mail_content: string="";
+
   mail:MailDTO= {
     receiver:"",
     sender:"",
@@ -41,7 +43,7 @@ export class SendMailComponent implements OnInit {
   }
 
   sendMail() {
-    console.log("Rceiver : ",this.receiver)
+    console.log("Receiver : ",this.receiver)
     this.mail.receiver= this.receiver;
     this.mail.sender = this.sender;
     this.mail.subject = "2Sell: Your Post ["+this.subject+"] Received a message";
