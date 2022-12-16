@@ -12,7 +12,7 @@ import {
   postDTO,
   createPostDTO,
   sessionToken,
-  UserProperties
+  UserProperties, CommentDTO
 } from "../entities/entities";
 import {PostfeedComponent} from "../app/postfeed/postfeed.component";
 import jwtDecode from "jwt-decode";
@@ -160,19 +160,15 @@ export class HttpService {
     address:'string',
     category:1,
     img:'string'
-}]
-
-
- */
-
+  } ];
   async getAllPost():Promise<postDTO[]>{
-  
+
     let petition = await customAxios.get('WebShop/GetAllPosts');
     /*
     if(petition.data == []){
       return this.emptypost;
     }
-    
+
      */
     this.allPost = petition.data;
     this.result = petition.data;
@@ -240,5 +236,27 @@ export class HttpService {
 
   async deletePost(id: number) {
     await customAxios.get("WebShop/DeletePost/"+id);
+  }
+
+  async AddComment(commentDto: CommentDTO) {
+    await customAxios.post("WebShop/AddComment",commentDto);
+  }
+
+  async GetAllCommentFromPost(id: number):Promise<CommentDTO[]> {
+    let petition =  await customAxios.get("WebShop/GetAllCommentFromPost/"+id)
+      .then(function(response){
+      let array:CommentDTO[]=[];
+      if(response.data.length===0) {
+        console.log("List Empty");
+      }
+      for (let i = 0; i < response.data.length; i++) {
+        console.log("For loop",response.data[i]);
+        array.push(response.data[i])
+      }
+      return array;
+    });
+
+    return petition;
+
   }
 }

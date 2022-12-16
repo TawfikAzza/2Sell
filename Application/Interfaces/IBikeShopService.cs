@@ -19,4 +19,6 @@ public interface IBikeShopService
     List<PostDTO> GetPostByCategoryAndPrice(FilterSearchDTO filterSearchDto);
     List<PostDTO> GetPostByTitleAndDescription(string searchDtoArgs);
     void DeletePost(int id);
+    void AddComment(CommentDTO dto);
+    List<CommentDTO> GetAllCommentFromPost(int postId);
 }

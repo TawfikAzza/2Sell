@@ -62,7 +62,7 @@ public class WebShopController : ControllerBase
         return _userService.GetUserByEmail(email);
     }
 
-    [Authorize("UserPolicy,AdminPolicy")]
+    [Authorize("UserPolicy")]
     [HttpPost]
     [Route("UpdateProfile")]
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
@@ -214,5 +214,22 @@ public class WebShopController : ControllerBase
     public void DeletePost([FromRoute] int id)
     {
         _bikeShopService.DeletePost(id);
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("AddComment")]
+    public void AddComment([FromBody] CommentDTO dto)
+    {
+        _bikeShopService.AddComment(dto);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("GetAllCommentFromPost/{id}")]
+    public ActionResult<List<CommentDTO>> GetAllCommentFromPost([FromRoute] int id)
+    {
+        Console.WriteLine("Id: "+id);
+        return _bikeShopService.GetAllCommentFromPost(id);
     }
 }

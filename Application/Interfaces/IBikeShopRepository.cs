@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using API.DTOs;
+using Core;
 
 namespace Application.Interfaces;
 
@@ -13,4 +14,6 @@ public interface IBikeShopRepository
     Post GetPost(int id);
     List<Post> getPostByCategory(int[] listId);
     void DeletePost(int id);
+    void AddComment(CommentDTO dto);
+    List<CommentDTO> GetAllCommentFromPost(int postId);
 }
