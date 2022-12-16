@@ -160,7 +160,9 @@ export class HttpService {
     address:'string',
     category:1,
     img:'string'
+
   } ];
+
   async getAllPost():Promise<postDTO[]>{
 
     let petition = await customAxios.get('WebShop/GetAllPosts');
