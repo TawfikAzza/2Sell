@@ -71,11 +71,12 @@ public class WebShopController : ControllerBase
         return Ok(_userService.UpdateUser(dto));
     }
     
-    [Authorize("UserPolicy,AdminPolicy")]
+    [Authorize("UserPolicy")]
     [HttpGet]
     [Route("GetAllPostsFromUser/{username}")]
     public ActionResult<List<PostDTO>> GetAllPostFromUser([FromRoute] string username)
     {
+        Console.WriteLine("User name "+username);
         return Ok(_bikeShopService.GetAllPostFromUser(username));
     }
 
@@ -208,7 +209,7 @@ public class WebShopController : ControllerBase
         }
     }
 
-    [Authorize("AdminPolicy")]
+    [AllowAnonymous]
     [HttpGet]
     [Route("DeletePost/{id}")]
     public void DeletePost([FromRoute] int id)
