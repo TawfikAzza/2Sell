@@ -35,6 +35,7 @@ import { AdminPostComponent } from './admin-post/admin-post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NewCommentComponent } from './new-comment/new-comment.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
+import { MypostsComponent } from './myposts/myposts.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,9 @@ const routes: Routes = [
   },
   {
     path: 'profile', component: ProfileComponent , canActivate: [AuthguardService]
+  },
+  {
+    path: 'myposts', component: MypostsComponent
   },
   {
     path: 'viewpost', component: ViewpostComponent
@@ -90,7 +94,8 @@ const routes: Routes = [
     AdminPostComponent,
     CommentsComponent,
     NewCommentComponent,
-    SendMailComponent
+    SendMailComponent,
+    MypostsComponent
   ],
     imports: [
         RouterModule.forRoot(routes),

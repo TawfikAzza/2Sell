@@ -31,6 +31,7 @@
           </div>
           <!--<a class="active" href="/viewpost?id={{post.id}}">See post</a>-->
           <button mat-button routerLink="/viewpost" [queryParams]="{id:post.id}">See post</button>
+          <button *ngIf="http.myposts" mat-button (click)="deletePost(post.id)">Delete Post</button>
         </ul>
         </div>
 

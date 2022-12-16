@@ -37,6 +37,7 @@ export class HttpService {
   result: postDTO[] = [];
   allPost: postDTO[] = [];
   logged:boolean=false;
+  myposts:boolean=false;
   currentUser:registerDTO={
     email:"",
     password:"",
@@ -264,5 +265,20 @@ export class HttpService {
 
   sendMail(mail: MailDTO) {
       customAxios.post("WebShop/SendMail",mail);
+  }
+
+  async getMyPost(userName: string) {
+    let petition = await customAxios.get('WebShop/GetAllPostsFromUser/'+userName);
+    /*
+    if(petition.data == []){
+      return this.emptypost;
+    }
+
+     */
+    this.allPost = petition.data;
+    this.result = petition.data;
+    this.myposts = true;
+    console.log("HttpService : ",this.result.length);
+    return petition.data;
   }
 }
