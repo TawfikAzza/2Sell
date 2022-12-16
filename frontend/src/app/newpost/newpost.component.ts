@@ -17,7 +17,6 @@ export class NewpostComponent implements OnInit {
   descriptionModel: string = "";
   priceModel: number = 0;
   categoryModel: any;
-  category: number = 0;
   img: string = "";
 
   userProperties: UserProperties = {
