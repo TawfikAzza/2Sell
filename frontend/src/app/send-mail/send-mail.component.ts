@@ -44,7 +44,7 @@ export class SendMailComponent implements OnInit {
     console.log("Rceiver : ",this.receiver)
     this.mail.receiver= this.receiver;
     this.mail.sender = this.sender;
-    this.mail.subject = this.subject;
+    this.mail.subject = "2Sell: Your Post ["+this.subject+"] Received a message";
     this.mail.mail_content = this.mail_content;
     this.mail.receiverName = this.receiverName;
     this.mail.senderName = this.senderName;
