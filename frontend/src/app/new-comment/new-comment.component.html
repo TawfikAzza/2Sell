@@ -1,6 +1,8 @@
-<h2>Your comment :</h2>
+<h4>Your comment on {{title}}:</h4>
+<br><br>
 <input type="hidden" [(ngModel)]="postId">
 <input type="hidden" [(ngModel)]="author">
 <input type="hidden" [(ngModel)]="dateComment">
-<textarea [(ngModel)]="comment"></textarea>
+<textarea [(ngModel)]="comment"></textarea><br>
 <button class="confirm" data-dismiss="modal" (click)="onsubmit()">Confirm</button>
+<button class="confirm" data-dismiss="modal" (click)="onCancel()">Cancel</button>

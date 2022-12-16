@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO.Enumeration;
 using API.DTOs;
 using Application.Interfaces;
 using Core;
@@ -70,6 +71,16 @@ public class BikeShopRepository: IBikeShopRepository
 
     public List<CommentDTO> GetAllCommentFromPost(int postId)
     {
+        List<Post> posts = _bikeShopDbContext.PostTable.ToList();
+        List<User> users = _bikeShopDbContext.UsersTable.ToList();
+        
+        Dictionary<string, string> userImage = new Dictionary<string, string>();
+       
+
+        foreach (User user in users)
+        {
+            userImage.Add(user.userName,user.Img ?? "");
+        }
         List<CommentDTO> commentDtos = new List<CommentDTO>();
         foreach (Comment comment in _bikeShopDbContext.CommentTable.Where(c=> c.PostID == postId).ToList())
         {
@@ -77,7 +88,9 @@ public class BikeShopRepository: IBikeShopRepository
             commentDto.Content = comment.Content;
             commentDto.PostId = comment.PostID;
             commentDto.Author = comment.Author;
+            commentDto.Avatar = userImage[comment.Author] ?? "";
             commentDto.Date=comment.Date.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+            Console.WriteLine("Avatar : "+commentDto.Avatar);
             commentDtos.Add(commentDto);
         }
 

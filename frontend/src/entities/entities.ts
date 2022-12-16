@@ -14,7 +14,8 @@ export interface CommentDTO {
   postId:number,
   content:string,
   author:string,
-  date:string
+  date:string,
+  avatar:string
 }
 export interface loginDTO{
   Email: string,

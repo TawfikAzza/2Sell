@@ -47,4 +47,5 @@ public class CommentDTO
     public string Content { get; set; }
     public string Author { get; set; }
     public string Date { get; set; }
+    public string Avatar { get; set; }
 }

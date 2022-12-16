@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommentDTO, postDTO, sessionToken, UserProperties} from "../../entities/entities";
+import {CommentDTO, postDTO, registerDTO, sessionToken, UserProperties} from "../../entities/entities";
 import {HttpService} from "../../services/http.service";
 import {FormBuilder} from "@angular/forms";
 import {Router, UrlTree} from "@angular/router";
@@ -45,14 +45,15 @@ export class ViewpostComponent implements OnInit {
   }
 
 
-    newComment(){
-
+    async newComment(){
+      //let user:registerDTO = await this.http.getUserByEmail(this.userProperties.email);
       this.dialogRef.open(NewCommentComponent,{
         data: {
           id:this.currentPost.id,
           title:this.currentPost.title,
           author:this.userProperties.userName,
           date:"test"
+          //avatar:user.img
         }
       });
     }

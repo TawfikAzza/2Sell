@@ -15,12 +15,14 @@ export class NewCommentComponent implements OnInit {
   title:string="";
   author:string="";
   dateComment:string="";
+  avatar:string="";
   comment: string="";
   commentDto:CommentDTO={
     postId:0,
     content:"",
     author:"",
-    date:""
+    date:"",
+    avatar:""
   }
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
               private router:Router,
@@ -30,6 +32,7 @@ export class NewCommentComponent implements OnInit {
       this.title=data.title;
       this.author=data.author;
       this.dateComment=data.date;
+      this.avatar=data.avatar;
   }
 
   ngOnInit(): void {
@@ -42,7 +45,12 @@ export class NewCommentComponent implements OnInit {
     this.commentDto.content=this.comment;
     this.commentDto.date=this.dateComment;
     this.commentDto.author=this.author;
+    this.commentDto.avatar="";
     this.http.AddComment(this.commentDto);
+    this.dialogRef.close();
+  }
+
+  onCancel() {
     this.dialogRef.close();
   }
 }
