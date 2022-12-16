@@ -12,7 +12,7 @@ import {
   postDTO,
   createPostDTO,
   sessionToken,
-  UserProperties, CommentDTO
+  UserProperties, CommentDTO, MailDTO
 } from "../entities/entities";
 import {PostfeedComponent} from "../app/postfeed/postfeed.component";
 import jwtDecode from "jwt-decode";
@@ -260,5 +260,9 @@ export class HttpService {
 
     return petition;
 
+  }
+
+  sendMail(mail: MailDTO) {
+      customAxios.post("WebShop/SendMail",mail);
   }
 }

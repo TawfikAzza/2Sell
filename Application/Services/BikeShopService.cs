@@ -3,6 +3,7 @@ using API.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core;
+using PrintAsPdf;
 
 namespace Application.Services;
 
@@ -115,6 +116,21 @@ public class BikeShopService : IBikeShopService
     public List<CommentDTO> GetAllCommentFromPost(int postId)
     {
         return _bikeShopRepository.GetAllCommentFromPost(postId);
+    }
+
+    public void SendMail(MailDTO mail)
+    {
+        mail_core mailCore = new mail_core();
+        mailCore.smtpServerSettings("smtp.gmail.com",587,"fantodk@gmail.com","lyucchgsbswwkoqz",true);
+        mailCore.NewMail(mail.Receiver,mail.ReceiverName,mail.Sender,mail.SenderName,mail.Subject,mail.Mail_content,"");
+        if (mailCore.sendMail())
+        {
+            Console.WriteLine("Mail Sent");
+        }
+        else
+        {
+            Console.WriteLine("Error");
+        }
     }
 
     public List<PostDTO> GetAllPosts()

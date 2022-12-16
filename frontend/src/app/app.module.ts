@@ -34,6 +34,7 @@ import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminPostComponent } from './admin-post/admin-post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NewCommentComponent } from './new-comment/new-comment.component';
+import { SendMailComponent } from './send-mail/send-mail.component';
 
 
 const routes: Routes = [
@@ -88,7 +89,8 @@ const routes: Routes = [
     AdminUserComponent,
     AdminPostComponent,
     CommentsComponent,
-    NewCommentComponent
+    NewCommentComponent,
+    SendMailComponent
   ],
     imports: [
         RouterModule.forRoot(routes),

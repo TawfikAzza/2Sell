@@ -21,4 +21,5 @@ public interface IBikeShopService
     void DeletePost(int id);
     void AddComment(CommentDTO dto);
     List<CommentDTO> GetAllCommentFromPost(int postId);
+    void SendMail(MailDTO mail);
 }

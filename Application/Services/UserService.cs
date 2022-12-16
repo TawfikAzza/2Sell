@@ -19,8 +19,7 @@ public class UserService :IUserService
     public User CreateNewUser(User user)
     {
         if (user.Img == "")
-            user.Img = "test";
-        Console.WriteLine("USER IMG:"+user.Img);
+            user.Img = "https://cdn.filestackcontent.com/5W5vdLq1TmnfSXV0PKlS";
         return _userRepository.CreateNewUser(user);
     }
     private bool checkEmail(string email)
@@ -41,10 +40,7 @@ public class UserService :IUserService
     }
     public UserDTO GetUserByEmail(string email)
     {
-       /* Console.WriteLine("Email in user service : "+email);
-        User user =  _userRepository.GetUserByEmail(email);
-        UserDTO userDto = _mapper.Map<User, UserDTO>(user);
-        return userDto;*/
+
        return _mapper.Map<User, UserDTO>(_userRepository.GetAllUsers()
            .Where(u => u.Email == email).FirstOrDefault());
     }
@@ -83,7 +79,7 @@ public class UserService :IUserService
         if (userToModify.Img != "")
             user.Img = userToModify.Img;
         else
-            user.Img = "";
+            user.Img = "https://cdn.filestackcontent.com/5W5vdLq1TmnfSXV0PKlS";
         var saltBytes = RandomNumberGenerator.GetBytes(32);
         string salt = "";
         foreach (byte bit in saltBytes)

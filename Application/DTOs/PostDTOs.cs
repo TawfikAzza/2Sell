@@ -49,3 +49,13 @@ public class CommentDTO
     public string Date { get; set; }
     public string Avatar { get; set; }
 }
+
+public class MailDTO
+{
+    public string Receiver { get; set; }
+    public string Sender { get; set; }
+    public string Subject { get; set; }
+    public string Mail_content { get; set; }
+    public string ReceiverName { get; set; }
+    public string SenderName { get; set; }
+}
