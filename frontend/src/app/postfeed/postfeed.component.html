@@ -2,18 +2,23 @@
   <div *ngFor="let post of http.result" class="wrapper">
     <mat-card class="example-card">
 
-      <mat-card-header class="post-header">
-        <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>{{post.userName}}</mat-card-subtitle>
-        <div style="float: right" class="authority">
-          <p>{{post.authority}}</p>
-        </div>
-      </mat-card-header>
+      <div class="header-wrapper">
+        <mat-card-header class="post-header">
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>{{post.userName}}</mat-card-subtitle>
+          <div style="float: right" class="authority">
+            <p>{{post.authority}}</p>
+          </div>
+        </mat-card-header>
+      </div>
 
       <div class="post-body">
-        <img class='img' src="{{post.img}}"
-             alt="Photo of a Shiba Inu">
+        <div class="img-wrapper">
+          <img *ngIf="post.img == ''" src="https://fomantic-ui.com/images/wireframe/image.png">
+          <img ng *ngIf="post.img != ''" class='img' src="{{post.img}}">
+        </div>
 
+        <div class="body-wrapper">
         <ul>
           <div>
             <div class="address-price">
@@ -27,6 +32,7 @@
           <!--<a class="active" href="/viewpost?id={{post.id}}">See post</a>-->
           <button mat-button routerLink="/viewpost" [queryParams]="{id:post.id}">See post</button>
         </ul>
+        </div>
 
       </div>
     </mat-card>
@@ -34,7 +40,8 @@
 </div>
 <div *ngIf="http.result.length==0" class="wrapper">
   <div class="post-error">
-    <img style="width: 700px; height: 400px" src="https://www.runtimeasia.com/wp-content/uploads/2020/06/windows10-bsod.jpg">
+    <img style="width: 700px; height: 400px"
+         src="https://www.runtimeasia.com/wp-content/uploads/2020/06/windows10-bsod.jpg">
     <p>No posts were found, we hope you'll get lucky next time :)</p>
   </div>
 </div>

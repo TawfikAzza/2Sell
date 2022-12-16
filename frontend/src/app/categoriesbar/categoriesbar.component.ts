@@ -40,8 +40,10 @@ export class CategoriesbarComponent implements OnInit {
     ticked: false,
     categories: [
       {id: 1, name: 'Mountain Bike', ticked: false},
-      {id: 2, name: 'Woman bike', ticked: false},
-      {id: 3, name: 'City bike', ticked: false},
+      {id: 2, name: "Woman's bike", ticked: false},
+      {id: 3, name: "Children's bike", ticked: false},
+      {id: 4, name: "Men's bike", ticked: false},
+      {id: 5, name: "City bike", ticked: false},
     ],
   };
 
