@@ -169,7 +169,7 @@ export class HttpService {
     if(petition.data == []){
       return this.emptypost;
     }
-
+ 
      */
     this.allPost = petition.data;
     this.result = petition.data;
