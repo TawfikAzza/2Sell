@@ -59,9 +59,7 @@ export class ViewpostComponent implements OnInit {
     }
     async getAllCommentFormPost(id:number) {
        this.listComments = await this.http.GetAllCommentFromPost(id);
-      for (let i = 0; i<this.listComments.length;i++) {
-        console.log("Data :",this.listComments[i].postId);
-      }
+      console.log("length: "+this.listComments.length)
        //console.log("length :",this.listComments[0].Content);
     }
 

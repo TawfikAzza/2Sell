@@ -71,14 +71,16 @@ public class BikeShopRepository: IBikeShopRepository
 
     public List<CommentDTO> GetAllCommentFromPost(int postId)
     {
-        List<Post> posts = _bikeShopDbContext.PostTable.ToList();
+        Console.WriteLine();
+        Post post = _bikeShopDbContext.PostTable.Single(p=> p.Id ==postId);
         List<User> users = _bikeShopDbContext.UsersTable.ToList();
         
         Dictionary<string, string> userImage = new Dictionary<string, string>();
-       
-
+        
+            
         foreach (User user in users)
         {
+            
             userImage.Add(user.userName,user.Img ?? "");
         }
         List<CommentDTO> commentDtos = new List<CommentDTO>();
