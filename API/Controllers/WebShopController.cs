@@ -232,4 +232,12 @@ public class WebShopController : ControllerBase
         Console.WriteLine("Id: "+id);
         return _bikeShopService.GetAllCommentFromPost(id);
     }
+
+    [Authorize]
+    [HttpPost]
+    [Route("SendMail")]
+    public void SendMail([FromBody] MailDTO mail)
+    {
+        _bikeShopService.SendMail(mail);
+    }
 }

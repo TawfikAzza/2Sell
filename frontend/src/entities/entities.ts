@@ -33,6 +33,14 @@ export interface postDTO{
   category:number
   img:string
 }
+export interface MailDTO {
+  receiver:string,
+  sender:string,
+  subject:string,
+  mail_content:string,
+  receiverName:string,
+  senderName:string
+}
 export interface createPostDTO {
   Email:string,
   Title: string,

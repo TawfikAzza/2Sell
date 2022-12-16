@@ -1,0 +1,11 @@
+<h4>Your Mail :</h4>receiver name :{{receiverName}} receiver email : {{receiver}} subject : {{subject}}
+Sender Name : {{senderName}} Sender email :  {{sender}}
+<br><br>
+<input type="hidden" [(ngModel)]="receiver">
+<input type="hidden" [(ngModel)]="receiverName">
+<input type="hidden" [(ngModel)]="subject">
+<input type="hidden" [(ngModel)]="sender">
+<input type="hidden" [(ngModel)]="senderName">
+<textarea [(ngModel)]="mail_content"></textarea><br>
+<button class="confirm" data-dismiss="modal" (click)="sendMail()">Confirm</button>
+<button class="confirm" data-dismiss="modal" (click)="onCancel()">Cancel</button>

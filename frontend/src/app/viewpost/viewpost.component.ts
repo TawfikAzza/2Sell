@@ -6,6 +6,7 @@ import {Router, UrlTree} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {NewCommentComponent} from "../new-comment/new-comment.component";
 import jwtDecode from "jwt-decode";
+import {SendMailComponent} from "../send-mail/send-mail.component";
 
 @Component({
   selector: 'app-viewpost',
@@ -44,9 +45,19 @@ export class ViewpostComponent implements OnInit {
     this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
   }
 
+    sendMail() {
+      this.dialogRef.open(SendMailComponent,{
+        data: {
+          recipient:this.currentPost.email,
+          recipientName:this.currentPost.userName,
+          subject:this.currentPost.title,
+          sender:this.userProperties.email,
+          senderName:this.userProperties.userName
+        }
+      });
+    }
+    newComment(){
 
-    async newComment(){
-      //let user:registerDTO = await this.http.getUserByEmail(this.userProperties.email);
       this.dialogRef.open(NewCommentComponent,{
         data: {
           id:this.currentPost.id,
