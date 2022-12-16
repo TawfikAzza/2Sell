@@ -49,9 +49,10 @@ export class SendMailComponent implements OnInit {
     this.mail.receiverName = this.receiverName;
     this.mail.senderName = this.senderName;
     this.http.sendMail(this.mail);
+    this.dialogRef.close();
   }
 
   onCancel() {
-
+    this.dialogRef.close();
   }
 }
