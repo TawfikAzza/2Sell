@@ -32,8 +32,8 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.CreateDB();
     }
-    [AllowAnonymous]
-    //[Authorize("UserPolicy")]
+    //[AllowAnonymous]
+    [Authorize("AdminPolicy")]
     [HttpGet]
     [Route("GetAllUsers")]
     public ActionResult<List<UserDTO>> GetAllUsers()
@@ -192,7 +192,7 @@ public class WebShopController : ControllerBase
         return Ok(true);
     }
 
-    [AllowAnonymous]
+    [Authorize("AdminPolicy")]
     [HttpPost]
     [Route("ChangeBanStatus")]
     public void BanUser([FromBody] string email)
@@ -206,5 +206,13 @@ public class WebShopController : ControllerBase
         {
             BadRequest("Email incorrect");
         }
+    }
+
+    [Authorize("AdminPolicy")]
+    [HttpGet]
+    [Route("DeletePost/{id}")]
+    public void DeletePost([FromRoute] int id)
+    {
+        _bikeShopService.DeletePost(id);
     }
 }

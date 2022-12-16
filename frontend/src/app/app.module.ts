@@ -30,11 +30,19 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { NewpostComponent } from './newpost/newpost.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import {MatListModule} from "@angular/material/list";
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { AdminPostComponent } from './admin-post/admin-post.component';
 
 
 const routes: Routes = [
   {
     path: 'admin-panel', component: AdminPanelComponent
+  },
+  {
+    path: 'admin-user', component: AdminUserComponent
+  },
+  {
+    path: 'admin-post', component: AdminPostComponent
   },
   {
     path: 'register', component: RegisterComponent
@@ -74,7 +82,9 @@ const routes: Routes = [
     PostfeedComponent,
     ViewpostComponent,
     NewpostComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AdminUserComponent,
+    AdminPostComponent
   ],
     imports: [
         RouterModule.forRoot(routes),

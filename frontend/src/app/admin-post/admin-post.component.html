@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<mat-list-item *ngFor="let post of this.listPost">
+  <a matLine >User Name: {{post.userName}} Title : {{post.title}}</a><img height="100" width="150" src="{{post.img}}">
+  <button mat-raised-button color="primary" (click)="deletePost(post.id)">Delete Post</button>
+</mat-list-item>
