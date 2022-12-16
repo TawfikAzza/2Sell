@@ -14,7 +14,8 @@
 
       <div class="post-body">
         <div class="img-wrapper">
-          <img class='img' src="{{post.img}}" alt="Photo of a Shiba Inu">
+          <img *ngIf="post.img == ''" src="https://fomantic-ui.com/images/wireframe/image.png">
+          <img ng *ngIf="post.img != ''" class='img' src="{{post.img}}">
         </div>
 
         <div class="body-wrapper">
