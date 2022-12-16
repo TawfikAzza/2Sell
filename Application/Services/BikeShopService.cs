@@ -107,6 +107,16 @@ public class BikeShopService : IBikeShopService
         _bikeShopRepository.DeletePost(id);
     }
 
+    public void AddComment(CommentDTO dto)
+    {
+        _bikeShopRepository.AddComment(dto);
+    }
+
+    public List<CommentDTO> GetAllCommentFromPost(int postId)
+    {
+        return _bikeShopRepository.GetAllCommentFromPost(postId);
+    }
+
     public List<PostDTO> GetAllPosts()
     {
         List<Post> posts = GetAllPostDB().ToList();

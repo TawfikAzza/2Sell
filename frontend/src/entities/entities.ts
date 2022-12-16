@@ -10,7 +10,13 @@ export interface registerDTO{
   img?:string,
   roleId:number
 }
-
+export interface CommentDTO {
+  postId:number,
+  content:string,
+  author:string,
+  date:string,
+  avatar:string
+}
 export interface loginDTO{
   Email: string,
   Password: string

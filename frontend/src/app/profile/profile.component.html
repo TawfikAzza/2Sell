@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="wrapper">
   <div *ngIf="pageMode=='view'">
     <div class="profile-wrapper">
@@ -91,13 +90,13 @@
           </mat-form-field>
         </div>
 
-        <div class="input-group">
+        <!-- <div class="input-group">
           <h4>Username</h4>
-          <mat-form-field appearance="outline">
-            <input [formControl]="usernameControl" matInput [(ngModel)]="userNameModel" placeholder="Username">
-            <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+          <mat-form-field appearance="outline"> -->
+            <input type="hidden" [formControl]="usernameControl" [(ngModel)]="userNameModel">
+            <!-- <mat-error *ngIf="usernameControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="input-group">
           <h4>Address</h4>
