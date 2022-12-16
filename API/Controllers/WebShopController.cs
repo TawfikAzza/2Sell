@@ -32,8 +32,8 @@ public class WebShopController : ControllerBase
     {
         _bikeShopService.CreateDB();
     }
-    [AllowAnonymous]
-    //[Authorize("UserPolicy")]
+    //[AllowAnonymous]
+    [Authorize("AdminPolicy")]
     [HttpGet]
     [Route("GetAllUsers")]
     public ActionResult<List<UserDTO>> GetAllUsers()
@@ -62,7 +62,7 @@ public class WebShopController : ControllerBase
         return _userService.GetUserByEmail(email);
     }
 
-    [Authorize("UserPolicy,AdminPolicy")]
+    [Authorize("UserPolicy")]
     [HttpPost]
     [Route("UpdateProfile")]
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
@@ -192,7 +192,7 @@ public class WebShopController : ControllerBase
         return Ok(true);
     }
 
-    [AllowAnonymous]
+    [Authorize("AdminPolicy")]
     [HttpPost]
     [Route("ChangeBanStatus")]
     public void BanUser([FromBody] string email)
@@ -206,5 +206,30 @@ public class WebShopController : ControllerBase
         {
             BadRequest("Email incorrect");
         }
+    }
+
+    [Authorize("AdminPolicy")]
+    [HttpGet]
+    [Route("DeletePost/{id}")]
+    public void DeletePost([FromRoute] int id)
+    {
+        _bikeShopService.DeletePost(id);
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("AddComment")]
+    public void AddComment([FromBody] CommentDTO dto)
+    {
+        _bikeShopService.AddComment(dto);
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("GetAllCommentFromPost/{id}")]
+    public ActionResult<List<CommentDTO>> GetAllCommentFromPost([FromRoute] int id)
+    {
+        Console.WriteLine("Id: "+id);
+        return _bikeShopService.GetAllCommentFromPost(id);
     }
 }

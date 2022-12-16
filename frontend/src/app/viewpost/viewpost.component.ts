@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {postDTO} from "../../entities/entities";
+import {CommentDTO, postDTO, registerDTO, sessionToken, UserProperties} from "../../entities/entities";
 import {HttpService} from "../../services/http.service";
 import {FormBuilder} from "@angular/forms";
 import {Router, UrlTree} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {NewCommentComponent} from "../new-comment/new-comment.component";
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: 'app-viewpost',
@@ -11,30 +14,54 @@ import {Router, UrlTree} from "@angular/router";
 })
 export class ViewpostComponent implements OnInit {
   currentPost: postDTO = {
-    id: 2,
-    description: "this is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehethis is a good description hehehehe",
-    title: "Such a good bike this one",
-    price: 22.1,
-    authority: 3,
+    id: 0,
+    description: "",
+    title: "",
+    price: 0,
+    authority: 0,
     category: 1,
-    email: "emailoftheguy@gmail.com",
-    userName: "username",
-    address: "some adddresss 23",
-    img: "https://cdn.filestackcontent.com/g9ZuxMVpQl2UjD4mYWPQ"
+    email: "",
+    userName: "",
+    address: "",
+    img: ""
   };
-
+  listComments:CommentDTO[]=[];
   constructor(public http: HttpService,
               public formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private dialogRef:MatDialog) {
+  }
+  userProperties:UserProperties={
+    email:"",
+    userName:"",
+    roleId:1
+  }
+  async ngOnInit() {
+    let urlParsed: UrlTree = this.router.parseUrl(this.router.url);
+    console.log("params: ", urlParsed.queryParams['id']);
+    this.getPost(urlParsed.queryParams['id']);
+    this.getAllCommentFormPost(urlParsed.queryParams['id']);
+    this.userProperties = this.http.getUserProperties(localStorage.getItem('sessionToken'));
   }
 
-  ngOnInit() {
-      let urlParsed:UrlTree = this.router.parseUrl(this.router.url);
-      console.log("params: ",urlParsed.queryParams['id']);
-      this.getPost(urlParsed.queryParams['id']);
-  }
 
-
+    async newComment(){
+      //let user:registerDTO = await this.http.getUserByEmail(this.userProperties.email);
+      this.dialogRef.open(NewCommentComponent,{
+        data: {
+          id:this.currentPost.id,
+          title:this.currentPost.title,
+          author:this.userProperties.userName,
+          date:"test"
+          //avatar:user.img
+        }
+      });
+    }
+    async getAllCommentFormPost(id:number) {
+       this.listComments = await this.http.GetAllCommentFromPost(id);
+      console.log("length: "+this.listComments.length)
+       //console.log("length :",this.listComments[0].Content);
+    }
 
     async getPost(id:number):Promise<postDTO>{
         let tmp = await this.http.getPost(id);

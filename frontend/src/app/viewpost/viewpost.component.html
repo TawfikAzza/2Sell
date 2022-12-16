@@ -1,15 +1,4 @@
-<!---
-<p>
-  {{currentPost.title}}
-</p>
-<p>
-  {{currentPost.price}}
-</p>
-<p>
-  {{currentPost.description}}
-</p>
-
---->
+<app-navbar></app-navbar>
 
 <div class="wrapper">
   <div class="view-post">
@@ -41,6 +30,28 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <div *ngFor="let comment of listComments">
+      <p>
+       Date: {{comment.date}}
+      </p>
+      <p>
+       Author: {{comment.author}}
+      </p>
+      <p>
+       Comment :{{comment.content}}
+      </p>
+      <p>
+        Avatar : <img src="{{comment.avatar}}" height="100" width="100">
+      </p>
+    </div>
+    <button (click)="newComment()">Add Comment</button>
+  </div>
 </div>
+
+
+
+
 
 

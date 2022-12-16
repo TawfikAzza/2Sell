@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatDialogModule} from "@angular/material/dialog";
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -30,11 +30,21 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { NewpostComponent } from './newpost/newpost.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import {MatListModule} from "@angular/material/list";
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { AdminPostComponent } from './admin-post/admin-post.component';
+import { CommentsComponent } from './comments/comments.component';
+import { NewCommentComponent } from './new-comment/new-comment.component';
 
 
 const routes: Routes = [
   {
     path: 'admin-panel', component: AdminPanelComponent
+  },
+  {
+    path: 'admin-user', component: AdminUserComponent
+  },
+  {
+    path: 'admin-post', component: AdminPostComponent
   },
   {
     path: 'register', component: RegisterComponent
@@ -74,7 +84,11 @@ const routes: Routes = [
     PostfeedComponent,
     ViewpostComponent,
     NewpostComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AdminUserComponent,
+    AdminPostComponent,
+    CommentsComponent,
+    NewCommentComponent
   ],
     imports: [
         RouterModule.forRoot(routes),
@@ -93,7 +107,8 @@ const routes: Routes = [
         HttpClientModule,
         MatIconModule,
         MatProgressBarModule,
-        MatListModule
+        MatListModule,
+        MatDialogModule
     ],
   providers: [PostfeedComponent],
   bootstrap: [AppComponent]
