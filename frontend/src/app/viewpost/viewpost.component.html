@@ -33,7 +33,18 @@
   </div>
 
   <div>
-    <div *ngFor="let comment of listComments">
+    <button (click)="newComment()">Add Comment</button>
+  </div>
+
+  <div class="comments-wrapper">
+
+    <div class="comments-header">
+      <div>
+        {{listComments.length}}
+      </div>
+    </div>
+
+    <div class="comment" *ngFor="let comment of listComments">
       <p>
        Date: {{comment.date}}
       </p>
@@ -48,9 +59,10 @@
       </p>
     </div>
 
-    <button (click)="newComment()">Add Comment</button>
+
     <button (click)="sendMail()">Send Mail</button>
   </div>
+
 </div>
 
 
