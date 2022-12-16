@@ -1,0 +1,132 @@
+.file-input {
+  display: none;
+}
+
+.profile-wrapper{
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.fields-wrapper{
+  width: 60%;
+  margin: 0px 20px 20px 20px;
+  display: inline;
+}
+
+.field{
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+  margin: 10px;
+}
+
+h4{
+  margin-bottom: 0;
+  color: #CC5803;
+  font-weight: bold;
+}
+
+.img{
+  height: 300px;
+  width: 300px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 10px;
+}
+
+.img img{
+  height: 300px;
+  width: 300px;
+}
+
+button{
+  color: white;
+  background: #CC5803;
+  margin: 20px;
+}
+
+.full-screen-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper2{
+  background: #e2711d;
+  width: 60%;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.register-wrapper{
+  padding: 20px 20px 20px;
+  background: transparent;
+  display: block;
+}
+
+h1{
+  color: white;
+}
+
+h2{
+  color: white;
+}
+
+.input-group{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.input-group h4{
+  width: 10%;
+  text-align: left;
+  padding-right: 40px;
+  color: white;
+}
+.input-group mat-form-field{
+  width: 60%;
+  color: white;
+}
+
+.mat-error{
+  color: #dc0d1f;
+}
+
+.register-button{
+  width: 75%;
+  background: white;
+  color: orange;
+}
+
+.register-button :hover{
+  background: #FFF5EE;
+}
+
+.img2{
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+}
+
+.img2 img{
+  height: 300px;
+  width: 300px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+}
+
+.img2 button{
+  height: 40px;
+  width: 200px;
+  align-items: center;
+}

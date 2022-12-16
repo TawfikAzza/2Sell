@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<div class="wrapper">
+  <div class="view-post">
+
+    <div class="img-wrapper">
+      <img *ngIf="currentPost.img == ''" class="mainImg" src="https://fomantic-ui.com/images/wireframe/image.png">
+      <img class="mainImg" [src]="currentPost.img" [alt]="currentPost.img">
+    </div>
+
+    <div class="information-wrapper">
+      <div class="title">
+        <h1 style="margin-bottom: 0">{{currentPost.title}}</h1>
+        <h3 style="color: grey">Offered by: @{{currentPost.userName}}</h3>
+      </div>
+
+      <div class="description">
+        <h3>Description of the post:</h3>
+        <p>{{currentPost.description}}</p>
+      </div>
+      <div class="price-address-wrapper">
+        <div class="price">
+          <p>Price: {{currentPost.price}} kr.</p>
+        </div>
+        <div class="address">
+          <p>Seller's address: {{currentPost.address}}</p>
+        </div>
+      </div>
+      <div class="contactBtn">
+        <button mat-button style="height: 100%;width: 100%; color: white; background: orange">Contact the seller</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let comment of listComments">
+      <p>
+       Date: {{comment.date}}
+      </p>
+      <p>
+       Author: {{comment.author}}
+      </p>
+      <p>
+       Comment :{{comment.content}}
+      </p>
+      <p>
+        Avatar : <img src="{{comment.avatar}}" height="100" width="100">
+      </p>
+    </div>
+    <button (click)="newComment()">Add Comment</button>
+    <button (click)="sendMail()">Send Mail</button>
+  </div>
+</div>
+
+
+
+
+
+

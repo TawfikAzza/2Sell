@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<div class="wrapper">
+  <div class="login-subwrapper">
+    <form class="form" [formGroup]="loginForm">
+
+      <h1>Hi again!</h1>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <input [formControl]="emailControl" matInput [(ngModel)]="emailModel" placeholder="Email">
+          <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <input [formControl]="passwordControl" type="password" matInput [(ngModel)]="passwordModel"
+                 formControlName="password">
+          <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="buttons">
+        <button class="login-button" mat-button (click)="login()" [disabled]="!loginForm.valid">Log in</button>
+        <button class="register-button" mat-button (click)="goToRegisterPage()">Register</button>
+      </div>
+    </form>
+  </div>
+</div>

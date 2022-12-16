@@ -1,6 +1,9 @@
 using System.Net.Mime;
 using System.Text;
+using API.DTOs;
 using Application.Helpers;
+using AutoMapper;
+using Core;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddControllers();
+// Add services to the container.
+//Adding the AutoMapper service and configuration:
+MapperConfiguration config = new MapperConfiguration(conf =>
+{
+    conf.CreateMap<RegisterDTO, User>();
+    conf.CreateMap<User, UserDTO>();
+    conf.CreateMap<User, RegisterDTO>();
+});
+IMapper mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,7 +34,6 @@ builder.Services.AddDbContext<BikeShopDbContext>(options => options.UseSqlite(
 ));
 //Adding Dependency Injections 
 Application.DependencyResolver.DependencyResolverService.RegisterApplicationLayer(builder.Services);
-
 Infrastructure.DependencyResolver.DependencyResolverService.RegisterInfrastrucureLayer(builder.Services);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -34,6 +47,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("AppSettings:Secret")))
     };
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", (policy) => { policy.RequireRole("0");});
+    options.AddPolicy("UserPolicy", (policy) => { policy.RequireRole("1");});
+    options.AddPolicy("BannedPolicy", (policy) => { policy.RequireRole("2");});
 });
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -54,6 +73,7 @@ app.UseCors(opts =>
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

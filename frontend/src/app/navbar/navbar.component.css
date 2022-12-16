@@ -1,0 +1,93 @@
+nav{
+  margin: 10px 20px 10px 0;
+  overflow: hidden;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  background-color: transparent;
+  padding-left: 10px;
+}
+
+li {
+  float: left;
+  padding-left: 10px;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+li a:hover:not(.active) {
+  background-color: #E2711D;
+  color: white
+}
+
+.active {
+  background-color: #E2711D;
+  color: white
+}
+
+.active:hover {
+  background-color: #CC5803;
+}
+
+.default{
+  color: black;
+}
+
+
+
+/*
+nav{
+  height: 40px;
+  margin-bottom: 20px;
+  background: green;
+}
+
+nav ul{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  position: sticky;
+  justify-content: center;
+  justify-items: center;
+  list-style-type: none;
+  margin: 0;
+}
+
+nav ul li{
+  background-color: #E2711D;
+  width: 30%;
+  text-align: center;
+  line-height: 40px;
+
+}
+
+nav ul li:hover{
+  background-color: #FF9505;
+}
+
+nav ul li a{
+  height: 50px;
+  text-decoration: none;
+  color: black;
+}
+
+nav ul li a:hover{
+  text-decoration: none;
+  color: white;
+}
+
+.mat-button {
+  height: 40px;
+  background: black;
+}
+ */
+

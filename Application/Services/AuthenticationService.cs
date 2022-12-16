@@ -6,7 +6,10 @@ using API.DTOs;
 using API.Services;
 using Application.Helpers;
 using Application.Interfaces;
+using Application.Validators;
+using AutoMapper;
 using Core;
+using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,14 +21,21 @@ public class AuthenticationService : IAuthenticationService
     private readonly IUserRepository _userRepository;
     private readonly IBikeShopRepository _bikeShopRepository;
     private byte[] _secretByte;
+    private readonly IMapper _mapper;
     public AuthenticationService(IUserRepository repository
         ,IOptions<AppSettings> appSettings
-        ,IBikeShopRepository bikeShopRepository)
+        ,IBikeShopRepository bikeShopRepository,
+        IMapper mapper)
     {
         _userRepository = repository;
         _appSettings = appSettings.Value;
         _bikeShopRepository = bikeShopRepository;
+        _mapper = mapper;
+    }
 
+    public AuthenticationService(IUserRepository repository)
+    {
+        _userRepository = repository;
     }
     public bool ValidateUser(string userName, string password, out string token)
     {
@@ -34,21 +44,36 @@ public class AuthenticationService : IAuthenticationService
 
     public string Register(RegisterDTO dto)
     {
-         try
-        {
-            _userRepository.GetUserByEmail(dto.Email);
-        }
-        catch (KeyNotFoundException)
-        {
-            var saltBytes = RandomNumberGenerator.GetBytes(32);
-            string salt = "";
-            foreach (byte bit in saltBytes)
-            {
-                salt += bit;
-            }
+        string message = "";
 
-            
-            Console.WriteLine("Salt: "+salt+" Email: "+dto.Email+" password : "+dto.Password);
+        if (checkEmail(dto.Email))
+        {
+            message = "Email already exists";
+        }
+        
+        if (checkUserName(dto.userName))
+        {
+            if (message != "")
+                message = "Email and User Name already exists";
+            else
+                message = "User Name already exists";
+
+        }
+        if (message != "")
+        {
+            throw new Exception(message);
+        }
+        var saltBytes = RandomNumberGenerator.GetBytes(32);
+        string salt = "";
+        foreach (byte bit in saltBytes)
+        {
+            salt += bit;
+        }
+
+        UserValidator validator = new UserValidator();
+        ValidationResult validation = validator.Validate(dto);
+        if (validation.IsValid)
+        {
             User user = new User() {
                 Email = dto.Email,
                 Salt = salt,
@@ -57,16 +82,42 @@ public class AuthenticationService : IAuthenticationService
                 LastName = dto.LastName,
                 Address = dto.Address,
                 PhoneNumber = dto.PhoneNumber,
-                PostalCode = dto.PostalCode
+                PostalCode = dto.PostalCode,
+                userName = dto.userName,
+                RoleId = Convert.ToInt32(dto.RoleId)
             };
-            
+            user.Img = "";
+        
             _userRepository.CreateNewUser(user);
             return GenerateToken(user);
         }
-
-        throw new Exception("Email " + dto.Email + " is already in use");
+    return null;
     }
 
+    private bool checkEmail(string email)
+    {
+        try
+        {
+            _userRepository.GetUserByEmail(email);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+        return true;
+    }
+    private bool checkUserName(string userName)
+    {
+        try
+        {
+            _userRepository.GetUserByUserName(userName);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+        return true;
+    }
     public string Login(LoginDTO dto)
     {
         var user = _userRepository.GetUserByEmail(dto.Email);
@@ -74,7 +125,6 @@ public class AuthenticationService : IAuthenticationService
         {
             return GenerateToken(user);
         }
-
         throw new Exception("Invalid Login");
     }
     
@@ -94,14 +144,21 @@ public class AuthenticationService : IAuthenticationService
         );
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    //End of Peter's way
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
+        Console.WriteLine("User role Id"+user.RoleId);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[]
-                { new Claim("email", user.Email), new Claim("Role", "Owner") }),
+            
             Expires = DateTime.UtcNow.AddDays(7),
+            Subject = new ClaimsIdentity(new[]
+            { new Claim("email", user.Email), 
+                new Claim(ClaimTypes.Role, user.RoleId.ToString()),
+                new Claim("userName",user.userName),
+                new Claim("expDate",DateTime.UtcNow.AddDays(7).ToString())
+            }),
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)
         };
