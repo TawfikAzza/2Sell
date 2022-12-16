@@ -4,6 +4,7 @@
   <div class="view-post">
 
     <div class="img-wrapper">
+      <img *ngIf="currentPost.img == ''" class="mainImg" src="https://fomantic-ui.com/images/wireframe/image.png">
       <img class="mainImg" [src]="currentPost.img" [alt]="currentPost.img">
     </div>
 
