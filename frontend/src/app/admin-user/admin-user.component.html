@@ -1,7 +1,18 @@
 <app-navbar></app-navbar>
-<mat-list-item *ngFor="let user of this.listUser">
-  <a matLine >User Name: {{user.userName}} Email : {{user.email}}</a>
-  <button *ngIf="user.roleId==1" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Ban User</button>
-  <button *ngIf="user.roleId==2" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Unban User</button>
-  <button mat-button color="warn" (click)="deleteUser(user.email)">Delete User</button>
-</mat-list-item>
+<div class="wrapper">
+  <div class="user" *ngFor="let user of this.listUser">
+    <div class="user-info">
+      <h4>Username: @{{user.userName}}</h4>
+      <h4>Email: {{user.email}}</h4>
+
+
+
+      <button *ngIf="user.roleId==1" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Ban User
+      </button>
+      <button *ngIf="user.roleId==2" mat-raised-button color="primary" (click)="changeBanStatus(user.email)">Unban User
+      </button>
+      <button mat-button color="warn" (click)="deleteUser(user.email)">Delete User</button>
+    </div>
+  </div>
+</div>
+
