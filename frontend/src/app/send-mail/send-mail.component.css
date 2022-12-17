@@ -11,15 +11,15 @@
   flex-direction: column;
 }
 
-.comment-header{
+.mail-header{
   color: black;
 }
 
-.comment-body{
+.mail-body{
   margin: 20px;
 }
 
-.comment-body textarea{
+.mail-body textarea{
   height: 150px;
   width: 500px;
 }
@@ -35,4 +35,3 @@
   color: white;
   width: auto;
 }
-

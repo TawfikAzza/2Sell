@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <div class="mail-header">
+    <h4>Write an email to the seller:</h4>
+  </div>
+
+  <input type="hidden" [(ngModel)]="receiver">
+  <input type="hidden" [(ngModel)]="receiverName">
+  <input type="hidden" [(ngModel)]="subject">
+  <input type="hidden" [(ngModel)]="sender">
+  <input type="hidden" [(ngModel)]="senderName">
+
+  <div class="mail-body">
+    <textarea [(ngModel)]="mail_content"></textarea>
+  </div>
+
+  <div class="buttons">
+    <button mat-button class="confirm" data-dismiss="modal" (click)="sendMail()">Confirm</button>
+    <button mat-button style="margin-left: 360px" class="confirm" data-dismiss="modal" (click)="onCancel()">Cancel
+    </button>
+  </div>
+
+</div>

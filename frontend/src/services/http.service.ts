@@ -12,7 +12,7 @@ import {
   postDTO,
   createPostDTO,
   sessionToken,
-  UserProperties, CommentDTO
+  UserProperties, CommentDTO, MailDTO
 } from "../entities/entities";
 import {PostfeedComponent} from "../app/postfeed/postfeed.component";
 import jwtDecode from "jwt-decode";
@@ -37,6 +37,7 @@ export class HttpService {
   result: postDTO[] = [];
   allPost: postDTO[] = [];
   logged:boolean=false;
+  myposts:boolean=false;
   currentUser:registerDTO={
     email:"",
     password:"",
@@ -161,10 +162,13 @@ export class HttpService {
     address:'string',
     category:1,
     img:'string'
+
   } ];
+
   async getAllPost():Promise<postDTO[]>{
 
     let petition = await customAxios.get('WebShop/GetAllPosts');
+
     /*
     if(petition.data == []){
       return this.emptypost;
@@ -259,5 +263,24 @@ export class HttpService {
 
     return petition;
 
+  }
+
+  sendMail(mail: MailDTO) {
+      customAxios.post("WebShop/SendMail",mail);
+  }
+
+  async getMyPost(userName: string) {
+    let petition = await customAxios.get('WebShop/GetAllPostsFromUser/'+userName);
+    /*
+    if(petition.data == []){
+      return this.emptypost;
+    }
+
+     */
+    this.allPost = petition.data;
+    this.result = petition.data;
+    this.myposts = true;
+    console.log("HttpService : ",this.result.length);
+    return petition.data;
   }
 }

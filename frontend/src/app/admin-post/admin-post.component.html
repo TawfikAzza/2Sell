@@ -1,5 +1,17 @@
 <app-navbar></app-navbar>
-<mat-list-item *ngFor="let post of this.listPost">
-  <a matLine >User Name: {{post.userName}} Title : {{post.title}}</a><img height="100" width="150" src="{{post.img}}">
-  <button mat-raised-button color="primary" (click)="deletePost(post.id)">Delete Post</button>
-</mat-list-item>
+<div class="wrapper">
+  <div class="post" *ngFor="let post of this.listPost">
+    <div class="img-wrapper">
+      <img *ngIf="post.img != ''" [src]="post.img">
+      <img *ngIf="post.img == ''" src="https://fomantic-ui.com/images/wireframe/image.png">
+    </div>
+
+    <div class="post-info">
+
+      <h4>Title: {{post.title}}</h4>
+      <h4>User: @{{post.userName}}</h4>
+
+      <button mat-raised-button color="primary" (click)="deletePost(post.id)">Delete Post</button>
+    </div>
+  </div>
+</div>

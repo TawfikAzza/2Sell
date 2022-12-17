@@ -64,6 +64,7 @@ export class ProfileComponent implements OnInit {
     console.log("email: ", this.userProperties.email);
     this.currentUser = await this.http.getUserByEmail(this.userProperties.email);//this.getUserFromEmail(this.userProperties.email);
     // this.email = this.currentUser.then(cu=> cu.email);
+    console.log(this.currentUser.img)
   }
 
   async getUserFromEmail(email: string) {
