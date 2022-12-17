@@ -1,8 +1,29 @@
+<div class="wrapper">
+  <div class="comment-header">
+    <h4>Introduce your comment</h4>
+  </div>
+
+  <input type="hidden" [(ngModel)]="postId">
+  <input type="hidden" [(ngModel)]="author">
+  <input type="hidden" [(ngModel)]="dateComment">
+
+  <div class="comment-body">
+    <textarea [(ngModel)]="comment"></textarea>
+  </div>
+
+  <div class="buttons">
+    <button mat-button class="confirm" data-dismiss="modal" (click)="onsubmit()">Confirm</button>
+    <button mat-button style="margin-left: 360px" class="confirm" data-dismiss="modal" (click)="onCancel()">Cancel
+    </button>
+  </div>
+
+</div>
+
+<!---
 <h4>Your comment on {{title}}:</h4>
 <br><br>
-<input type="hidden" [(ngModel)]="postId">
-<input type="hidden" [(ngModel)]="author">
-<input type="hidden" [(ngModel)]="dateComment">
+
 <textarea [(ngModel)]="comment"></textarea><br>
 <button class="confirm" data-dismiss="modal" (click)="onsubmit()">Confirm</button>
 <button class="confirm" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+--->

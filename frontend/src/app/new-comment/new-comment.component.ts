@@ -11,12 +11,14 @@ import {HttpService} from "../../services/http.service";
   styleUrls: ['./new-comment.component.css']
 })
 export class NewCommentComponent implements OnInit {
+
   postId:number=0;
   title:string="";
   author:string="";
   dateComment:string="";
   avatar:string="";
   comment: string="";
+
   commentDto:CommentDTO={
     postId:0,
     content:"",
@@ -24,6 +26,7 @@ export class NewCommentComponent implements OnInit {
     date:"",
     avatar:""
   }
+
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
               private router:Router,
               private dialogRef: MatDialogRef<NewCommentComponent>,
@@ -36,11 +39,10 @@ export class NewCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   onsubmit() {
-    console.log("postId ",this.postId);
-    console.log("comment ",this.comment);
     this.commentDto.postId=this.postId;
     this.commentDto.content=this.comment;
     this.commentDto.date=this.dateComment;
@@ -48,6 +50,7 @@ export class NewCommentComponent implements OnInit {
     this.commentDto.avatar="";
     this.http.AddComment(this.commentDto);
     this.dialogRef.close();
+    document.location.reload();
   }
 
   onCancel() {

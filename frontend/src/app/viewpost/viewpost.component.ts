@@ -57,7 +57,6 @@ export class ViewpostComponent implements OnInit {
       });
     }
     newComment(){
-
       this.dialogRef.open(NewCommentComponent,{
         data: {
           id:this.currentPost.id,
