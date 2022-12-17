@@ -198,7 +198,7 @@ public class WebShopController : ControllerBase
     [Route("ChangeBanStatus")]
     public void BanUser([FromBody] string email)
     {
-        Console.WriteLine("MAil: "+email);
+        Console.WriteLine("Mail: "+email);
         if (email != "")
         {
             _userService.changeBanStatus(email);
