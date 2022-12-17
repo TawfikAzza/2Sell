@@ -222,6 +222,7 @@ public class WebShopController : ControllerBase
     [Route("AddComment")]
     public void AddComment([FromBody] CommentDTO dto)
     {
+        Console.WriteLine("Comment : "+dto.Content);
         _bikeShopService.AddComment(dto);
     }
 

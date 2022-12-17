@@ -142,6 +142,7 @@ export class HttpService {
         return array;
       }).catch(err => {
         let emptyArray:postDTO[]=[];
+        this.matSnackbar.open(err, undefined,{duration:3000});
         return emptyArray;
       });
 
