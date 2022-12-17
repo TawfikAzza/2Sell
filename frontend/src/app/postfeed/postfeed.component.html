@@ -5,7 +5,7 @@
       <div class="header-wrapper">
         <mat-card-header class="post-header">
           <mat-card-title>{{post.title}}</mat-card-title>
-          <mat-card-subtitle>{{post.userName}}</mat-card-subtitle>
+          <mat-card-subtitle style="color: grey">@{{post.userName}}</mat-card-subtitle>
           <div style="float: right" class="authority">
             <p>{{post.authority}}</p>
           </div>
@@ -31,7 +31,7 @@
           </div>
           <!--<a class="active" href="/viewpost?id={{post.id}}">See post</a>-->
           <button mat-button routerLink="/viewpost" [queryParams]="{id:post.id}">See post</button>
-          <button *ngIf="http.myposts" mat-button (click)="deletePost(post.id)">Delete Post</button>
+          <button style="margin-left: 10px" *ngIf="http.myposts" mat-button (click)="deletePost(post.id)">Delete Post</button>
         </ul>
         </div>
 
@@ -47,40 +47,3 @@
   </div>
 </div>
 
-<!---
-
-<div *ngFor="let post of http.allPost" class="post">
-    <mat-card class="example-card">
-
-      <mat-card-header class="post-header">
-        <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>{{post.userName}}</mat-card-subtitle>
-        <div style="float: right" class="authority">
-          <p>{{post.authority}}</p>
-        </div>
-      </mat-card-header>
-
-      <div class="post-body">
-          <img class='img' src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-               alt="Photo of a Shiba Inu">
-
-          <ul>
-            <div>
-              <div class="address-price">
-                <li>Address - {{post.address}}</li>
-                <li>Price - {{post.price}} kr.</li>
-              </div>
-              <div>
-                <li>{{post.description}}</li>
-              </div>
-            </div>
-
-            <button mat-button>See post</button>
-          </ul>
-
-      </div>
-    </mat-card>
-
-  </div>
-
-  --->

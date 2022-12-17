@@ -5,9 +5,14 @@ name: .NET
 
 on:
   push:
-    branches: [ "Develop" ]
+    branches:  
+	- Master
+	- Develop
+
   pull_request:
-    branches: [ "Develop" ]
+    branches: 
+	- Master
+	- Develop
 
 jobs:
   build:

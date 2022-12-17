@@ -168,6 +168,7 @@ export class HttpService {
   async getAllPost():Promise<postDTO[]>{
 
     let petition = await customAxios.get('WebShop/GetAllPosts');
+
     /*
     if(petition.data == []){
       return this.emptypost;

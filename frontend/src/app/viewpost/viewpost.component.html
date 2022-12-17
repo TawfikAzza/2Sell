@@ -27,29 +27,42 @@
         </div>
       </div>
       <div class="contactBtn">
-        <button mat-button style="height: 100%;width: 100%; color: white; background: orange">Contact the seller</button>
+        <button mat-button style="height: 100%;width: 100%; color: white; background: orange" (click)="sendMail()">Send
+          an email to the seller
+        </button>
       </div>
     </div>
   </div>
 
-  <div>
-    <div *ngFor="let comment of listComments">
-      <p>
-       Date: {{comment.date}}
-      </p>
-      <p>
-       Author: {{comment.author}}
-      </p>
-      <p>
-       Comment :{{comment.content}}
-      </p>
-      <p>
-        Avatar : <img src="{{comment.avatar}}" height="100" width="100">
-      </p>
+  <div class="comments-wrapper">
+
+    <div class="comments-header">
+      <h4>Comments on this post: <span style="color: orange; font-weight: bold; margin-left: 10px">{{listComments.length}} </span></h4>
+      <button mat-button (click)="newComment()">Add Comment</button>
     </div>
-    <button (click)="newComment()">Add Comment</button>
-    <button (click)="sendMail()">Send Mail</button>
+
+    <div class="comments-empty" *ngIf="listComments.length<1">
+      <h4>There are no comments on this post yet.</h4>
+    </div>
+
+    <div class="comment" *ngFor="let comment of listComments">
+      <div class="header-inside-comment">
+        <div class="avatar-author">
+          <img src="{{comment.avatar}}">
+          <h4 >@{{comment.author}}</h4>
+        </div>
+
+        <h4 style="color: grey;">{{comment.date}}</h4>
+      </div>
+
+      <div class="comment-content">
+        <h3>"{{comment.content}}"</h3>
+      </div>
+
+    </div>
+
   </div>
+
 </div>
 
 
