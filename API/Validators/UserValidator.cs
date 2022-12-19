@@ -19,3 +19,12 @@ public class UserValidator : AbstractValidator<RegisterDTO>
         RuleFor(r => r.PostalCode).NotEmpty();
    }
 }
+public class UserLoginValidator : AbstractValidator<LoginDTO>
+{
+   
+    public UserLoginValidator()
+    {
+        RuleFor(l => l.Email).NotEmpty();
+        RuleFor(l => l.Password).NotEmpty();
+    }
+}

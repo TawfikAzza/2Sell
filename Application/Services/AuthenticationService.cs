@@ -148,7 +148,7 @@ public class AuthenticationService : IAuthenticationService
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
-        Console.WriteLine("User role Id"+user.RoleId);
+   
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             
