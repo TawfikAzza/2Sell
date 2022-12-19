@@ -3,6 +3,7 @@ using API.Services;
 using API.Validators;
 using AutoMapper;
 using Core;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,12 @@ public class AuthController : ControllerBase
     [Route("login")]
     public IActionResult Login([FromBody] LoginDTO dto)
     {
-        Console.WriteLine("Login: "+dto.Email+" pass: "+dto.Password);
+        UserLoginValidator validator = new UserLoginValidator();
+        var validate = validator.Validate(dto);
+        if (!validate.IsValid)
+        {
+            BadRequest("Wrong Data entered");
+        }
         try
         {
             return Ok(_auth.Login(dto));
@@ -38,6 +44,12 @@ public class AuthController : ControllerBase
     [Route("register")]
     public ActionResult<string> Register(RegisterDTO dto)
     {
+        UserValidator validator = new UserValidator();
+        var validated = validator.Validate(dto);
+        if (!validated.IsValid)
+        {
+            BadRequest("Wrong Data entered");
+        }
         try
         {
             return Ok(_auth.Register(dto));
