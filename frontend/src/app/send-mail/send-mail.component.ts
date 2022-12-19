@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {HttpService} from "../../services/http.service";
 import {MailDTO} from "../../entities/entities";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-send-mail',
@@ -10,12 +11,14 @@ import {MailDTO} from "../../entities/entities";
   styleUrls: ['./send-mail.component.css']
 })
 export class SendMailComponent implements OnInit {
+
   receiver: string="";
   subject: string="";
   sender: string="";
   receiverName: string="";
   senderName: string="";
   mail_content: string="";
+
   mail:MailDTO= {
     receiver:"",
     sender:"",
@@ -28,7 +31,8 @@ export class SendMailComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
               private router:Router,
               private dialogRef: MatDialogRef<SendMailComponent>,
-              private http:HttpService) {
+              private http:HttpService,
+              private matSnackbar:MatSnackBar) {
 
     this.receiver = data.receiver;
     this.sender = data.sender;
@@ -41,7 +45,7 @@ export class SendMailComponent implements OnInit {
   }
 
   sendMail() {
-    console.log("Rceiver : ",this.receiver)
+    console.log("Receiver : ",this.receiver)
     this.mail.receiver= this.receiver;
     this.mail.sender = this.sender;
     this.mail.subject = "2Sell: Your Post ["+this.subject+"] Received a message";
@@ -49,6 +53,7 @@ export class SendMailComponent implements OnInit {
     this.mail.receiverName = this.receiverName;
     this.mail.senderName = this.senderName;
     this.http.sendMail(this.mail);
+    this.matSnackbar.open('Your email has been sent', undefined,{duration:3000})
     this.dialogRef.close();
   }
 

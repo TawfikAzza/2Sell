@@ -1,12 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 using API.DTOs;
+using API.Validators;
 using Application.Interfaces;
 using AutoMapper;
 using Core;
+using FluentValidation;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using UserValidator = Application.Validators.UserValidator;
 
 namespace API.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +28,7 @@ public class WebShopController : ControllerBase
         _userService = userService;
         _mapper = mapper;
     }
-    [AllowAnonymous]
+    [Authorize("AdminPolicy")]
     [HttpGet]
     [Route("CreateDB")]
     public void CreateDB()
@@ -58,7 +61,10 @@ public class WebShopController : ControllerBase
     [Route("GetUserByEmail/{email}")]
     public ActionResult<UserDTO> GetUserByEmail([FromRoute] string email)
     {
-        Console.WriteLine("User email :"+email);
+        if (email == null)
+        {
+            BadRequest("Invalid email");
+        }
         return _userService.GetUserByEmail(email);
     }
 
@@ -67,11 +73,16 @@ public class WebShopController : ControllerBase
     [Route("UpdateProfile")]
     public ActionResult<RegisterDTO> UpdateProfile(RegisterDTO dto)
     {
-        Console.WriteLine("Update Profile:"+dto.FirstName);
+        UserValidator validator = new UserValidator();
+        var validate = validator.Validate(dto);
+        if (!validate.IsValid)
+        {
+            BadRequest("Wrong user data sent");
+        }
         return Ok(_userService.UpdateUser(dto));
     }
     
-    [Authorize("UserPolicy")]
+    [Authorize(Roles = "1,0")]
     [HttpGet]
     [Route("GetAllPostsFromUser/{username}")]
     public ActionResult<List<PostDTO>> GetAllPostFromUser([FromRoute] string username)
@@ -93,6 +104,12 @@ public class WebShopController : ControllerBase
     [Route("CreatePost")]
     public void CreatePost(CreatePostDTO createPostDto)
     {
+        CreatePostValidator validator = new CreatePostValidator();
+        var validate = validator.Validate(createPostDto);
+        if (!validate.IsValid)
+        {
+            BadRequest("Worng data sent");
+        }
         _bikeShopService.CreatePost(createPostDto);
     }
 
@@ -101,6 +118,8 @@ public class WebShopController : ControllerBase
     [Route("ViewPost/{id}")]
     public ActionResult<PostDTO> GetPost([FromRoute] int id)
     {
+        if (id <= 0)
+            BadRequest("Invalid id sent");
         return Ok(_bikeShopService.GetPost(id));
     }
 
@@ -109,7 +128,6 @@ public class WebShopController : ControllerBase
     [Route("SearchCategories/{dto}")]
     public ActionResult<List<PostDTO>> GetPostByCategory([FromRoute] string dto)
     {
-        
         FilterSearchDTO filterSearchDto = JsonConvert.DeserializeObject<FilterSearchDTO>(dto);
         string message = "";
         switch (filterSearchDto.OperationType)
@@ -198,7 +216,8 @@ public class WebShopController : ControllerBase
     [Route("ChangeBanStatus")]
     public void BanUser([FromBody] string email)
     {
-        Console.WriteLine("MAil: "+email);
+        if (email == null)
+            BadRequest("Invalid Email sent");
         if (email != "")
         {
             _userService.changeBanStatus(email);
@@ -209,19 +228,22 @@ public class WebShopController : ControllerBase
         }
     }
 
-    [AllowAnonymous]
+    [Authorize(Roles= ("0,1"))]
     [HttpGet]
     [Route("DeletePost/{id}")]
     public void DeletePost([FromRoute] int id)
     {
+        if (id <= 0)
+            BadRequest("Invalid Post Id sent");
         _bikeShopService.DeletePost(id);
     }
 
-    [AllowAnonymous]
+    [Authorize(Roles = ("0,1"))]
     [HttpPost]
     [Route("AddComment")]
     public void AddComment([FromBody] CommentDTO dto)
     {
+        Console.WriteLine("Comment : "+dto.Content);
         _bikeShopService.AddComment(dto);
     }
 
@@ -234,7 +256,7 @@ public class WebShopController : ControllerBase
         return _bikeShopService.GetAllCommentFromPost(id);
     }
 
-    [Authorize]
+    [Authorize(Roles = ("0,1"))]
     [HttpPost]
     [Route("SendMail")]
     public void SendMail([FromBody] MailDTO mail)

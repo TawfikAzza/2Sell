@@ -32,7 +32,6 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import {MatListModule} from "@angular/material/list";
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminPostComponent } from './admin-post/admin-post.component';
-import { CommentsComponent } from './comments/comments.component';
 import { NewCommentComponent } from './new-comment/new-comment.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { MypostsComponent } from './myposts/myposts.component';
@@ -40,13 +39,13 @@ import { MypostsComponent } from './myposts/myposts.component';
 
 const routes: Routes = [
   {
-    path: 'admin-panel', component: AdminPanelComponent
+    path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthguardService]
   },
   {
-    path: 'admin-user', component: AdminUserComponent
+    path: 'admin-user', component: AdminUserComponent, canActivate: [AuthguardService]
   },
   {
-    path: 'admin-post', component: AdminPostComponent
+    path: 'admin-post', component: AdminPostComponent, canActivate: [AuthguardService]
   },
   {
     path: 'register', component: RegisterComponent
@@ -92,7 +91,6 @@ const routes: Routes = [
     AdminPanelComponent,
     AdminUserComponent,
     AdminPostComponent,
-    CommentsComponent,
     NewCommentComponent,
     SendMailComponent,
     MypostsComponent
