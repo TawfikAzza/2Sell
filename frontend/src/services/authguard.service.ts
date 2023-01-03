@@ -25,6 +25,9 @@ export class AuthguardService implements CanActivate {
         if (currentDate < expDate && decodedToken.role == 1) {
           return true;
         }
+        if (currentDate < expDate && decodedToken.role == 0) {
+          return true;
+        }
       }
     }
     return true;

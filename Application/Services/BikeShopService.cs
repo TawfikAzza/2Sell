@@ -121,8 +121,10 @@ public class BikeShopService : IBikeShopService
     public void SendMail(MailDTO mail)
     {
         mail_core mailCore = new mail_core();
-        mailCore.smtpServerSettings("smtp.gmail.com",587,"fantodk@gmail.com","lyucchgsbswwkoqz",true);
-        mailCore.NewMail(mail.Receiver,mail.ReceiverName,mail.Sender,mail.SenderName,mail.Subject,mail.Mail_content+" Email sent by : \n "+mail.Sender,"");
+        mailCore.smtpServerSettings("smtp.gmail.com",587,"fantodk@gmail.com",
+            "lyucchgsbswwkoqz",true);
+        mailCore.NewMail(mail.Receiver,mail.ReceiverName,mail.Sender,
+            mail.SenderName,mail.Subject,mail.Mail_content+" Email sent by : \n "+mail.Sender,"");
         if (mailCore.sendMail())
         {
             Console.WriteLine("Mail Sent");
